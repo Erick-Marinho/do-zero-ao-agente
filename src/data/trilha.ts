@@ -3,7 +3,10 @@ export type Status = 'concluido' | 'em-andamento' | 'planejado'
 export type Modulo = {
   id: string
   numero: string
+  /** Fala do cliente. Renderizado entre aspas pelo card — não incluir aqui. */
   titulo: string
+  /** Nome temático do módulo. Não aparece no card; serve de rótulo interno. */
+  tema: string
   resumo: string
   topicos: string[]
   status: Status
@@ -13,74 +16,61 @@ export const trilha: Modulo[] = [
   {
     id: 'antes-do-codigo',
     numero: '00',
-    titulo: 'Antes do código',
+    titulo: 'Dá pra fazer até sexta?',
+    tema: 'Antes do código',
     resumo:
-      'Entender o problema, gerar alternativas e acordar uma decisão antes de abrir o editor.',
-    topicos: ['Levantamento', 'Alternativas de solução', 'Spec-driven', 'ADR', 'Ambiente'],
+      'Antes de escrever código: entender o problema, comparar sete formas de resolvê-lo e registrar a decisão.',
+    topicos: ['Levantamento', 'Alternativas', 'Spec-driven', 'ADR'],
     status: 'em-andamento',
   },
   {
     id: 'fundacao',
     numero: '01',
-    titulo: 'Fundação',
+    titulo: 'Eu queria digitar a pergunta',
+    tema: 'Fundação',
     resumo:
-      'Do dado bruto ao primeiro agente: um modelo dentro de um laço, que se corrige quando erra e pergunta quando não entende.',
-    topicos: [
-      'Contratos e validação',
-      'Tokens e custo',
-      'Saída estruturada',
-      'Loop agêntico',
-      'Observabilidade',
-    ],
+      'Do dado sujo ao agente que traduz português em consulta, se corrige quando erra e pergunta quando não entende.',
+    topicos: ['Pydantic', 'Tokens', 'Saída estruturada', 'Loop agêntico', 'Tracing'],
     status: 'planejado',
   },
   {
     id: 'conhecimento',
     numero: '02',
-    titulo: 'Conhecimento',
+    titulo: 'Eu vendo Omo, mas ele não acha',
+    tema: 'Conhecimento',
     resumo:
-      'Como o agente encontra o que não estava no prompt — e como se mede se ele encontrou certo.',
+      'Recuperação de ponta a ponta, medida — e o vocabulário do domínio virando estrutura.',
     topicos: ['Embeddings', 'Busca híbrida', 'Precisão e recall', 'Ontologia', 'GraphRAG'],
     status: 'planejado',
   },
   {
     id: 'estrutura',
     numero: '03',
-    titulo: 'Estrutura',
+    titulo: 'Dá pra ele fazer mais coisa?',
+    tema: 'Estrutura',
     resumo:
-      'Quando o código deixa de caber na cabeça: máquinas de estado, hierarquia e coordenação entre especialistas.',
-    topicos: ['Máquina de estado', 'LangGraph', 'Checkpoint', 'Subgrafos', 'Multiagente'],
+      'O código não cabe mais na cabeça. Máquinas de estado, hierarquia e especialistas coordenados.',
+    topicos: ['FSM e HSM', 'LangGraph', 'Checkpoint', 'Subgrafos', 'Multiagente'],
     status: 'planejado',
   },
   {
     id: 'rigor',
     numero: '04',
-    titulo: 'Rigor',
-    resumo: 'Como saber que está certo, descobrir por que falhou e não deixar o custo escapar.',
-    topicos: [
-      'Suíte de avaliação',
-      'LLM as judge',
-      'OpenTelemetry',
-      'Diagnóstico',
-      'Segurança',
-      'Custo',
-    ],
+    titulo: 'Mas como eu sei que melhorou?',
+    tema: 'Rigor',
+    resumo:
+      'Medir, investigar e conter. O que separa um sistema que funciona de um sistema em que se confia.',
+    topicos: ['Evals', 'LLM as judge', 'OpenTelemetry', 'Forense', 'Segurança', 'Custo'],
     status: 'planejado',
   },
   {
     id: 'fronteira',
     numero: '05',
-    titulo: 'Fronteira',
+    titulo: 'Quanto isso me custa por mês?',
+    tema: 'Fronteira',
     resumo:
-      'O que existe além do que escolhemos — e como defender (ou enterrar) um investimento técnico.',
-    topicos: [
-      'Modelo local',
-      'Quantização',
-      'Fine-tuning',
-      'Alinhamento',
-      'Governança',
-      'ROI',
-    ],
+      'As alternativas que não escolhemos, por que o modelo se comporta assim, e como se defende um investimento.',
+    topicos: ['Modelo local', 'Fine-tuning', 'Alinhamento', 'Governança', 'ROI'],
     status: 'planejado',
   },
 ]

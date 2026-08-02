@@ -34,7 +34,9 @@ src/
 Todo o texto do site vive em [`src/data/`](src/data/) — os componentes só renderizam. Para
 mexer no conteúdo não é preciso tocar em JSX:
 
-- **módulos da trilha** → [`trilha.ts`](src/data/trilha.ts). O `status` de cada módulo
+- **módulos da trilha** → [`trilha.ts`](src/data/trilha.ts). O `titulo` é a fala do cliente
+  que abre o módulo (o card já a renderiza entre aspas); `tema` é o nome conceitual
+  equivalente, mantido como rótulo interno e não exibido. O `status`
   (`em-andamento` · `planejado` · `concluido`) controla o badge do card.
 - **demais seções** → [`conteudo.ts`](src/data/conteudo.ts).
 

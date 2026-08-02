@@ -28,7 +28,15 @@ export function Trilha() {
               </span>
             </div>
 
-            <h3 className="mt-4 text-lg font-semibold text-slate-100">{modulo.titulo}</h3>
+            <h3 className="mt-4 text-lg leading-snug font-semibold text-balance text-slate-100">
+              <span aria-hidden className="text-violet-400/60">
+                “
+              </span>
+              {modulo.titulo}
+              <span aria-hidden className="text-violet-400/60">
+                ”
+              </span>
+            </h3>
             <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-400">{modulo.resumo}</p>
 
             <ul className="mt-5 flex flex-wrap gap-1.5">
