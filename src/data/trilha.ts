@@ -19,7 +19,7 @@ export const trilha: Modulo[] = [
     titulo: 'Dá pra fazer até sexta?',
     tema: 'Antes do código',
     resumo:
-      'Antes de escrever código: entender o problema, comparar sete formas de resolvê-lo e registrar a decisão.',
+      'Antes de escrever código: entender o problema, montar o ambiente por script, comparar sete formas de resolvê-lo e registrar a decisão.',
     topicos: [
       'Levantamento',
       'Harness',
