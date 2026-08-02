@@ -20,7 +20,14 @@ export const trilha: Modulo[] = [
     tema: 'Antes do código',
     resumo:
       'Antes de escrever código: entender o problema, comparar sete formas de resolvê-lo e registrar a decisão.',
-    topicos: ['Levantamento', 'Alternativas', 'Spec-driven', 'ADR'],
+    topicos: [
+      'Levantamento',
+      'Harness',
+      'Guias e sensores',
+      'Alternativas',
+      'OpenSpec',
+      'ADR',
+    ],
     status: 'em-andamento',
   },
   {
