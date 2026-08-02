@@ -10,7 +10,7 @@ export const hero = {
     'Um cliente real, um sistema em produção, e todos os problemas que aparecem no caminho.',
   numeros: [
     { valor: '6', rotulo: 'Módulos' },
-    { valor: '2', rotulo: 'Mentorados' },
+    { valor: '2', rotulo: 'Amigos' },
     { valor: '100%', rotulo: 'Mão na massa' },
   ],
 }
