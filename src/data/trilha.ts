@@ -9,62 +9,78 @@ export type Modulo = {
   status: Status
 }
 
-/**
- * Conteúdo placeholder da trilha — substituir pelo material real da mentoria.
- */
 export const trilha: Modulo[] = [
   {
-    id: 'fundamentos',
-    numero: '01',
-    titulo: 'Fundamentos de LLMs',
+    id: 'antes-do-codigo',
+    numero: '00',
+    titulo: 'Antes do código',
     resumo:
-      'Como um modelo de linguagem realmente funciona por trás da API: tokens, contexto, amostragem e custo.',
-    topicos: ['Tokenização', 'Janela de contexto', 'Temperatura e sampling', 'Custo e latência'],
+      'Entender o problema, gerar alternativas e acordar uma decisão antes de abrir o editor.',
+    topicos: ['Levantamento', 'Alternativas de solução', 'Spec-driven', 'ADR', 'Ambiente'],
     status: 'em-andamento',
   },
   {
-    id: 'prompting',
+    id: 'fundacao',
+    numero: '01',
+    titulo: 'Fundação',
+    resumo:
+      'Do dado bruto ao primeiro agente: um modelo dentro de um laço, que se corrige quando erra e pergunta quando não entende.',
+    topicos: [
+      'Contratos e validação',
+      'Tokens e custo',
+      'Saída estruturada',
+      'Loop agêntico',
+      'Observabilidade',
+    ],
+    status: 'planejado',
+  },
+  {
+    id: 'conhecimento',
     numero: '02',
-    titulo: 'Prompt Engineering aplicado',
+    titulo: 'Conhecimento',
     resumo:
-      'Sair do "prompt que funciona às vezes" para instruções versionadas, testáveis e previsíveis.',
-    topicos: ['Estrutura de prompt', 'Few-shot', 'Chain-of-thought', 'Saída estruturada'],
+      'Como o agente encontra o que não estava no prompt — e como se mede se ele encontrou certo.',
+    topicos: ['Embeddings', 'Busca híbrida', 'Precisão e recall', 'Ontologia', 'GraphRAG'],
     status: 'planejado',
   },
   {
-    id: 'rag',
+    id: 'estrutura',
     numero: '03',
-    titulo: 'RAG na prática',
+    titulo: 'Estrutura',
     resumo:
-      'Recuperação de contexto de ponta a ponta: ingestão, chunking, embeddings e busca híbrida.',
-    topicos: ['Chunking', 'Embeddings', 'Vector store', 'Reranking', 'Avaliação de retrieval'],
+      'Quando o código deixa de caber na cabeça: máquinas de estado, hierarquia e coordenação entre especialistas.',
+    topicos: ['Máquina de estado', 'LangGraph', 'Checkpoint', 'Subgrafos', 'Multiagente'],
     status: 'planejado',
   },
   {
-    id: 'tools',
+    id: 'rigor',
     numero: '04',
-    titulo: 'Tool use e integrações',
-    resumo:
-      'Dar mãos ao modelo: definição de ferramentas, o loop agêntico e tratamento de erro.',
-    topicos: ['Tool calling', 'Schemas', 'Loop de execução', 'MCP'],
+    titulo: 'Rigor',
+    resumo: 'Como saber que está certo, descobrir por que falhou e não deixar o custo escapar.',
+    topicos: [
+      'Suíte de avaliação',
+      'LLM as judge',
+      'OpenTelemetry',
+      'Diagnóstico',
+      'Segurança',
+      'Custo',
+    ],
     status: 'planejado',
   },
   {
-    id: 'agentes',
+    id: 'fronteira',
     numero: '05',
-    titulo: 'Arquitetura de agentes',
+    titulo: 'Fronteira',
     resumo:
-      'Do single-agent ao multi-agente: memória, planejamento, orquestração e quando não usar agente.',
-    topicos: ['Memória', 'Planejamento', 'Multi-agente', 'Guardrails'],
-    status: 'planejado',
-  },
-  {
-    id: 'producao',
-    numero: '06',
-    titulo: 'Avaliação e produção',
-    resumo:
-      'O que separa demo de produto: evals, observabilidade, versionamento e controle de custo.',
-    topicos: ['Evals', 'LLM as judge', 'Tracing', 'Deploy', 'Monitoramento'],
+      'O que existe além do que escolhemos — e como defender (ou enterrar) um investimento técnico.',
+    topicos: [
+      'Modelo local',
+      'Quantização',
+      'Fine-tuning',
+      'Alinhamento',
+      'Governança',
+      'ROI',
+    ],
     status: 'planejado',
   },
 ]

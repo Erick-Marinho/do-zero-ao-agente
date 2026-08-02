@@ -1,13 +1,14 @@
+import { secaoTrilha } from '../data/conteudo'
 import { statusLabel, statusStyle, trilha } from '../data/trilha'
 
 export function Trilha() {
   return (
     <section id="trilha" className="mx-auto max-w-6xl scroll-mt-20 px-6 py-20">
       <div className="max-w-2xl">
-        <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">A trilha</h2>
-        <p className="mt-4 text-slate-400">
-          Cada módulo entrega um conceito e um artefato funcionando. Nada de teoria solta.
-        </p>
+        <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          {secaoTrilha.titulo}
+        </h2>
+        <p className="mt-4 text-slate-400">{secaoTrilha.subtitulo}</p>
       </div>
 
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -16,7 +17,7 @@ export function Trilha() {
             key={modulo.id}
             className="group relative flex flex-col rounded-2xl border border-white/10 bg-ink-soft p-6 transition-colors hover:border-violet-500/40"
           >
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-3">
               <span className="font-mono text-sm text-slate-600 transition-colors group-hover:text-violet-400">
                 {modulo.numero}
               </span>

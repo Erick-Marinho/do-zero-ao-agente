@@ -1,6 +1,7 @@
-# Do Zero ao Agente
+# Engenharia de agentes de IA
 
-Site da mentoria em engenharia de IA — trilha prática dos fundamentos de LLMs até agentes em produção.
+Site da mentoria. Um cliente real (fictício), um sistema em produção, e todos os problemas que
+aparecem no caminho.
 
 **Produção:** https://erick-marinho.github.io/do-zero-ao-agente/
 
@@ -23,13 +24,19 @@ npm run lint
 ```
 src/
   App.tsx            # composição da página
-  components/        # Header, Hero, Trilha, ComoFunciona, Footer
-  data/trilha.ts     # conteúdo dos módulos (editar aqui)
+  components/        # Header, Hero, Trilha, ComoFunciona, Principios, OQueFica, Footer
+  data/
+    trilha.ts        # os módulos: número, título, resumo, tags, status
+    conteudo.ts      # textos das demais seções (hero, princípios, o que fica, aviso)
   index.css          # Tailwind + tema
 ```
 
-Para alterar os módulos da trilha, edite [`src/data/trilha.ts`](src/data/trilha.ts) — as
-seções da home são geradas a partir desse arquivo.
+Todo o texto do site vive em [`src/data/`](src/data/) — os componentes só renderizam. Para
+mexer no conteúdo não é preciso tocar em JSX:
+
+- **módulos da trilha** → [`trilha.ts`](src/data/trilha.ts). O `status` de cada módulo
+  (`em-andamento` · `planejado` · `concluido`) controla o badge do card.
+- **demais seções** → [`conteudo.ts`](src/data/conteudo.ts).
 
 ## Deploy
 
