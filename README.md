@@ -87,8 +87,12 @@ ordem em que fazem sentido para quem aprende — não em ordem alfabética. Um v
 ```
 
 A contagem exibida no topo da página e no card da home é derivada da lista — acrescentar um
-termo já atualiza os dois. A busca ignora acento e maiúscula (`acao` encontra `ação`) e
-procura em todos os campos, então dá para achar um verbete pela definição sem lembrar o nome.
+termo já atualiza os dois.
+
+Os verbetes ficam recolhidos e abrem ao clique. A busca ignora acento e maiúscula
+(`acao` encontra `ação`) e procura em todos os campos, então dá para achar um verbete pela
+definição sem lembrar o nome; os resultados já vêm abertos, para não exigir um clique extra
+depois de procurar.
 
 ## Deploy
 
