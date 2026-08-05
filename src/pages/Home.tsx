@@ -1,3 +1,4 @@
+import { BannerGlossario } from '../components/BannerGlossario'
 import { ComoFunciona } from '../components/ComoFunciona'
 import { Hero } from '../components/Hero'
 import { OQueFica } from '../components/OQueFica'
@@ -9,6 +10,7 @@ export function Home() {
     <>
       <Hero />
       <Trilha />
+      <BannerGlossario />
       <ComoFunciona />
       <Principios />
       <OQueFica />

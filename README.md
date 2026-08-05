@@ -24,18 +24,19 @@ npm run lint
 ```
 src/
   App.tsx            # rotas
-  pages/             # Home, ModuloPage, NaoEncontrada
+  pages/             # Home, ModuloPage, Glossario, NaoEncontrada
   components/        # Header, Hero, Trilha, Materiais, Footer, ...
   data/
     trilha.ts        # os módulos e seus materiais
+    glossario.ts     # os termos, agrupados por área
     conteudo.ts      # textos das demais seções (hero, princípios, o que fica, aviso)
   index.css          # Tailwind + tema
 public/
   materiais/         # PDFs e arquivos servidos direto
 ```
 
-Rotas: `/` é a home e `/modulo/:id` é a página de um módulo, onde `:id` é o campo `id`
-em [`trilha.ts`](src/data/trilha.ts).
+Rotas: `/` é a home, `/modulo/:id` é a página de um módulo (onde `:id` é o campo `id`
+em [`trilha.ts`](src/data/trilha.ts)) e `/glossario` é a referência de termos.
 
 Todo o texto do site vive em [`src/data/`](src/data/) — os componentes só renderizam. Para
 mexer no conteúdo não é preciso tocar em JSX:
@@ -69,6 +70,25 @@ execução, então o mesmo caminho funciona no `npm run dev` e em produção.
 Um material com `url: ''` aparece na lista marcado como pendente, sem virar link quebrado —
 útil para registrar uma leitura antes de ter o endereço em mãos. Módulo sem material nenhum
 mostra um aviso de que ainda não foi publicado.
+
+## Glossário
+
+Os termos ficam em [`src/data/glossario.ts`](src/data/glossario.ts), agrupados por área e na
+ordem em que fazem sentido para quem aprende — não em ordem alfabética. Um verbete:
+
+```ts
+{
+  termo: 'Janela de contexto',
+  original: 'context window',      // opcional, o termo em inglês
+  traducao: 'MAS',                 // opcional, tradução, sigla ou qualificador
+  definicao: 'Quantos tokens o modelo consegue considerar de uma vez. …',
+  nota: 'Comentário mais longo…',  // opcional, renderizado em itálico abaixo
+}
+```
+
+A contagem exibida no topo da página e no card da home é derivada da lista — acrescentar um
+termo já atualiza os dois. A busca ignora acento e maiúscula (`acao` encontra `ação`) e
+procura em todos os campos, então dá para achar um verbete pela definição sem lembrar o nome.
 
 ## Deploy
 

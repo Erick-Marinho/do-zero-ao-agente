@@ -24,7 +24,8 @@ export function Header() {
               </g>
             </svg>
           </span>
-          <span className="truncate text-sm font-semibold tracking-tight text-slate-100">
+          {/* no celular sobra só a marca, para caber Glossário e GitHub */}
+          <span className="hidden truncate text-sm font-semibold tracking-tight text-slate-100 sm:inline">
             {site.nome}
           </span>
         </Link>
@@ -39,6 +40,12 @@ export function Header() {
               {link.label}
             </Link>
           ))}
+          <Link
+            to="/glossario"
+            className="rounded-lg px-3 py-2 text-sm text-slate-400 transition-colors hover:bg-white/5 hover:text-slate-100"
+          >
+            Glossário
+          </Link>
           <a
             href={site.repositorio}
             target="_blank"
