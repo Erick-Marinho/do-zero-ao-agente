@@ -1,10 +1,16 @@
 import { Link } from 'react-router'
 import { site } from '../data/conteudo'
 
-const links = [
+/** Âncoras da home — só fazem sentido com espaço sobrando. */
+const ancoras = [
   { to: '/#trilha', label: 'Trilha' },
   { to: '/#como-funciona', label: 'Como funciona' },
-  { to: '/#principios', label: 'Princípios' },
+]
+
+/** Páginas de consulta — alcançáveis também no celular. */
+const paginas = [
+  { to: '/o-caso', label: 'O caso' },
+  { to: '/glossario', label: 'Glossário' },
 ]
 
 export function Header() {
@@ -24,14 +30,14 @@ export function Header() {
               </g>
             </svg>
           </span>
-          {/* no celular sobra só a marca, para caber Glossário e GitHub */}
-          <span className="hidden truncate text-sm font-semibold tracking-tight text-slate-100 sm:inline">
+          {/* no celular sobra só a marca, para caber a navegação */}
+          <span className="hidden truncate text-sm font-semibold tracking-tight text-slate-100 lg:inline">
             {site.nome}
           </span>
         </Link>
 
-        <nav className="flex shrink-0 items-center gap-1">
-          {links.map((link) => (
+        <nav className="flex shrink-0 items-center gap-0.5 sm:gap-1">
+          {ancoras.map((link) => (
             <Link
               key={link.to}
               to={link.to}
@@ -40,17 +46,20 @@ export function Header() {
               {link.label}
             </Link>
           ))}
-          <Link
-            to="/glossario"
-            className="rounded-lg px-3 py-2 text-sm text-slate-400 transition-colors hover:bg-white/5 hover:text-slate-100"
-          >
-            Glossário
-          </Link>
+          {paginas.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              className="rounded-lg px-2.5 py-2 text-sm text-slate-400 transition-colors hover:bg-white/5 hover:text-slate-100 sm:px-3"
+            >
+              {link.label}
+            </Link>
+          ))}
           <a
             href={site.repositorio}
             target="_blank"
             rel="noreferrer"
-            className="ml-1 rounded-lg border border-white/10 px-3 py-2 text-sm text-slate-300 transition-colors hover:border-white/20 hover:text-white"
+            className="ml-1 rounded-lg border border-white/10 px-2.5 py-2 text-sm text-slate-300 transition-colors hover:border-white/20 hover:text-white sm:px-3"
           >
             GitHub
           </a>

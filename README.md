@@ -24,19 +24,26 @@ npm run lint
 ```
 src/
   App.tsx            # rotas
-  pages/             # Home, ModuloPage, Glossario, NaoEncontrada
+  pages/             # Home, OCaso, ModuloPage, Glossario, NaoEncontrada
   components/        # Header, Hero, Trilha, Materiais, Footer, ...
   data/
     trilha.ts        # os módulos e seus materiais
+    caso.ts          # a história do Seu Renato
     glossario.ts     # os termos, agrupados por área
     conteudo.ts      # textos das demais seções (hero, princípios, o que fica, aviso)
   index.css          # Tailwind + tema
 public/
+  img/               # imagens
   materiais/         # PDFs e arquivos servidos direto
 ```
 
-Rotas: `/` é a home, `/modulo/:id` é a página de um módulo (onde `:id` é o campo `id`
-em [`trilha.ts`](src/data/trilha.ts)) e `/glossario` é a referência de termos.
+Rotas: `/` é a home, `/o-caso` é a história do cliente, `/modulo/:id` é a página de um módulo
+(onde `:id` é o campo `id` em [`trilha.ts`](src/data/trilha.ts)) e `/glossario` é a referência
+de termos.
+
+As imagens em `public/img/` são WebP geradas a partir dos originais em
+`../docs/` — a foto do Seu Renato saiu de 2,3 MB (PNG) para 142 kB, com uma
+versão reduzida para o card da home.
 
 Todo o texto do site vive em [`src/data/`](src/data/) — os componentes só renderizam. Para
 mexer no conteúdo não é preciso tocar em JSX:

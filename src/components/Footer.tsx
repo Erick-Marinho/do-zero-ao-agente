@@ -3,7 +3,9 @@ import { aviso, site } from '../data/conteudo'
 
 const links = [
   { to: '/', label: 'Início' },
+  { to: '/o-caso', label: 'O caso' },
   { to: '/#trilha', label: 'Trilha' },
+  { to: '/#principios', label: 'Princípios' },
   { to: '/glossario', label: 'Glossário' },
 ]
 

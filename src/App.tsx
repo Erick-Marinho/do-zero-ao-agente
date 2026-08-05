@@ -6,6 +6,7 @@ import { Glossario } from './pages/Glossario'
 import { Home } from './pages/Home'
 import { ModuloPage } from './pages/ModuloPage'
 import { NaoEncontrada } from './pages/NaoEncontrada'
+import { OCaso } from './pages/OCaso'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/modulo/:id" element={<ModuloPage />} />
+          <Route path="/o-caso" element={<OCaso />} />
           <Route path="/glossario" element={<Glossario />} />
           <Route path="*" element={<NaoEncontrada />} />
         </Routes>
