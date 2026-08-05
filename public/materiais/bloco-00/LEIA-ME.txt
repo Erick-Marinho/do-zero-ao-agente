@@ -1,0 +1,5 @@
+Coloque aqui os PDFs e arquivos do Bloco 0.
+
+Um arquivo em public/materiais/bloco-00/plano.pdf fica disponível em
+/do-zero-ao-agente/materiais/bloco-00/plano.pdf — no campo `url` do material,
+escreva apenas o caminho relativo: materiais/bloco-00/plano.pdf

@@ -1,3 +1,4 @@
+import { Link } from 'react-router'
 import { secaoTrilha } from '../data/conteudo'
 import { statusLabel, statusStyle, trilha } from '../data/trilha'
 
@@ -13,8 +14,9 @@ export function Trilha() {
 
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {trilha.map((modulo) => (
-          <article
+          <Link
             key={modulo.id}
+            to={`/modulo/${modulo.id}`}
             className="group relative flex flex-col rounded-2xl border border-white/10 bg-ink-soft p-6 transition-colors hover:border-violet-500/40"
           >
             <div className="flex items-center justify-between gap-3">
@@ -49,7 +51,16 @@ export function Trilha() {
                 </li>
               ))}
             </ul>
-          </article>
+
+            <span className="mt-5 inline-flex items-center gap-1.5 border-t border-white/5 pt-4 text-sm font-medium text-slate-500 transition-colors group-hover:text-violet-400">
+              {modulo.materiais.length > 0
+                ? `${modulo.materiais.length} ${modulo.materiais.length === 1 ? 'material' : 'materiais'}`
+                : 'Abrir módulo'}
+              <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
+                →
+              </span>
+            </span>
+          </Link>
         ))}
       </div>
     </section>

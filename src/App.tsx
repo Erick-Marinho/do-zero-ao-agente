@@ -1,21 +1,22 @@
-import { ComoFunciona } from './components/ComoFunciona'
+import { Route, Routes } from 'react-router'
 import { Footer } from './components/Footer'
+import { GerenciadorDeScroll } from './components/GerenciadorDeScroll'
 import { Header } from './components/Header'
-import { Hero } from './components/Hero'
-import { OQueFica } from './components/OQueFica'
-import { Principios } from './components/Principios'
-import { Trilha } from './components/Trilha'
+import { Home } from './pages/Home'
+import { ModuloPage } from './pages/ModuloPage'
+import { NaoEncontrada } from './pages/NaoEncontrada'
 
 function App() {
   return (
-    <div className="min-h-screen">
+    <div className="flex min-h-screen flex-col">
+      <GerenciadorDeScroll />
       <Header />
-      <main>
-        <Hero />
-        <Trilha />
-        <ComoFunciona />
-        <Principios />
-        <OQueFica />
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/modulo/:id" element={<ModuloPage />} />
+          <Route path="*" element={<NaoEncontrada />} />
+        </Routes>
       </main>
       <Footer />
     </div>

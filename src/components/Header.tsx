@@ -1,16 +1,17 @@
+import { Link } from 'react-router'
 import { site } from '../data/conteudo'
 
 const links = [
-  { href: '#trilha', label: 'Trilha' },
-  { href: '#como-funciona', label: 'Como funciona' },
-  { href: '#principios', label: 'Princípios' },
+  { to: '/#trilha', label: 'Trilha' },
+  { to: '/#como-funciona', label: 'Como funciona' },
+  { to: '/#principios', label: 'Princípios' },
 ]
 
 export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/5 bg-ink/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-6">
-        <a href="#topo" className="flex min-w-0 items-center gap-2.5">
+        <Link to="/" className="flex min-w-0 items-center gap-2.5">
           <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-cyan-400">
             <svg viewBox="0 0 16 16" className="h-4 w-4 text-ink" aria-hidden="true">
               <g fill="currentColor">
@@ -26,17 +27,17 @@ export function Header() {
           <span className="truncate text-sm font-semibold tracking-tight text-slate-100">
             {site.nome}
           </span>
-        </a>
+        </Link>
 
         <nav className="flex shrink-0 items-center gap-1">
           {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
+            <Link
+              key={link.to}
+              to={link.to}
               className="hidden rounded-lg px-3 py-2 text-sm text-slate-400 transition-colors hover:bg-white/5 hover:text-slate-100 md:block"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
           <a
             href={site.repositorio}

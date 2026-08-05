@@ -1,15 +1,33 @@
 export type Status = 'concluido' | 'em-andamento' | 'planejado'
 
+export type TipoMaterial = 'artigo' | 'pdf' | 'video' | 'repo'
+
+export type Material = {
+  titulo: string
+  tipo: TipoMaterial
+  /**
+   * URL externa (começando com `http`) ou caminho de um arquivo em `public/` —
+   * por exemplo `materiais/bloco-00/plano.pdf`. Deixe vazio enquanto o link
+   * não existir: o item aparece na lista marcado como pendente, sem virar
+   * um link quebrado.
+   */
+  url: string
+  /** Autor, veículo e data. Ex.: 'Martin Fowler · abr/2026'. */
+  fonte?: string
+  descricao?: string
+}
+
 export type Modulo = {
   id: string
   numero: string
   /** Fala do cliente. Renderizado entre aspas pelo card — não incluir aqui. */
   titulo: string
-  /** Nome temático do módulo. Não aparece no card; serve de rótulo interno. */
+  /** Nome temático do módulo. Rótulo curto, usado na página do módulo. */
   tema: string
   resumo: string
   topicos: string[]
   status: Status
+  materiais: Material[]
 }
 
 export const trilha: Modulo[] = [
@@ -29,6 +47,32 @@ export const trilha: Modulo[] = [
       'ADR',
     ],
     status: 'em-andamento',
+    materiais: [
+      {
+        titulo: 'Harness engineering for coding agent users',
+        tipo: 'artigo',
+        url: '',
+        fonte: 'Birgitta Böckeler e Martin Fowler · abr/2026',
+        descricao:
+          'A fonte do vocabulário do dia 2: guias e sensores, computacional e inferencial, o loop de direção e a ideia de manter a qualidade à esquerda. Vale reler no Bloco IV, quando avaliação virar o tema.',
+      },
+      {
+        titulo: 'Alavancando o Codex em um mundo centrado no agente',
+        tipo: 'artigo',
+        url: '',
+        fonte: 'Ryan Lopopolo, OpenAI · fev/2026',
+        descricao:
+          'Um produto inteiro construído sem código escrito à mão. É de onde vem o argumento do dia 4: o que o agente não lê no contexto não existe. Traz também a crítica ao arquivo monolítico de instruções e a ideia de docs/ como sistema de registro.',
+      },
+      {
+        titulo: 'The Anatomy of an Agent Harness',
+        tipo: 'artigo',
+        url: '',
+        fonte: 'Vivek Trivedy, LangChain · mar/2026',
+        descricao:
+          'Aqui "harness" significa outra coisa: tudo que não é o modelo, dentro de um agente. É o vocabulário do Bloco III em diante — guarde para lá, mas vale saber que o mesmo termo tem dois sentidos.',
+      },
+    ],
   },
   {
     id: 'fundacao',
@@ -39,6 +83,7 @@ export const trilha: Modulo[] = [
       'Do dado sujo ao agente que traduz português em consulta, se corrige quando erra e pergunta quando não entende.',
     topicos: ['Pydantic', 'Tokens', 'Saída estruturada', 'Loop agêntico', 'Tracing'],
     status: 'planejado',
+    materiais: [],
   },
   {
     id: 'conhecimento',
@@ -49,6 +94,7 @@ export const trilha: Modulo[] = [
       'Recuperação de ponta a ponta, medida — e o vocabulário do domínio virando estrutura.',
     topicos: ['Embeddings', 'Busca híbrida', 'Precisão e recall', 'Ontologia', 'GraphRAG'],
     status: 'planejado',
+    materiais: [],
   },
   {
     id: 'estrutura',
@@ -59,6 +105,7 @@ export const trilha: Modulo[] = [
       'O código não cabe mais na cabeça. Máquinas de estado, hierarquia e especialistas coordenados.',
     topicos: ['FSM e HSM', 'LangGraph', 'Checkpoint', 'Subgrafos', 'Multiagente'],
     status: 'planejado',
+    materiais: [],
   },
   {
     id: 'rigor',
@@ -69,6 +116,7 @@ export const trilha: Modulo[] = [
       'Medir, investigar e conter. O que separa um sistema que funciona de um sistema em que se confia.',
     topicos: ['Evals', 'LLM as judge', 'OpenTelemetry', 'Forense', 'Segurança', 'Custo'],
     status: 'planejado',
+    materiais: [],
   },
   {
     id: 'fronteira',
@@ -79,6 +127,7 @@ export const trilha: Modulo[] = [
       'As alternativas que não escolhemos, por que o modelo se comporta assim, e como se defende um investimento.',
     topicos: ['Modelo local', 'Fine-tuning', 'Alinhamento', 'Governança', 'ROI'],
     status: 'planejado',
+    materiais: [],
   },
 ]
 
