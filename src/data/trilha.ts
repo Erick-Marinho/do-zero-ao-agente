@@ -51,7 +51,7 @@ export const trilha: Modulo[] = [
       {
         titulo: 'Harness engineering for coding agent users',
         tipo: 'artigo',
-        url: '',
+        url: 'https://martinfowler.com/articles/harness-engineering.html',
         fonte: 'Birgitta Böckeler e Martin Fowler · abr/2026',
         descricao:
           'A fonte do vocabulário do dia 2: guias e sensores, computacional e inferencial, o loop de direção e a ideia de manter a qualidade à esquerda. Vale reler no Bloco IV, quando avaliação virar o tema.',
@@ -59,7 +59,7 @@ export const trilha: Modulo[] = [
       {
         titulo: 'Alavancando o Codex em um mundo centrado no agente',
         tipo: 'artigo',
-        url: '',
+        url: 'https://openai.com/pt-BR/index/harness-engineering/',
         fonte: 'Ryan Lopopolo, OpenAI · fev/2026',
         descricao:
           'Um produto inteiro construído sem código escrito à mão. É de onde vem o argumento do dia 4: o que o agente não lê no contexto não existe. Traz também a crítica ao arquivo monolítico de instruções e a ideia de docs/ como sistema de registro.',
@@ -67,7 +67,7 @@ export const trilha: Modulo[] = [
       {
         titulo: 'The Anatomy of an Agent Harness',
         tipo: 'artigo',
-        url: '',
+        url: 'https://www.langchain.com/blog/the-anatomy-of-an-agent-harness',
         fonte: 'Vivek Trivedy, LangChain · mar/2026',
         descricao:
           'Aqui "harness" significa outra coisa: tudo que não é o modelo, dentro de um agente. É o vocabulário do Bloco III em diante — guarde para lá, mas vale saber que o mesmo termo tem dois sentidos.',
