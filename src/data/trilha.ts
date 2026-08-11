@@ -84,6 +84,15 @@ export const trilha: Modulo[] = [
           'Notas da palestra de Dex Horthy no AI Engineer. O gargalo do agente em código legado não é a inteligência do modelo, é o contexto: a "zona burra" onde o ruído acumulado degrada a decisão, a compactação intencional como artefato, e o ciclo pesquisar → planejar → implementar. Revisar um plano de 30 linhas é mais barato que revisar um diff de mil.',
       },
       {
+        titulo: 'No Vibes Allowed: Solving Hard Problems in Complex Codebases',
+        tipo: 'video',
+        assuntos: ['Engenharia de contexto', 'Harness'],
+        url: 'https://www.youtube.com/watch?v=rmvDxxNubIg',
+        fonte: 'Dex Horthy, HumanLayer · AI Engineer',
+        descricao:
+          'A palestra que o artigo do Matt Rowe resenha. Vale ver depois de ler — ou antes, se preferir ouvir o argumento antes de ter o resumo.',
+      },
+      {
         titulo: 'The Anatomy of an Agent Harness',
         tipo: 'artigo',
         assuntos: ['Harness'],
