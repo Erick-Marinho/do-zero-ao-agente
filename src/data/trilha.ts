@@ -75,6 +75,15 @@ export const trilha: Modulo[] = [
           'Um produto inteiro construído sem código escrito à mão. É de onde vem o argumento do dia 4: o que o agente não lê no contexto não existe. Traz também a crítica ao arquivo monolítico de instruções e a ideia de docs/ como sistema de registro.',
       },
       {
+        titulo: 'Context Engineering for Coding Agents: How to Keep AI Out of the "Dumb Zone"',
+        tipo: 'artigo',
+        assuntos: ['Engenharia de contexto', 'Harness'],
+        url: 'https://mattrowe.com/blog/16631073-4603-44db-a3e6-b1c37b67af33',
+        fonte: 'Matt Rowe · mai/2026',
+        descricao:
+          'Notas da palestra de Dex Horthy no AI Engineer. O gargalo do agente em código legado não é a inteligência do modelo, é o contexto: a "zona burra" onde o ruído acumulado degrada a decisão, a compactação intencional como artefato, e o ciclo pesquisar → planejar → implementar. Revisar um plano de 30 linhas é mais barato que revisar um diff de mil.',
+      },
+      {
         titulo: 'The Anatomy of an Agent Harness',
         tipo: 'artigo',
         assuntos: ['Harness'],
