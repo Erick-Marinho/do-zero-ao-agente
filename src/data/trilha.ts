@@ -1,10 +1,17 @@
 export type Status = 'concluido' | 'em-andamento' | 'planejado'
 
-export type TipoMaterial = 'artigo' | 'pdf' | 'video' | 'repo'
+export type TipoMaterial = 'artigo' | 'pdf' | 'video' | 'doc' | 'repo'
 
 export type Material = {
   titulo: string
+  /** Formato do material. Vira o selo com ícone no card. */
   tipo: TipoMaterial
+  /**
+   * Assunto de que o material trata. Aparece como etiqueta e, quando o módulo
+   * acumula material, vira filtro. Reaproveite os nomes já em uso em vez de
+   * criar sinônimos — a etiqueta só serve se agrupar.
+   */
+  assuntos?: string[]
   /**
    * URL externa (começando com `http`) ou caminho de um arquivo em `public/` —
    * por exemplo `materiais/bloco-00/plano.pdf`. Deixe vazio enquanto o link
@@ -43,6 +50,7 @@ export const trilha: Modulo[] = [
       'Harness',
       'Guias e sensores',
       'Alternativas',
+      'SDD',
       'OpenSpec',
       'ADR',
     ],
@@ -51,6 +59,7 @@ export const trilha: Modulo[] = [
       {
         titulo: 'Harness engineering for coding agent users',
         tipo: 'artigo',
+        assuntos: ['Harness'],
         url: 'https://martinfowler.com/articles/harness-engineering.html',
         fonte: 'Birgitta Böckeler e Martin Fowler · abr/2026',
         descricao:
@@ -59,6 +68,7 @@ export const trilha: Modulo[] = [
       {
         titulo: 'Alavancando o Codex em um mundo centrado no agente',
         tipo: 'artigo',
+        assuntos: ['Harness', 'Engenharia de contexto'],
         url: 'https://openai.com/pt-BR/index/harness-engineering/',
         fonte: 'Ryan Lopopolo, OpenAI · fev/2026',
         descricao:
@@ -67,10 +77,65 @@ export const trilha: Modulo[] = [
       {
         titulo: 'The Anatomy of an Agent Harness',
         tipo: 'artigo',
+        assuntos: ['Harness'],
         url: 'https://www.langchain.com/blog/the-anatomy-of-an-agent-harness',
         fonte: 'Vivek Trivedy, LangChain · mar/2026',
         descricao:
           'Aqui "harness" significa outra coisa: tudo que não é o modelo, dentro de um agente. É o vocabulário do Bloco III em diante — guarde para lá, mas vale saber que o mesmo termo tem dois sentidos.',
+      },
+      {
+        titulo: 'Spec-Driven Development na era dos agentes de IA — Parte 1',
+        tipo: 'artigo',
+        assuntos: ['SDD'],
+        url: 'https://blog.dsacademy.com.br/spec-driven-development-a-nova-arquitetura-de-engenharia-de-software-na-era-dos-agentes-de-ia-parte-1/',
+        fonte: 'Data Science Academy',
+        descricao:
+          'Abre uma série de cinco partes sobre especificação como fonte de verdade. É a base do dia 4.',
+      },
+      {
+        titulo: 'Spec-Driven Development na era dos agentes de IA — Parte 2',
+        tipo: 'artigo',
+        assuntos: ['SDD'],
+        url: 'https://blog.dsacademy.com.br/spec-driven-development-a-nova-arquitetura-de-engenharia-de-software-na-era-dos-agentes-de-ia-parte-2/',
+        fonte: 'Data Science Academy',
+      },
+      {
+        titulo: 'Spec-Driven Development na era dos agentes de IA — Parte 3',
+        tipo: 'artigo',
+        assuntos: ['SDD'],
+        url: 'https://blog.dsacademy.com.br/spec-driven-development-a-nova-arquitetura-de-engenharia-de-software-na-era-dos-agentes-de-ia-parte-3/',
+        fonte: 'Data Science Academy',
+      },
+      {
+        titulo: 'Spec-Driven Development na era dos agentes de IA — Parte 4',
+        tipo: 'artigo',
+        assuntos: ['SDD'],
+        url: 'https://blog.dsacademy.com.br/spec-driven-development-a-nova-arquitetura-de-engenharia-de-software-na-era-dos-agentes-de-ia-parte-4/',
+        fonte: 'Data Science Academy',
+      },
+      {
+        titulo: 'Spec-Driven Development na era dos agentes de IA — Parte 5',
+        tipo: 'artigo',
+        assuntos: ['SDD'],
+        url: 'https://blog.dsacademy.com.br/spec-driven-development-a-nova-arquitetura-de-engenharia-de-software-na-era-dos-agentes-de-ia-parte-5/',
+        fonte: 'Data Science Academy',
+      },
+      {
+        titulo: 'Full Walkthrough: Workflow for AI Coding',
+        tipo: 'video',
+        assuntos: ['SDD'],
+        url: 'https://youtu.be/-QFHIoCo-Ko',
+        fonte: 'Matt Pocock · AI Engineer',
+        descricao: 'O fluxo de trabalho inteiro, do começo ao fim, com o editor aberto.',
+      },
+      {
+        titulo: 'OpenSpec',
+        tipo: 'doc',
+        assuntos: ['OpenSpec', 'SDD'],
+        url: 'https://openspec.dev/',
+        fonte: 'openspec.dev',
+        descricao:
+          'A ferramenta que vocês vão inicializar no dia 4. Framework leve de spec-driven para agentes de código e CLIs, open source e sem chave de API.',
       },
     ],
   },

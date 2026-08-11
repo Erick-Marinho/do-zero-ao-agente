@@ -61,12 +61,18 @@ Cada módulo tem uma lista `materiais` em [`trilha.ts`](src/data/trilha.ts). Um 
 ```ts
 {
   titulo: 'Plano de aula do Bloco 0',
-  tipo: 'pdf',                                 // artigo · pdf · video · repo
+  tipo: 'pdf',                                 // artigo · pdf · video · doc · repo
+  assuntos: ['Harness', 'SDD'],                // opcional, de que trata
   url: 'materiais/bloco-00/plano-de-aula.pdf', // ou uma URL https://…
   fonte: 'Erick Marinho · ago/2026',           // opcional
   descricao: 'Os cinco dias, hora a hora.',    // opcional
 }
 ```
+
+`tipo` é o formato (vira o selo com ícone); `assuntos` é do que o material trata (vira
+etiqueta violeta). Reaproveite os nomes de assunto já em uso em vez de criar sinônimos — a
+etiqueta só serve se agrupar. A partir de **6 materiais com 2 ou mais assuntos**, a lista
+ganha sozinha uma barra de filtro no topo, com a contagem de cada assunto.
 
 **Links externos** vão em `url` com o endereço completo e abrem em nova aba.
 
