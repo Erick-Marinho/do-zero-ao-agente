@@ -9,8 +9,9 @@ const ancoras = [
 
 /** Páginas de consulta — alcançáveis também no celular. */
 const paginas = [
-  { to: '/o-caso', label: 'O caso' },
-  { to: '/glossario', label: 'Glossário' },
+  { to: '/o-caso', label: 'O caso', classe: 'hidden sm:block' },
+  { to: '/livro', label: 'Livro', classe: '' },
+  { to: '/glossario', label: 'Glossário', classe: '' },
 ]
 
 export function Header() {
@@ -50,7 +51,7 @@ export function Header() {
             <Link
               key={link.to}
               to={link.to}
-              className="rounded-lg px-2.5 py-2 text-sm text-slate-400 transition-colors hover:bg-white/5 hover:text-slate-100 sm:px-3"
+              className={`${link.classe} rounded-lg px-2.5 py-2 text-sm text-slate-400 transition-colors hover:bg-white/5 hover:text-slate-100 sm:px-3`}
             >
               {link.label}
             </Link>

@@ -13,3 +13,119 @@ html {
 body {
   @apply bg-ink text-slate-300 antialiased;
 }
+
+.conteudo-livro {
+  @apply text-[1.02rem] leading-8 text-slate-300;
+}
+
+.conteudo-livro h1 {
+  @apply mt-0 mb-8 scroll-mt-24 text-3xl font-semibold tracking-tight text-balance text-white sm:text-4xl;
+}
+
+.conteudo-livro h2 {
+  @apply mt-16 mb-6 scroll-mt-24 border-b border-white/10 pb-4 text-2xl font-semibold tracking-tight text-white;
+}
+
+.conteudo-livro h3 {
+  @apply mt-10 mb-4 scroll-mt-24 text-xl font-semibold tracking-tight text-slate-100;
+}
+
+.conteudo-livro h4 {
+  @apply mt-8 mb-3 scroll-mt-24 font-semibold text-slate-200;
+}
+
+.conteudo-livro p {
+  @apply my-5;
+}
+
+.conteudo-livro strong {
+  @apply font-semibold text-slate-100;
+}
+
+.conteudo-livro em {
+  @apply text-slate-300;
+}
+
+.conteudo-livro a {
+  @apply font-medium text-violet-300 underline decoration-violet-400/30 underline-offset-4 transition-colors hover:text-violet-200 hover:decoration-violet-300/70;
+}
+
+.conteudo-livro ul {
+  @apply my-5 list-disc space-y-2 pl-6 marker:text-violet-400/70;
+}
+
+.conteudo-livro ol {
+  @apply my-5 list-decimal space-y-2 pl-6 marker:font-mono marker:text-violet-400/70;
+}
+
+.conteudo-livro li {
+  @apply pl-1;
+}
+
+.conteudo-livro blockquote {
+  @apply my-7 rounded-r-xl border-l-2 border-violet-400/50 bg-violet-500/5 py-1 pr-5 pl-5 text-slate-300;
+}
+
+.conteudo-livro blockquote p {
+  @apply my-3;
+}
+
+.conteudo-livro hr {
+  @apply my-14 border-white/10;
+}
+
+.conteudo-livro table {
+  @apply my-8 block w-full overflow-x-auto rounded-xl border border-white/10 text-left text-sm;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.conteudo-livro thead {
+  @apply bg-white/5 text-slate-200;
+}
+
+.conteudo-livro th,
+.conteudo-livro td {
+  @apply min-w-36 border-r border-b border-white/10 px-4 py-3 align-top last:border-r-0;
+}
+
+.conteudo-livro tbody tr:last-child td {
+  @apply border-b-0;
+}
+
+.conteudo-livro :not(pre) > code {
+  @apply rounded-md bg-violet-500/10 px-1.5 py-0.5 font-mono text-[0.9em] text-violet-200 ring-1 ring-inset ring-violet-500/15;
+}
+
+.bloco-codigo-livro {
+  @apply my-7 overflow-x-auto rounded-2xl border border-white/10 bg-[#080a11] p-5 font-mono text-sm leading-6 text-slate-300 shadow-inner;
+}
+
+.conteudo-livro input[type='checkbox'] {
+  @apply mr-2 accent-violet-500;
+}
+
+.diagrama-mermaid svg {
+  height: auto;
+  margin-inline: auto;
+  max-width: 100%;
+}
+
+.diagrama-mermaid .edgeLabel {
+  color: #cbd5e1;
+}
+
+@media (max-width: 640px) {
+  .conteudo-livro {
+    @apply text-base leading-7;
+  }
+
+  .conteudo-livro table {
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .diagrama-mermaid svg {
+    min-width: 40rem;
+  }
+}

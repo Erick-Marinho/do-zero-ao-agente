@@ -5,6 +5,14 @@ aparecem no caminho.
 
 **Produção:** https://erick-marinho.github.io/do-zero-ao-agente/
 
+## Livro digital
+
+A primeira consolidação do estudo sobre SDD, engenharia de contexto, `AGENTS.md`, orquestração e
+harness engineering está em [`docs/livro/`](docs/livro/README.md) e é renderizada pelo site na rota
+`/livro`. Os capítulos continuam em Markdown como fonte única; Vite os carrega sob demanda e o React
+renderiza tabelas, links e diagramas Mermaid. O caderno de pesquisa original permanece apenas no
+ambiente de trabalho e não faz parte da edição publicada.
+
 ## Stack
 
 Vite · React · TypeScript · Tailwind CSS v4 · React Router
@@ -38,8 +46,8 @@ public/
 ```
 
 Rotas: `/` é a home, `/o-caso` é a história do cliente, `/modulo/:id` é a página de um módulo
-(onde `:id` é o campo `id` em [`trilha.ts`](src/data/trilha.ts)) e `/glossario` é a referência
-de termos.
+(onde `:id` é o campo `id` em [`trilha.ts`](src/data/trilha.ts)), `/glossario` é a referência
+de termos e `/livro/:slug` apresenta cada parte do livro digital.
 
 As imagens em `public/img/` são WebP geradas a partir dos originais em
 `../docs/` — a foto do Seu Renato saiu de 2,3 MB (PNG) para 142 kB, com uma
@@ -106,6 +114,20 @@ Os verbetes ficam recolhidos e abrem ao clique. A busca ignora acento e maiúscu
 (`acao` encontra `ação`) e procura em todos os campos, então dá para achar um verbete pela
 definição sem lembrar o nome; os resultados já vêm abertos, para não exigir um clique extra
 depois de procurar.
+
+## Mantendo o livro
+
+O corpo dos capítulos permanece em [`docs/livro/`](docs/livro/README.md). O catálogo
+[`src/data/livro.ts`](src/data/livro.ts) define slug, ordem, grupo, descrição e tempo de leitura;
+ele também associa cada rota ao arquivo Markdown carregado sob demanda pelo Vite.
+
+Links relativos entre arquivos `.md` são convertidos para rotas `/livro/:slug`. Títulos recebem IDs
+compatíveis com links de seção. Blocos cercados com `mermaid` são transformados em SVG no navegador;
+os demais blocos continuam como código. `README.md` e `REVISAO.md` são documentos editoriais e não
+entram no bundle do livro.
+
+Ao publicar um novo arquivo, adicione sua entrada ao catálogo. Tabelas, listas de tarefas e links
+seguem GitHub Flavored Markdown.
 
 ## Deploy
 

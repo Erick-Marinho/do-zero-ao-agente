@@ -6,6 +6,7 @@ const links = [
   { to: '/o-caso', label: 'O caso' },
   { to: '/#trilha', label: 'Trilha' },
   { to: '/#principios', label: 'Princípios' },
+  { to: '/livro', label: 'Livro' },
   { to: '/glossario', label: 'Glossário' },
 ]
 
