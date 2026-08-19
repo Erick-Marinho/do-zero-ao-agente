@@ -105,14 +105,75 @@ body {
   @apply mr-2 accent-violet-500;
 }
 
-.diagrama-mermaid svg {
-  height: auto;
-  margin-inline: auto;
-  max-width: 100%;
+/*
+ * O Mermaid mede os rótulos num container temporário, fora do artigo. Qualquer
+ * estilo de prosa que alcance o SVG depois — margem, entrelinha, tamanho de
+ * fonte — desloca o texto em relação às formas já desenhadas.
+ */
+.conteudo-livro .diagrama-mermaid,
+.conteudo-livro .visor-diagrama {
+  font-size: 1rem;
+  line-height: normal;
 }
 
-.diagrama-mermaid .edgeLabel {
+.conteudo-livro .diagrama-mermaid :is(p, span, div, ul, ol, li),
+.conteudo-livro .visor-diagrama :is(p, span, div, ul, ol, li) {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/*
+ * O diagrama é exibido no tamanho em que foi calculado. `--piso-de-leitura`
+ * define o quanto ele pode encolher para caber na coluna antes de a moldura
+ * passar a rolar na horizontal — abaixo disso os rótulos ficam ilegíveis.
+ */
+.diagrama-mermaid {
+  --piso-de-leitura: 0.78;
+}
+
+.diagrama-mermaid svg {
+  display: block;
+  height: auto;
+  margin-inline: auto;
+  width: 100%;
+  min-width: calc(var(--largura-natural, 100%) * var(--piso-de-leitura));
+  max-width: var(--largura-natural, 100%);
+}
+
+.visor-diagrama svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+:is(.diagrama-mermaid, .visor-diagrama) .edgeLabel {
   color: #cbd5e1;
+}
+
+/*
+ * O diagrama de jornada lê as cores das seções antes de `initialize` rodar, e
+ * por isso ignora o tema. Aqui elas voltam para a paleta do site.
+ */
+:is(.diagrama-mermaid, .visor-diagrama) :is(.section-type-0 rect, rect.task-type-0) {
+  fill: #1b1640;
+}
+
+:is(.diagrama-mermaid, .visor-diagrama) :is(.section-type-1 rect, rect.task-type-1) {
+  fill: #12203a;
+}
+
+:is(.diagrama-mermaid, .visor-diagrama) :is(.section-type-2 rect, rect.task-type-2) {
+  fill: #231541;
+}
+
+:is(.diagrama-mermaid, .visor-diagrama) :is(.journey-section rect, rect.task) {
+  stroke: #4b5675;
+}
+
+:is(.diagrama-mermaid, .visor-diagrama) .task-line {
+  stroke: #475569;
 }
 
 @media (max-width: 640px) {
@@ -125,7 +186,7 @@ body {
     max-width: 100%;
   }
 
-  .diagrama-mermaid svg {
-    min-width: 40rem;
+  .diagrama-mermaid {
+    --piso-de-leitura: 0.6;
   }
 }
