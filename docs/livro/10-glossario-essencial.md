@@ -43,10 +43,10 @@ capacidade do modelo.
 
 ### Compaction — compactação
 
-Recurso do harness que resume a conversa inteira em um espaço menor para continuar na mesma sessão.
-Preserva uma versão condensada da jornada — incluindo sedimento e hipóteses descartadas. Neste
-livro é tratada como exceção, não como etapa do fluxo: o padrão recomendado é externalizar o estado
-em artefatos e reidratar uma janela limpa.
+Recurso do harness que reduz o contexto da conversa preservando estado para continuar um trabalho
+longo. Pode ser legítimo dentro da mesma fase e do mesmo objetivo. Em mudanças de fase, este livro
+prefere handoff explícito, limpeza e reidratação, porque a próxima etapa precisa de estado selecionado
+e auditável.
 
 ### Rehydration — reidratação de contexto
 
@@ -76,8 +76,10 @@ Resultados observáveis necessários para considerar uma mudança aceita.
 
 ### Research — pesquisa
 
-Investigação delimitada do estado atual do sistema para reduzir incerteza suficiente antes de
-planejar uma mudança.
+Investigação delimitada para reduzir incerteza. **Discovery Research** vem antes da SPEC quando a
+realidade ainda não permite especificar com segurança; **Implementation/Brownfield Research** vem
+depois da SPEC quando o comportamento desejado é conhecido, mas o sistema atual ainda precisa ser
+mapeado para planejar a mudança.
 
 ### Vertical slice — fatia vertical
 
@@ -112,8 +114,8 @@ Controle de **feedforward** que orienta antes da ação, como SPEC, `AGENTS.md`,
 
 ### Sensor — sensor
 
-Controle de **feedback** que observa o resultado e permite detectar ou corrigir problemas, como
-teste, linter, typecheck ou revisão.
+Controle de **feedback** que observa o resultado e detecta desvios, como teste, linter, typecheck ou
+revisão. O agente ou o humano interpreta o feedback e executa a correção; o sensor não corrige.
 
 ### Harnessability
 
@@ -151,6 +153,11 @@ Agente responsável por uma unidade de trabalho verificável.
 
 Agente ou humano que avalia uma mudança contra critérios e riscos definidos, idealmente com contexto
 independente do implementador.
+
+### Bounded Review — revisão limitada
+
+Revisão restrita à task, aos claims do handoff, ao diff e ao contexto imediato. Procura regressões
+da mudança e violações dos seus critérios sem transformar dívida preexistente em bloqueio da task.
 
 ### Orchestrator — orquestrador
 

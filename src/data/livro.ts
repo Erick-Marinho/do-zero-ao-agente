@@ -101,13 +101,23 @@ export const capitulosLivro: CapituloLivro[] = [
     leitura: '20 min',
   },
   {
+    slug: 'data-foundation',
+    arquivo: '08b-mini-estudo-data-foundation.md',
+    numero: '08B',
+    grupo: 'Prática',
+    titulo: 'Data Foundation',
+    descricao:
+      'Um mini-case de Discovery Research, probes com Pydantic e decisões humanas antes da SPEC.',
+    leitura: '10 min',
+  },
+  {
     slug: 'estado-da-arte',
     arquivo: '09-estado-da-arte.md',
     numero: '09',
     grupo: 'Prática',
     titulo: 'Estado da arte',
     descricao:
-      'O ciclo de vida completo na prática: fases, autoridade, sensores, evidência e um prompt base por etapa.',
+      'Manual de referência do lifecycle: autoridade, sensores, review e prompts por fase.',
     leitura: '40 min',
   },
   {
@@ -136,7 +146,7 @@ export const dadosLivro = {
   edicao: 'Edição 0.1',
   partes: 7,
   capitulosConceituais: 17,
-  diagramas: 54,
+  diagramas: 58,
 }
 
 export function encontrarCapitulo(slug: string | undefined) {

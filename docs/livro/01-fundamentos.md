@@ -109,16 +109,20 @@ flowchart TD
     B -->|sim| C[CONTINUE<br/>continuar]
     B -->|não; é exploração lateral| D[DELEGATE<br/>isolar em subagente]
     A -->|não ou com dificuldade| E{O objetivo ainda é o mesmo?}
-    E -->|sim| F[CHECKPOINT<br/>externalizar estado em artefato<br/>e reabrir janela limpa]
+    E -->|sim| F{Mesmo objetivo e<br/>continuidade necessária?}
+    F -->|sim; harness confiável| H[COMPACT<br/>continuar a mesma fase]
+    H --> C
+    F -->|não ou estado auditável| I[CHECKPOINT<br/>externalizar estado]
+    I --> G
     E -->|não; mudou a fase| G[CLEAR<br/>abrir contexto limpo<br/>com novo contrato]
 ```
 
-Repare que nenhum caminho recomenda a **compaction** (compactação — pedir ao harness que resuma a
-conversa inteira para continuar na mesma sessão). Resumir a jornada tende a carregar sedimento
-junto e produz um estado difícil de prever. O caminho preferido neste livro é externalizar o estado
-útil em um artefato e reabrir uma janela limpa.
+A **compaction** (compactação) pode ser legítima quando o objetivo e a fase continuam os mesmos e o
+harness preserva o estado relevante de forma confiável. Em mudanças de fase — por exemplo, Research
+para implementação — o caminho preferido neste livro continua sendo externalizar deliberadamente o
+estado útil, limpar e reidratar uma janela nova. A distinção será aprofundada no Capítulo 9.
 
-Essas quatro ações serão aprofundadas no
+Essas cinco ações serão aprofundadas no
 [Capítulo 9 — Ciclo de vida do contexto](04-engenharia-de-contexto.md#capítulo-9--ciclo-de-vida-do-contexto).
 
 > A meta não é manter a conversa viva pelo maior tempo possível. É manter o trabalho na zona em que
@@ -194,11 +198,15 @@ Ele é um **mapa**, não a cidade inteira.
 
 ```mermaid
 flowchart TD
-    A[AGENTS.md<br/>orientação] --> B[docs/INDEX.md<br/>roteamento]
-    B --> C[Produto]
-    B --> D[Arquitetura]
-    B --> E[Domínio]
-    B --> F[Procedimentos / Skills]
+    A[AGENTS.md<br/>orientação] --> C[Produto]
+    A --> D[Arquitetura]
+    A --> E[Domínio]
+    A --> F[Procedimentos / Skills]
+    A -. corpus grande .-> B[docs/INDEX.md<br/>roteamento opcional]
+    B -. aponta para .-> C
+    B -. aponta para .-> D
+    B -. aponta para .-> E
+    B -. aponta para .-> F
     C --> G[Somente o que a tarefa precisa]
     D --> G
     E --> G
@@ -245,8 +253,10 @@ Aplicação de vendas para um mercado de bairro.
 
 ### `INDEX.md` não é outro manual
 
-Um índice saudável descreve onde encontrar conhecimento e, quando útil, quem é responsável ou
-quando foi verificado. Ele não copia o conteúdo dos documentos.
+`INDEX.md` é opcional. Ele vale o custo quando o corpus cresceu a ponto de o `AGENTS.md` não poder
+apontar diretamente para poucas fontes especializadas. Um índice saudável descreve onde encontrar
+conhecimento e, quando útil, quem é responsável ou quando foi verificado. Ele não copia o conteúdo
+dos documentos.
 
 ```markdown
 # Documentation index
@@ -260,6 +270,28 @@ quando foi verificado. Ele não copia o conteúdo dos documentos.
 
 Referenciar reduz duplicação. Também reduz o risco de duas cópias da mesma regra envelhecerem de
 formas diferentes.
+
+### Instruções locais e precedência
+
+Projetos grandes podem ter arquivos `AGENTS.md` aninhados. O arquivo raiz define orientação
+global; um arquivo dentro de um pacote especializa as regras para aquela árvore.
+
+```text
+AGENTS.md da raiz
+→ regras globais
+
+packages/payments/AGENTS.md
+→ regras locais de pagamentos
+
+mais próximo do arquivo em trabalho
+→ prevalece em caso de conflito
+
+prompt explícito do usuário
+→ autoridade superior
+```
+
+A proximidade não autoriza uma instrução local a ampliar permissões do ambiente ou contrariar
+limites superiores do harness; ela resolve conflitos entre instruções aplicáveis do projeto.
 
 ### Armadilha: documentar geografia volátil
 
@@ -284,10 +316,12 @@ pesquisa ou tarefas quando forem úteis naquele momento.
 
 ### Perguntas de revisão
 
-1. Qual é a diferença entre `AGENTS.md`, índice, documento e Skill?
+1. Qual é a diferença entre `AGENTS.md`, índice opcional, documento e Skill?
 2. Por que copiar uma regra para vários arquivos aumenta o risco de documentação velha?
 3. Onde você colocaria “sempre execute a migração em modo transacional”: instrução, documento,
    Skill ou sensor? O que faltaria saber para decidir?
 4. Reescreva três proibições específicas como um princípio único e mais estável.
+5. Em um monorepo, qual `AGENTS.md` governa um arquivo e o que acontece se o usuário der uma
+   instrução explícita diferente?
 
 [← Introdução](00-introducao.md) · [Próximo: Parte 2 — Memória →](02-memoria.md)

@@ -157,13 +157,19 @@ flowchart LR
 Uma SPEC e o código podem discordar sem que uma fonte seja “mentirosa”: a diferença pode ser
 justamente a mudança que precisa ser implementada.
 
-### Autoridade, atualidade e relevância
+### Autoridade, atualidade, escopo e proveniência
 
-Ao selecionar uma fonte, avalie três eixos:
+Ao selecionar uma fonte, avalie quatro eixos:
 
 1. **Autoridade:** ela tem poder para responder a este tipo de pergunta?
 2. **Atualidade:** quando foi verificada pela última vez?
-3. **Relevância:** seu conteúdo altera alguma decisão desta tarefa?
+3. **Escopo:** a afirmação vale para este sistema, versão, ambiente e tarefa?
+4. **Proveniência:** de onde veio a afirmação — runtime, teste, código, Research, outro agente ou
+   inferência?
+
+**Relevância** continua sendo o filtro de carregamento: mesmo uma fonte confiável fica fora da
+mochila quando não altera a tarefa. **Escopo** é diferente: uma evidência pode ser muito relevante e
+ainda assim não se aplicar ao ambiente ou componente em questão.
 
 ```mermaid
 quadrantChart
@@ -218,5 +224,6 @@ o código, pois o código pode ser justamente o que está errado.
 2. Qual é a diferença entre autoridade e atualidade?
 3. Um Research de seis meses atrás é inútil? Que fatores determinam a resposta?
 4. Escreva como registraria uma divergência sem resolvê-la por suposição.
+5. Por que “veio de outro agente” não basta como proveniência de uma conclusão?
 
 [← Parte 1 — Fundamentos](01-fundamentos.md) · [Próximo: Parte 3 — Especificação →](03-especificacao-e-planejamento.md)

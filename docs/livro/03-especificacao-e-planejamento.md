@@ -30,6 +30,25 @@ flowchart LR
     V -->|reconciliação| S
 ```
 
+### Mapa dos artefatos de intenção
+
+Os artefatos formam uma cadeia de refinamento: partem da intenção de produto e chegam a unidades
+executáveis. Cada um preserva um tipo diferente de decisão.
+
+```mermaid
+flowchart TD
+    P[PRD<br/>intenção de produto] --> A[HLD / ADRs<br/>arquitetura e decisões duráveis]
+    A --> F[FEATURE]
+    F --> S[SPEC<br/>comportamento]
+    S --> D[Design / plano<br/>quando necessário]
+    D --> T[Tasks]
+    T --> I[Implementação]
+```
+
+Nem toda mudança precisa de todos esses artefatos. Uma correção local pode partir de uma SPEC
+existente direto para uma task; uma nova capacidade sistêmica pode exigir PRD, HLD e ADRs. O mapa
+mostra responsabilidades, não uma burocracia obrigatória.
+
 ### SPEC, design, plano e task
 
 | Artefato | Pergunta principal | Evita |
@@ -95,22 +114,38 @@ sensores evoluam.
 
 ---
 
-## Capítulo 6 — Research: descobrir antes de decidir
+## Capítulo 6 — Research antes e depois da SPEC
 
-### A dor: planejar sobre um sistema imaginário
+### A dor: tratar duas pesquisas diferentes como uma só
 
-Uma SPEC define o destino. Ela não explica automaticamente a estrada atual. Em um projeto
-brownfield, o agente precisa investigar como autenticação, e-mail, sessões e testes funcionam hoje.
+Algumas mudanças chegam com comportamento claro, mas sem conhecimento do código atual. Outras
+chegam com a própria realidade desconhecida: antes de escrever uma SPEC, precisamos descobrir o que
+os dados, usuários ou integrações realmente permitem afirmar.
 
-**Research** (pesquisa) é a fase que reduz incerteza antes do plano.
+**Research** (pesquisa) é investigação delimitada para reduzir incerteza. Sua posição depende da
+pergunta que ainda não conseguimos responder.
+
+| Tipo | Quando entra | Pergunta central | Saída |
+|---|---|---|---|
+| **Discovery Research** | antes da SPEC | Conhecemos a realidade suficiente para decidir o comportamento? | fatos, probes, lacunas e decisões humanas |
+| **Implementation/Brownfield Research** | depois da SPEC | Como o sistema atual funciona e onde a mudança deve entrar? | superfícies, restrições e base para design/tasks |
 
 ```mermaid
 flowchart TD
-    S[SPEC<br/>estado desejado] --> Q[Perguntas de investigação]
-    C[Código e runtime<br/>estado atual] --> Q
-    Q --> R[RESEARCH.md<br/>fotografia compacta]
-    R --> P[Plano / grafo de tasks]
+    I[Problema / intenção] --> Q{Realidade suficiente<br/>para especificar?}
+    Q -->|não| DR[Discovery Research]
+    DR --> H[Decisões humanas]
+    H --> S[SPEC]
+    Q -->|sim| S
+    S --> B{Precisamos descobrir<br/>o brownfield atual?}
+    B -->|sim| IR[Implementation Research]
+    B -->|não| P[Design / tasks]
+    IR --> P
 ```
+
+No caso de recuperação de senha, já sabemos o comportamento desejado; pesquisamos depois da SPEC
+para localizar a mudança no brownfield. No caso Data Foundation, dados brutos desconhecidos exigem
+Discovery Research e probes antes de decisões humanas e da SPEC.
 
 ### O que Research não é
 
@@ -123,7 +158,7 @@ flowchart TD
 
 ### Perguntas que dirigem a pesquisa
 
-Para recuperação de senha:
+Para o Implementation Research de recuperação de senha:
 
 1. Como usuários são identificados?
 2. Como segredos são armazenados?
@@ -188,9 +223,13 @@ A pesquisa termina quando existe informação suficiente para:
 
 O objetivo é reduzir incerteza suficiente para planejar, não eliminar toda incerteza possível.
 
+No Discovery Research, o ponto de parada é um pouco anterior: existe evidência suficiente para o
+humano decidir a semântica e escrever uma SPEC sem transformar acidentes dos dados atuais em
+requisitos.
+
 ### Perguntas de revisão
 
-1. Por que SPEC e Research olham em direções diferentes?
+1. Quando Research deve vir antes da SPEC e quando deve vir depois?
 2. Qual o risco de registrar todo o histórico de exploração?
 3. Transforme “entenda autenticação” em quatro perguntas investigáveis.
 4. Quando uma questão aberta deve bloquear o plano?
@@ -313,7 +352,7 @@ Com eles, o humano varre o quadro procurando apenas o que **só ele** pode destr
 > continuam sendo promovidas para SPEC, ADR e documentos; o cartão arquivado guarda a história da
 > execução.
 
-O [guia estado da arte](09-estado-da-arte.md) mostra o mapeamento completo entre colunas e etapas
+O [manual estado da arte](09-estado-da-arte.md) mostra o mapeamento completo entre colunas e etapas
 do ciclo — incluindo onde entram QA, code review e o cartão de fechamento da feature.
 
 ### Cápsula de contexto de uma task

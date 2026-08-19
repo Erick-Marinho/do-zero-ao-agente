@@ -181,11 +181,61 @@ O contrato também deve dizer o que acontece quando uma task falha:
 
 Sem isso, “tente novamente” pode repetir o mesmo erro em escala.
 
+### Fresh Bounded Review
+
+Revisão não concede ao reviewer autoridade ilimitada sobre o repositório. Depois do handoff, um
+reviewer em contexto fresco recebe uma fronteira pequena:
+
+```text
+TASK
++
+CLAIMS DO HANDOFF
++
+DIFF
++
+CONTEXTO IMEDIATO
+```
+
+Seu objetivo é tentar refutar a conclusão de que aquela task terminou corretamente. Ele procura
+problemas introduzidos ou agravados pelo diff e violações que impedem os critérios da task. Não faz
+uma auditoria aberta do repositório.
+
+Uma heurística útil é perguntar: **se desfizermos somente este diff, o problema desaparece?** Se
+não, provavelmente encontramos dívida preexistente, não uma regressão bloqueante da task. A
+heurística controla escopo; não substitui julgamento.
+
+```mermaid
+flowchart TD
+    H[Handoff] --> R[Fresh bounded review]
+    R --> F[Findings com evidência]
+    F --> T{Triagem humana}
+    T -->|rejeitar| X[Descartar]
+    T -->|adiar| D[Registrar fora da task]
+    T -->|aceitar| Q{Solução também aprovada?}
+    Q -->|não| P[Research / proposta curta]
+    Q -->|sim| C[Fix direcionado]
+    P --> C
+    C --> V[Re-review apenas dos findings]
+```
+
+Quatro limites preservam a arquitetura de autoridade:
+
+- **dívida preexistente não é regressão:** pode merecer registro, mas não sequestra a task;
+- **problema aceito não significa solução aceita:** a recomendação do reviewer ainda pode exigir
+  decisão;
+- **reviewer não é autoridade:** ele produz findings; a triagem decide aceitar, rejeitar, adiar ou
+  escalar;
+- **re-review não reabre o universo:** verifica somente se os findings aprovados foram resolvidos.
+
+O fix recebe apenas findings e soluções aprovados. Isso reduz scope creep e impede que uma revisão
+probabilística se transforme silenciosamente em novo contrato de produto ou arquitetura.
+
 ### Perguntas de revisão
 
 1. Por que dar o mesmo contexto a todos os agentes pode ser ruim?
 2. O que um orchestrator deve conhecer — e o que não precisa conhecer?
 3. Quais critérios tornam duas tasks realmente paralelizáveis?
 4. Por que um reviewer pode se beneficiar de contexto fresco?
+5. Por que aceitar um finding não implica aceitar a solução proposta pelo reviewer?
 
 [← Parte 5 — Harness](05-harness.md) · [Próximo: Parte 7 — Aprendizagem →](07-lifecycle-e-aprendizagem.md)

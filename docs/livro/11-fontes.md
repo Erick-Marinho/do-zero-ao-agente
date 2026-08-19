@@ -35,6 +35,15 @@ Contribuições usadas neste livro:
 O texto é um relato de um contexto específico. Seus números e escolhas não devem ser generalizados
 como promessa para todo projeto.
 
+### OpenAI — documentação de Compaction
+
+<https://developers.openai.com/api/docs/guides/compaction>
+
+A documentação apresenta compaction server-side e explícita como mecanismos para reduzir contexto
+preservando estado em interações longas. Ela sustenta a distinção adotada no Capítulo 9: compaction
+pode ser apropriada para continuidade dentro do mesmo objetivo; handoff explícito continua
+preferível quando a fase, a autoridade ou o consumidor mudam.
+
 ### Matt Rowe — notas sobre Context Engineering e o “Dumb Zone”
 
 <https://mattrowe.com/blog/16631073-4603-44db-a3e6-b1c37b67af33>
@@ -48,9 +57,8 @@ Contribuições usadas neste livro:
 - proporcionalidade do processo ao tamanho e risco da tarefa.
 
 As notas interpretam ideias apresentadas por Dex Horthy. Para aprofundamento, consulte também a
-fonte primária indicada nas leituras complementares. Sobre a compactação intencional, este livro
-adota uma posição diferente — limpar e reidratar a partir de artefatos — discutida no Capítulo 9 e
-na fonte a seguir.
+fonte primária indicada nas leituras complementares. O Capítulo 9 compara essa defesa de
+compactação intencional com a preferência por limpar e reidratar nas mudanças de fase.
 
 ### Matt Pocock — workshop sobre engenharia de IA (AI Hero)
 
@@ -72,7 +80,8 @@ Contribuições usadas neste livro:
 - possuir e compreender a própria planning stack antes de adotar frameworks;
 - “codebases ruins produzem agentes ruins”: qualidade de código como alavanca do trabalho com IA.
 
-É a fonte da correção de rumo sobre compactação adotada neste livro.
+É uma das fontes da preferência deste livro por handoff + clear + rehydrate nas mudanças de fase;
+não implica rejeitar compaction dentro do mesmo objetivo.
 
 ### Vivek Trivedy / LangChain — *The Anatomy of an Agent Harness*
 
@@ -93,9 +102,19 @@ Contribuições usadas neste livro:
 
 <https://github.com/Fission-AI/OpenSpec>
 
+Visão geral do workflow: <https://github.com/Fission-AI/OpenSpec/blob/main/docs/overview.md>
+
 Framework de SDD para assistentes de código. Organiza mudanças em proposta, specs, design e tasks,
-com comandos para explorar, propor, aplicar, verificar e arquivar. Leia depois de entender os
-artefatos manualmente, para avaliar quais convenções resolvem um problema real da sua equipe.
+com um loop padrão de explorar opcionalmente, propor, aplicar e arquivar. O comando `verify` faz
+parte do perfil expandido. Seus artefatos são habilitadores, não gates rígidos. Leia depois de
+entender os artefatos manualmente e confirme a documentação da versão instalada.
+
+### Pydantic — Strict Mode
+
+<https://docs.pydantic.dev/latest/concepts/strict_mode/>
+
+Documenta a coerção do modo padrão e as formas de habilitar validação estrita por chamada, campo ou
+configuração. Sustenta o uso de Pydantic como probe configurável, não como autoridade semântica.
 
 ### 12-Factor Agents
 

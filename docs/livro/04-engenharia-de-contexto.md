@@ -18,7 +18,7 @@ flowchart TD
     R -->|não| O[Fica disponível,<br/>mas fora da mochila]
     R -->|sim| A{Autoridade adequada?}
     A -->|não| V[Validar ou registrar conflito]
-    A -->|sim| F{Atual?}
+    A -->|sim| F{Atual, no escopo e<br/>com proveniência?}
     F -->|não| V
     F -->|sim| P[Context pack]
     V --> P
@@ -53,6 +53,9 @@ que responde:
 - O que ainda está incerto?
 
 Ele deve ser **suficiente**, não completo.
+
+Ao validar as fontes do pack, use os quatro eixos do Capítulo 4: autoridade, atualidade, escopo e
+proveniência. Depois aplique relevância para decidir o que realmente entra na mochila.
 
 ### Copiar ou referenciar?
 
@@ -113,14 +116,16 @@ mas leva toda a poeira da exploração para uma fase que pede precisão.
 
 O contexto também tem ciclo de vida.
 
-### Quatro decisões
+### Cinco decisões
 
 ```mermaid
 stateDiagram-v2
     [*] --> Continue
     Continue --> Continue: mesmo objetivo e contexto saudável
     Continue --> Delegate: exploração lateral ou saída ruidosa
-    Continue --> Checkpoint: mesmo objetivo, contexto saturado
+    Continue --> Compact: mesma fase, contexto saturando
+    Compact --> Continue: estado comprimido pelo harness
+    Continue --> Checkpoint: estado precisa ficar explícito
     Continue --> Clear: fase ou objetivo mudou
     Delegate --> Continue: retorno compacto
     Checkpoint --> Clear: estado externalizado em artefato
@@ -148,45 +153,53 @@ task — e então limpe a janela.
 Externalizar não é “resumir tudo por igual”. É escolher o que precisa sobreviver para a próxima
 etapa e deixar o resto na história.
 
+#### Compact — continuar a mesma fase com menos contexto
+
+Use quando o objetivo, a autoridade e o tipo de trabalho continuam iguais, mas o histórico está
+perto do limite. Um harness que implementa compaction de forma confiável pode preservar estado
+relevante e reduzir a quantidade de tokens necessária para continuar. Compaction é mecanismo de
+continuidade; não substitui um artefato auditável quando a próxima fase precisa de um contrato claro.
+
 #### Clear — limpar
 
 Use quando a fase ou o objetivo mudou. Research e implementação têm necessidades diferentes. Uma
 nova janela pode começar com o Research consolidado, a task e as fontes relevantes — sem toda a
 expedição.
 
-### Armadilha: compactação automática como etapa do fluxo
+### Compaction não substitui uma fronteira de fase
 
-A maioria dos harnesses oferece **compaction** (compactação): um comando que resume a conversa
-inteira em um espaço menor para continuar na mesma sessão. É tentador tratá-la como etapa padrão do
-trabalho — acumular, compactar, continuar, compactar de novo.
+**Compaction** (compactação) reduz o estado da conversa para permitir continuidade. A implementação
+depende do harness: pode ser um resumo textual ou uma representação opaca produzida pela própria
+plataforma. Ela é útil, sobretudo, em trabalhos longos e tool-heavy que permanecem no mesmo
+objetivo.
 
-Este livro não recomenda esse padrão, e a divergência entre as fontes é instrutiva. Dex Horthy
-descreve a compactação intencional como ferramenta de proteção do contexto. Já Matt Pocock, em seu
-workshop, é explícito: desenvolvedores adoram compactar, mas ele detesta — prefere que o agente se
-comporte “como o protagonista de *Memento*”, sempre retornando a um estado inicial previsível. Se o
-ponto de partida é sempre o mesmo, ele pode ser otimizado; um resumo automático da conversa, não.
+As fontes defendem ênfases diferentes. Dex Horthy descreve compactação intencional como proteção
+do contexto; Matt Pocock prefere retornar a um estado inicial previsível; a documentação da OpenAI
+apresenta compaction como recurso para preservar estado com menos contexto em workflows longos. A
+reconciliação é separar continuidade de fase de mudança de fase.
 
 A diferença central é esta:
 
 ```text
-COMPACTAÇÃO DA CONVERSA
-"resuma tudo o que aconteceu
-para eu continuar a conversa"
+MESMA FASE / MESMO OBJETIVO
+contexto saturando
+→ compaction pode preservar continuidade
 
-ARTEFATO DE HANDOFF
-"extraia apenas o conhecimento
-de que a próxima fase precisa"
+MUDANÇA DE FASE
+Research → implementação
+→ handoff explícito + clear + rehydrate
 ```
 
-A compactação preserva uma versão condensada da jornada — incluindo sedimento, hipóteses
-descartadas e ênfases que ninguém escolheu. O artefato de handoff preserva o estado necessário para
-reconstruir a próxima conversa. Adotamos o segundo modelo como padrão:
+Uma compaction pode preservar a continuidade muito bem e ainda carregar escolhas que não foram
+explicitamente auditadas para a próxima fase. O artefato de handoff tem outra função: selecionar o
+estado necessário e expor decisões, evidências, riscos e pendências. Por isso, nas fronteiras de fase,
+adotamos o segundo modelo como padrão:
 
 > Não preserve necessariamente a conversa. Preserve o estado necessário para reconstruir a próxima
 > conversa.
 
-A compactação automática fica como recurso de exceção — por exemplo, quando a janela satura no meio
-de um passo que não pode ser interrompido — não como etapa planejada do fluxo.
+Isso não torna o livro anti-compaction. Torna o método pró-controle explícito de estado nas
+fronteiras em que objetivo, autoridade ou consumidor mudam.
 
 ### Reidratação
 
@@ -235,7 +248,7 @@ mais confiável.
 2. Por que mudar de Research para implementação é um bom candidato a `clear`?
 3. Que informação não pode faltar num handoff?
 4. O que uma task que “sobrevive a uma nova janela” revela sobre sua qualidade?
-5. Em que situação a compactação automática ainda é um recurso legítimo?
+5. Em que situação compaction é legítima e em que situação ela não substitui um handoff?
 
 ---
 

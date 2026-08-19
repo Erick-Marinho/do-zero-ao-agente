@@ -30,8 +30,10 @@ Você pode seguir três rotas:
 2. **Consulta:** use o sumário e o [glossário essencial](10-glossario-essencial.md) para voltar a um
    conceito específico.
 3. **Mão na massa:** depois da Parte 3, acompanhe o [estudo de caso](08-estudo-de-caso.md) em
-   paralelo com as partes seguintes e use o [guia estado da arte](09-estado-da-arte.md) como
-   roteiro de prompts por fase no seu próprio projeto.
+   paralelo com as partes seguintes, compare-o com o
+   [mini-estudo Data Foundation](08b-mini-estudo-data-foundation.md) e use o
+   [manual de referência](09-estado-da-arte.md) para consultar prompts por fase no seu próprio
+   projeto.
 
 ### Convenções visuais
 
@@ -64,7 +66,7 @@ Você pode seguir três rotas:
 ### Parte 3 — Especificação e planejamento
 
 - [Capítulo 5 — SPEC como contrato de comportamento](03-especificacao-e-planejamento.md#capítulo-5--spec-como-contrato-de-comportamento)
-- [Capítulo 6 — Research: descobrir antes de decidir](03-especificacao-e-planejamento.md#capítulo-6--research-descobrir-antes-de-decidir)
+- [Capítulo 6 — Research antes e depois da SPEC](03-especificacao-e-planejamento.md#capítulo-6--research-antes-e-depois-da-spec)
 - [Capítulo 7 — Fatias verticais e grafo de tarefas](03-especificacao-e-planejamento.md#capítulo-7--fatias-verticais-e-grafo-de-tarefas)
 
 ### Parte 4 — Engenharia de contexto operacional
@@ -92,7 +94,8 @@ Você pode seguir três rotas:
 ### Prática e consulta
 
 - [Estudo de caso — recuperação de senha](08-estudo-de-caso.md)
-- [Estado da arte — engenharia de software com agentes](09-estado-da-arte.md)
+- [Mini-estudo de caso — Data Foundation](08b-mini-estudo-data-foundation.md)
+- [Estado da arte — manual de referência](09-estado-da-arte.md)
 - [Glossário essencial](10-glossario-essencial.md)
 - [Fontes e leituras recomendadas](11-fontes.md)
 
@@ -102,9 +105,15 @@ Você pode seguir três rotas:
 
 ```mermaid
 flowchart TD
-    A[Problema ou intenção] --> B[SPEC<br/>o que deve ser verdade]
-    B --> C[Research<br/>o que é verdade hoje]
-    C --> D[Tasks<br/>mudanças verificáveis]
+    A[Problema ou intenção] --> Q{Precisamos entender a realidade<br/>antes de especificar?}
+    Q -->|sim| DR[Discovery Research]
+    DR --> HD[Decisões humanas]
+    HD --> B[SPEC<br/>o que deve ser verdade]
+    Q -->|não| B
+    B --> QB{Precisamos conhecer<br/>o brownfield atual?}
+    QB -->|sim| BR[Implementation Research]
+    BR --> D[Design / tasks<br/>mudanças verificáveis]
+    QB -->|não| D
     D --> E[Contexto selecionado]
     E --> F[Agente + ferramentas]
     F --> G[Código]

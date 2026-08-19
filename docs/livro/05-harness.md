@@ -15,8 +15,8 @@ Na terminologia usada por Birgitta Böckeler:
 
 - **Guides / feedforward controls** (guias ou controles antecipatórios): tentam aumentar a chance de
   um bom resultado antes da ação.
-- **Sensors / feedback controls** (sensores ou controles de retorno): observam o resultado e ajudam
-  o agente a corrigir o que saiu errado.
+- **Sensors / feedback controls** (sensores ou controles de retorno): observam o resultado e
+  produzem feedback; o agente ou o humano decide e executa a correção.
 
 ```mermaid
 flowchart LR
@@ -107,12 +107,41 @@ Posicione sensores conforme custo e velocidade:
 - depois de integrar: testes caros, segurança, mutação e sensores contínuos;
 - em runtime: erros, latência, SLOs e amostras de qualidade.
 
+### Experimento: Ruff, mypy e `verify.sh`
+
+Um experimento controlado torna a separação entre observar e agir concreta. O projeto possui um
+`verify.sh` que executa Ruff e mypy sem opções de correção automática. Introduzimos deliberadamente
+um import não usado (`F401`) em um arquivo de teste e executamos o sensor.
+
+```mermaid
+flowchart TD
+    A[Agente implementa] --> B[Ruff + mypy + verify.sh]
+    B --> C{Sensor encontrou desvio?}
+    C -->|sim; local e claro| D[Agente corrige]
+    D --> B
+    C -->|sim; exige decisão| H[Humano decide]
+    C -->|não| E[Evidência para o handoff]
+```
+
+O resultado esperado foi:
+
+```text
+F401 detectado
+→ verify.sh falhou
+→ o arquivo permaneceu inalterado
+```
+
+Isso demonstra a fronteira. `ruff check` é sensor: aponta o desvio. O agente pode usar a mensagem
+para corrigir e executar o sensor novamente. Colocar `ruff check --fix` dentro de `verify.sh`
+misturaria feedback e mutação, tornando a evidência menos clara.
+
 ### Perguntas de revisão
 
 1. Por que um guide sem sensor é incompleto?
 2. Quando uma revisão por LLM é mais adequada que um linter?
 3. Por que o behaviour harness é especialmente difícil?
 4. Cite duas mudanças que aumentariam a harnessability do seu projeto.
+5. Por que o experimento com `F401` precisava verificar também que o arquivo não mudou?
 
 ---
 

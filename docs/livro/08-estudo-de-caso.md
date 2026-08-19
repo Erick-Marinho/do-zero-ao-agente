@@ -113,8 +113,9 @@ O humano valida Q1 e transforma a resposta em escopo ou nova cláusula.
 
 ## 4. Externalizar o estado e abrir uma fase limpa
 
-Encerramos a sessão de Research sem compactar a conversa: o estado útil já vive no `RESEARCH.md`
-revisado. A decomposição começa em uma janela limpa, reidratada com:
+Como mudaremos de Research para decomposição, preferimos um handoff explícito a depender apenas de
+compaction: o estado útil já vive no `RESEARCH.md` revisado. A nova fase começa em uma janela limpa,
+reidratada com:
 
 ```text
 AGENTS.md
@@ -252,35 +253,34 @@ Possíveis resultados:
 
 ## 10. Onde OpenSpec entra
 
-Até aqui usamos conceitos, não uma ferramenta obrigatória. O OpenSpec pode padronizar a camada de
-gestão da mudança:
+Até aqui usamos conceitos, não uma ferramenta obrigatória. O perfil padrão atual do OpenSpec pode
+padronizar a camada de gestão da mudança:
 
-| Nosso artefato | Estrutura OpenSpec |
+| Conceito deste livro | OpenSpec atual |
 |---|---|
-| Intenção/proposta | `proposal.md` |
-| Mudança comportamental | `specs/.../spec.md` |
-| Estratégia técnica local | `design.md` |
-| Decomposição | `tasks.md` |
-| Implementação | `apply` |
-| Reconciliação | `verify` |
-| Fechamento e atualização das specs | `archive` |
-| Research brownfield compacto | extensão nossa, quando necessária |
+| Exploração | `/opsx:explore` (opcional) |
+| Proposta + specs/design/tasks | `/opsx:propose` |
+| Implementação | `/opsx:apply` |
+| Fechamento e atualização das specs | `/opsx:archive` |
+| Verificação explícita | `/opsx:verify`, no perfil expandido |
+| Research brownfield compacto | extensão do nosso método, quando necessária |
 
 ```mermaid
 flowchart LR
-    E[explore<br/>opcional] --> P[proposal]
-    P --> S[delta specs]
-    P --> D[design]
-    S --> T[tasks]
-    D --> T
-    R[research<br/>extensão opcional] --> T
-    T --> A[apply]
-    A --> V[verify]
-    V --> AR[archive]
+    E["/opsx:explore<br/>opcional"] --> P["/opsx:propose<br/>proposta + artefatos"]
+    P --> A["/opsx:apply"]
+    A --> AR["/opsx:archive"]
+    A -. perfil expandido .-> V["/opsx:verify"]
+    V -. depois de verificar .-> AR
 ```
 
-OpenSpec organiza artefatos e lifecycle. Ele não substitui seleção de contexto, confiança nas fontes,
-qualidade das tasks, sensores, boundaries multiagente ou julgamento humano.
+Esse desenho é um loop cotidiano, não uma sequência rígida de gates. Os artefatos habilitam o
+próximo trabalho e podem ser revisitados quando a implementação revela algo novo. OpenSpec organiza
+artefatos e lifecycle; não substitui seleção de contexto, confiança nas fontes, qualidade das tasks,
+sensores, boundaries multiagente ou julgamento humano.
+
+> Conceitos devem envelhecer mais devagar que comandos. Confirme o perfil e a documentação da
+> versão instalada antes de transformar nomes de uma ferramenta em processo organizacional.
 
 ### Quando adotar
 
@@ -309,4 +309,5 @@ Escolha uma feature pequena do seu projeto e produza apenas:
 Não implemente durante o exercício. O objetivo é perceber quais decisões antes ficariam escondidas
 dentro do código.
 
-[← Parte 7 — Aprendizagem](07-lifecycle-e-aprendizagem.md) · [Próximo: Estado da arte →](09-estado-da-arte.md)
+[← Parte 7 — Aprendizagem](07-lifecycle-e-aprendizagem.md) ·
+[Próximo: mini-estudo Data Foundation →](08b-mini-estudo-data-foundation.md)

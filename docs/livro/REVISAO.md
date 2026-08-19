@@ -7,7 +7,8 @@ publicação. Não é necessário revisar gramática linha a linha na primeira l
 
 - **Título provisório:** *Do zero ao agente*.
 - **Público:** pessoas sem conhecimento prévio, mas interessadas em desenvolvimento de software.
-- **Formato:** sete partes, 17 capítulos, estudo de caso, guia estado da arte, glossário e fontes.
+- **Formato:** sete partes, 17 capítulos, dois estudos de caso, manual estado da arte, glossário e
+  fontes.
 - **Progressão:** dor → modelo mental → conceito → exemplo → perguntas.
 - **Exemplo contínuo:** recuperação de senha em um sistema existente.
 - **Vocabulário:** português primeiro; termo em inglês junto da primeira definição.

@@ -1,19 +1,41 @@
 # Estado da arte — engenharia de software com agentes
 
-## Guia de ciclo de vida para estudos e formação de engenheiros de IA
+## Manual de referência do ciclo de vida
 
 Este guia consolida, em formato de referência, o modelo de trabalho construído e testado na
 prática. Ele reúne o que os capítulos anteriores apresentaram por partes e acrescenta o detalhe
 operacional: o que cada fase produz, o que o agente pode decidir e um prompt base para cada etapa.
-Use-o como roteiro de aprendizado e como material de consulta durante o trabalho real.
+Ele não é um “último capítulo” para ser carregado inteiro em toda sessão. Consulte apenas a seção
+correspondente à fase atual.
 
 > O modelo completo:
 >
-> **intenção → contexto → pesquisa → contrato → tarefa → implementação → sensores → evidência → review → decisão humana → correção → re-review → closure → memória → automação**
+> **intenção → [Discovery Research] → decisões → SPEC → [Implementation Research] →
+> design/tasks → implementação → sensores → evidência → review → decisão humana → correção
+> → re-review → closure → memória → automação**
 >
 > A ideia central é simples:
 >
 > > **O agente não deve apenas gerar código. Ele deve trabalhar dentro de um sistema de contexto, autoridade, sensores e evidências.**
+
+### Índice de consulta
+
+- **Lifecycle e autoridade:** [mapa completo](#1-o-modelo-mental-completo),
+  [fase atual](#2-antes-de-qualquer-prompt-qual-fase-estamos-executando) e
+  [problema/intenção](#4-etapa-0--problema-e-intenção).
+- **Research e contrato:** [Research](#5-etapa-1--research), [probes](#6-etapa-2--probe--experimento-exploratório),
+  [decisões humanas](#8-etapa-3--decisões-humanas) e [SPEC](#9-etapa-4--spec).
+- **Implementação e sensores:** [task](#11-etapa-5--task),
+  [implementação](#13-etapa-6--implementação), [sensores](#15-sensores) e
+  [handoff](#21-etapa-8--handoff).
+- **Review e correção:** [bounded review](#25-bounded-review--revisão-limitada-pela-mudança),
+  [triagem](#33-triagem-de-findings), [fix](#35-etapa-11--fix-direcionado) e
+  [re-review](#36-etapa-12--re-review).
+- **Fechamento e aprendizagem:** [feature closure](#38-etapa-13--feature-closure),
+  [memory promotion](#40-etapa-14--memory-promotion), [Skills](#45-etapa-15--skills) e
+  [orquestração](#47-etapa-16--orquestração).
+- **Uso direto:** [prompts por fase](#55-prompts-por-fase--mapa-rápido),
+  [versão de bolso](#63-estado-da-arte--versão-de-bolso) e [mapa final](#65-mapa-final).
 
 ---
 
@@ -21,11 +43,15 @@ Use-o como roteiro de aprendizado e como material de consulta durante o trabalho
 
 ```mermaid
 flowchart TD
-    A[PROBLEMA / INTENÇÃO] --> B[CONTEXTO]
-    B --> C["RESEARCH<br/>o que é verdade agora?"]
+    A[PROBLEMA / INTENÇÃO] --> B{Realidade suficiente<br/>para especificar?}
+    B -->|não| C[DISCOVERY RESEARCH]
     C --> D[DECISÕES HUMANAS]
-    D --> E["SPEC<br/>o que deve ser verdade?"]
-    E --> F["TASK<br/>o que vamos entregar agora?"]
+    D --> E[SPEC]
+    B -->|sim| E
+    E --> X{Precisamos conhecer<br/>o brownfield atual?}
+    X -->|sim| Y[IMPLEMENTATION RESEARCH]
+    X -->|não| F[DESIGN / TASK]
+    Y --> F
     F --> G[IMPLEMENTAÇÃO]
     G --> H[VALIDAÇÃO DA TASK]
     H --> I[SENSORES DO PROJETO]
@@ -195,6 +221,18 @@ snapshot da realidade atual
 
 Não é autoridade sobre o comportamento futuro.
 
+### Dois usos, duas posições
+
+| Uso | Posição | Reduz incerteza sobre |
+|---|---|---|
+| **Discovery Research** | antes da SPEC | a realidade necessária para decisões de produto ou domínio |
+| **Implementation/Brownfield Research** | depois da SPEC | o sistema atual e a estratégia de mudança |
+
+O exemplo Data Foundation abaixo é Discovery Research. Em uma recuperação de senha cujo
+comportamento já foi aprovado, a SPEC pode vir primeiro e o Research brownfield depois. Portanto,
+“Research vem antes ou depois da SPEC?” não tem resposta única: depende da incerteza que precisamos
+reduzir.
+
 ### Estrutura do prompt de Research
 
 ```text
@@ -360,6 +398,17 @@ decide o significado
 Frase para aula:
 
 > **Pydantic executa decisões; Pydantic não deve inventar decisões.**
+
+### Atenção: coerção também é política
+
+Pydantic valida segundo o contrato configurado. Por padrão, pode converter valores compatíveis,
+como `"123"` para `123`. Se a fronteira deve rejeitar essa coerção, escolha strict mode
+explicitamente por chamada, campo ou modelo.
+
+```text
+Pydantic não representa "a verdade".
+Ele executa a política de fronteira configurada.
+```
 
 ---
 
@@ -2353,52 +2402,57 @@ O prompt é apenas uma das interfaces.
 ## 63. Estado da arte — versão de bolso
 
 ```text
-1. Descubra a realidade.
-   RESEARCH
+1. Pergunte se a realidade é suficiente para especificar.
 
-2. Faça probes quando necessário.
+2. Se não for, descubra-a.
+   DISCOVERY RESEARCH
+
+3. Faça probes quando necessário.
    EXPERIMENT
 
-3. Separe fato de significado.
+4. Separe fato de significado.
    HUMAN DECISION
 
-4. Registre comportamento.
+5. Registre comportamento.
    SPEC
 
-5. Quebre em unidade pequena.
+6. Se o brownfield ainda for desconhecido, pesquise a implementação.
+   IMPLEMENTATION RESEARCH
+
+7. Quebre em unidade pequena.
    TASK
 
-6. Implemente dentro do contrato.
+8. Implemente dentro do contrato.
    CODE
 
-7. Execute sensores.
+9. Execute sensores.
    TEST / LINT / TYPE / VERIFY
 
-8. Corrija somente problemas locais.
+10. Corrija somente problemas locais.
    SELF-CORRECTION
 
-9. Comprima a entrega.
+11. Comprima a entrega.
    HANDOFF
 
-10. Revise a mudança, não o universo.
+12. Revise a mudança, não o universo.
     BOUNDED FRESH REVIEW
 
-11. Julgue findings.
+13. Julgue findings.
     HUMAN
 
-12. Corrija somente o aprovado.
+14. Corrija somente o aprovado.
     FIX
 
-13. Verifique os findings.
+15. Verifique os findings.
     RE-REVIEW
 
-14. Reconcilie a feature inteira.
+16. Reconcilie a feature inteira.
     CLOSURE
 
-15. Promova somente conhecimento durável.
+17. Promova somente conhecimento durável.
     MEMORY
 
-16. Automatize padrões já compreendidos.
+18. Automatize padrões já compreendidos.
     SKILLS / ORCHESTRATION
 ```
 
@@ -2436,10 +2490,15 @@ O prompt é apenas uma das interfaces.
 
 ```mermaid
 flowchart TD
-    A[HUMAN INTENT] --> B[RESEARCH]
+    A[HUMAN INTENT] --> X{REALITY KNOWN<br/>ENOUGH FOR SPEC?}
+    X -->|no| B[DISCOVERY RESEARCH]
     B --> C[HUMAN DECISION]
     C --> D[SPEC]
-    D --> E[TASK]
+    X -->|yes| D
+    D --> Y{BROWNFIELD<br/>KNOWN ENOUGH?}
+    Y -->|no| Z[IMPLEMENTATION RESEARCH]
+    Z --> E[DESIGN / TASK]
+    Y -->|yes| E
     E --> F[IMPLEMENTER]
     F --> G[TASK TESTS +<br/>PROJECT SENSORS]
     G -->|local failure| H[SELF-CORRECT]
@@ -2490,4 +2549,5 @@ Esse é o ponto de maturidade que buscamos:
 
 > **menos instrução improvisada, mais contexto estruturado, contratos explícitos, sensores executáveis e decisões humanas nos pontos de maior alavancagem.**
 
-[← Estudo de caso](08-estudo-de-caso.md) · [Próximo: Glossário →](10-glossario-essencial.md)
+[← Mini-estudo Data Foundation](08b-mini-estudo-data-foundation.md) ·
+[Próximo: Glossário →](10-glossario-essencial.md)
