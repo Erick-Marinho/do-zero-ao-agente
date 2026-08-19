@@ -43,8 +43,15 @@ capacidade do modelo.
 
 ### Compaction — compactação
 
-Transformação deliberada de um histórico grande em um estado menor que preserva decisões,
-evidências, pendências e próximos passos.
+Recurso do harness que resume a conversa inteira em um espaço menor para continuar na mesma sessão.
+Preserva uma versão condensada da jornada — incluindo sedimento e hipóteses descartadas. Neste
+livro é tratada como exceção, não como etapa do fluxo: o padrão recomendado é externalizar o estado
+em artefatos e reidratar uma janela limpa.
+
+### Rehydration — reidratação de contexto
+
+Reconstrução de uma janela nova e limpa carregando somente os artefatos necessários para a próxima
+etapa: contrato da task, fontes selecionadas e estado atual do código.
 
 ### Progressive disclosure — divulgação progressiva
 
@@ -83,6 +90,13 @@ Primeira fatia fina, integrada e verificável que prova cedo se o caminho de pon
 ### DAG — *Directed Acyclic Graph*
 
 Grafo direcionado acíclico. Representa tasks e suas dependências sem criar ciclos.
+
+### Kanban — quadro de tarefas
+
+Quadro que materializa o grafo de tasks em colunas de estado (backlog, ready, in progress, in
+review, QA, done), com relações de bloqueio explícitas. No ciclo deste livro é o documento da
+jornada; a SPEC ou o PRD descrevem o destino. Ferramentas como Linear e GitHub Issues implementam
+esse quadro.
 
 ## Harness e qualidade
 
@@ -151,4 +165,9 @@ sessões ou pessoas.
 
 Participação humana em pontos de decisão ou validação. Não implica aprovação manual de cada ação.
 
-[← Estudo de caso](08-estudo-de-caso.md) · [Próximo: Fontes →](10-fontes.md)
+### AFK task — tarefa sem humano ao teclado
+
+Tarefa delegável a um agente sem supervisão contínua, como uma implementação bem contratada.
+Contrasta com tarefas human in the loop — alinhamento e decisão — que exigem presença humana.
+
+[← Estado da arte](09-estado-da-arte.md) · [Próximo: Fontes →](11-fontes.md)

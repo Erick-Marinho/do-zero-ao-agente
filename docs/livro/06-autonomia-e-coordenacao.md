@@ -100,6 +100,11 @@ autoridade e passagens de estado.
 Uma cozinha não fica mais rápida apenas colocando dez pessoas diante do mesmo fogão. O serviço
 precisa de pedidos claros, estações com responsabilidades, ordem de preparo e um ponto de montagem.
 
+Na prática, esse “painel de comandas” é o quadro kanban apresentado no
+[Capítulo 7](03-especificacao-e-planejamento.md#do-grafo-ao-quadro-o-kanban-como-documento-da-jornada):
+o estado que o orchestrator coordena — grafo, bloqueios, status e quem está com cada task — já
+vive nas issues e colunas de uma ferramenta como o Linear.
+
 ```mermaid
 flowchart TD
     O[Orchestrator<br/>estado + dependências] --> W1[Worker A<br/>T1]

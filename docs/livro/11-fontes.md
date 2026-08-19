@@ -48,7 +48,31 @@ Contribuições usadas neste livro:
 - proporcionalidade do processo ao tamanho e risco da tarefa.
 
 As notas interpretam ideias apresentadas por Dex Horthy. Para aprofundamento, consulte também a
-fonte primária indicada nas leituras complementares.
+fonte primária indicada nas leituras complementares. Sobre a compactação intencional, este livro
+adota uma posição diferente — limpar e reidratar a partir de artefatos — discutida no Capítulo 9 e
+na fonte a seguir.
+
+### Matt Pocock — workshop sobre engenharia de IA (AI Hero)
+
+<https://www.aihero.dev>
+
+Contribuições usadas neste livro:
+
+- dimensionar tarefas para permanecer na smart zone, com um marcador prático (~100k tokens)
+  tratado como heurística, não como lei;
+- preferência explícita por **limpar o contexto** em vez de compactar: o agente deve se comportar
+  “como o protagonista de *Memento*”, voltando sempre a um estado inicial previsível e otimizável;
+- sessões de alinhamento por entrevista (“grill me”) e o conceito de design compartilhado, com
+  referência a Frederick P. Brooks;
+- PRD como **documento de destino** e quadro de dependências (kanban) como **documento de
+  jornada**;
+- distinção entre tarefas **human in the loop** (alinhamento e decisão) e tarefas **AFK** (execução
+  delegável);
+- fatias verticais e tracer bullets contra a tendência do agente de “codificar horizontalmente”;
+- possuir e compreender a própria planning stack antes de adotar frameworks;
+- “codebases ruins produzem agentes ruins”: qualidade de código como alavanca do trabalho com IA.
+
+É a fonte da correção de rumo sobre compactação adotada neste livro.
 
 ### Vivek Trivedy / LangChain — *The Anatomy of an Agent Harness*
 
@@ -85,7 +109,8 @@ possuir o próprio contexto e manter agentes focados ajuda a formar a base da en
 <https://www.youtube.com/watch?v=rmvDxxNubIg>
 
 Apresentação de Dex Horthy sobre tarefas complexas em codebases brownfield, Research → Plan →
-Implement, compactação intencional e alinhamento mental antes da implementação.
+Implement, compactação intencional e alinhamento mental antes da implementação. Compare com a
+posição de Matt Pocock sobre limpar em vez de compactar; a reconciliação está no Capítulo 9.
 
 ### Padrão `AGENTS.md`
 
@@ -107,4 +132,4 @@ Ao encontrar um novo artigo ou framework, pergunte:
 
 Esse filtro ajuda a incorporar novidades sem desmontar o modelo mental a cada nova publicação.
 
-[← Glossário](09-glossario-essencial.md) · [Voltar ao sumário](README.md)
+[← Glossário](10-glossario-essencial.md) · [Voltar ao sumário](README.md)

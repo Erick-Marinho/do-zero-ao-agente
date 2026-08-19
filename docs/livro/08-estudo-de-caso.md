@@ -111,9 +111,10 @@ símbolos e evidências relevantes; não registre o diário de comandos.
 
 O humano valida Q1 e transforma a resposta em escopo ou nova cláusula.
 
-## 4. Compactar e abrir uma fase limpa
+## 4. Externalizar o estado e abrir uma fase limpa
 
-Encerramos a sessão de Research. A decomposição começa com:
+Encerramos a sessão de Research sem compactar a conversa: o estado útil já vive no `RESEARCH.md`
+revisado. A decomposição começa em uma janela limpa, reidratada com:
 
 ```text
 AGENTS.md
@@ -148,6 +149,10 @@ flowchart LR
 
 T1 e T2 podem ser executadas em paralelo se seus contratos estiverem definidos e não disputarem os
 mesmos arquivos. T7 não é “escrever testes no final”; é reconciliar o fluxo completo.
+
+Na prática, T1 a T7 viram issues em um quadro (Linear, por exemplo), com as setas do grafo como
+relações de bloqueio. O quadro mostra a cada momento o que está Ready: no início, apenas T1 e T2.
+T7 é o cartão de fechamento, bloqueado por todas as outras.
 
 ## 6. Executar uma task
 
@@ -304,4 +309,4 @@ Escolha uma feature pequena do seu projeto e produza apenas:
 Não implemente durante o exercício. O objetivo é perceber quais decisões antes ficariam escondidas
 dentro do código.
 
-[← Parte 7 — Aprendizagem](07-lifecycle-e-aprendizagem.md) · [Próximo: Glossário →](09-glossario-essencial.md)
+[← Parte 7 — Aprendizagem](07-lifecycle-e-aprendizagem.md) · [Próximo: Estado da arte →](09-estado-da-arte.md)

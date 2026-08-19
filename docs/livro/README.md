@@ -27,10 +27,11 @@ exercício prático.
 Você pode seguir três rotas:
 
 1. **Primeiro contato:** leia as partes em ordem e faça apenas as perguntas de revisão.
-2. **Consulta:** use o sumário e o [glossário essencial](09-glossario-essencial.md) para voltar a um
+2. **Consulta:** use o sumário e o [glossário essencial](10-glossario-essencial.md) para voltar a um
    conceito específico.
 3. **Mão na massa:** depois da Parte 3, acompanhe o [estudo de caso](08-estudo-de-caso.md) em
-   paralelo com as partes seguintes.
+   paralelo com as partes seguintes e use o [guia estado da arte](09-estado-da-arte.md) como
+   roteiro de prompts por fase no seu próprio projeto.
 
 ### Convenções visuais
 
@@ -91,8 +92,9 @@ Você pode seguir três rotas:
 ### Prática e consulta
 
 - [Estudo de caso — recuperação de senha](08-estudo-de-caso.md)
-- [Glossário essencial](09-glossario-essencial.md)
-- [Fontes e leituras recomendadas](10-fontes.md)
+- [Estado da arte — engenharia de software com agentes](09-estado-da-arte.md)
+- [Glossário essencial](10-glossario-essencial.md)
+- [Fontes e leituras recomendadas](11-fontes.md)
 
 ---
 

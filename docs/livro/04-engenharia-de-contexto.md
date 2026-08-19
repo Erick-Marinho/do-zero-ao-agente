@@ -120,11 +120,11 @@ stateDiagram-v2
     [*] --> Continue
     Continue --> Continue: mesmo objetivo e contexto saudável
     Continue --> Delegate: exploração lateral ou saída ruidosa
-    Continue --> Compact: mesmo objetivo, contexto saturado
+    Continue --> Checkpoint: mesmo objetivo, contexto saturado
     Continue --> Clear: fase ou objetivo mudou
     Delegate --> Continue: retorno compacto
-    Compact --> Rehydrate: resumo + fontes
-    Clear --> Rehydrate: novo contrato + fontes
+    Checkpoint --> Clear: estado externalizado em artefato
+    Clear --> Rehydrate: contrato + fontes selecionadas
     Rehydrate --> Continue
 ```
 
@@ -139,18 +139,54 @@ Use quando uma exploração independente pode gerar muito ruído: analisar logs,
 comparar alternativas ou executar uma bateria de testes. O agente secundário devolve uma resposta
 compacta.
 
-#### Compact — compactar
+#### Checkpoint — externalizar o estado
 
-Use quando o objetivo continua o mesmo, mas o histórico está pesado. Preserve decisões, evidências,
-estado, pendências e próximos passos; descarte o caminho detalhado que levou até eles.
+Use quando o objetivo continua o mesmo, mas o histórico está pesado. Registre decisões, evidências,
+estado, pendências e próximos passos em um **artefato** — um handoff, um Research atualizado, uma
+task — e então limpe a janela.
 
-Compactar não é “resumir tudo por igual”. É escolher o que precisa sobreviver.
+Externalizar não é “resumir tudo por igual”. É escolher o que precisa sobreviver para a próxima
+etapa e deixar o resto na história.
 
 #### Clear — limpar
 
 Use quando a fase ou o objetivo mudou. Research e implementação têm necessidades diferentes. Uma
 nova janela pode começar com o Research consolidado, a task e as fontes relevantes — sem toda a
 expedição.
+
+### Armadilha: compactação automática como etapa do fluxo
+
+A maioria dos harnesses oferece **compaction** (compactação): um comando que resume a conversa
+inteira em um espaço menor para continuar na mesma sessão. É tentador tratá-la como etapa padrão do
+trabalho — acumular, compactar, continuar, compactar de novo.
+
+Este livro não recomenda esse padrão, e a divergência entre as fontes é instrutiva. Dex Horthy
+descreve a compactação intencional como ferramenta de proteção do contexto. Já Matt Pocock, em seu
+workshop, é explícito: desenvolvedores adoram compactar, mas ele detesta — prefere que o agente se
+comporte “como o protagonista de *Memento*”, sempre retornando a um estado inicial previsível. Se o
+ponto de partida é sempre o mesmo, ele pode ser otimizado; um resumo automático da conversa, não.
+
+A diferença central é esta:
+
+```text
+COMPACTAÇÃO DA CONVERSA
+"resuma tudo o que aconteceu
+para eu continuar a conversa"
+
+ARTEFATO DE HANDOFF
+"extraia apenas o conhecimento
+de que a próxima fase precisa"
+```
+
+A compactação preserva uma versão condensada da jornada — incluindo sedimento, hipóteses
+descartadas e ênfases que ninguém escolheu. O artefato de handoff preserva o estado necessário para
+reconstruir a próxima conversa. Adotamos o segundo modelo como padrão:
+
+> Não preserve necessariamente a conversa. Preserve o estado necessário para reconstruir a próxima
+> conversa.
+
+A compactação automática fica como recurso de exceção — por exemplo, quando a janela satura no meio
+de um passo que não pode ser interrompido — não como etapa planejada do fluxo.
 
 ### Reidratação
 
@@ -195,10 +231,11 @@ mais confiável.
 
 ### Perguntas de revisão
 
-1. Qual é a diferença entre compactar e limpar?
+1. Qual é a diferença entre compactar a conversa e externalizar o estado em um artefato?
 2. Por que mudar de Research para implementação é um bom candidato a `clear`?
 3. Que informação não pode faltar num handoff?
 4. O que uma task que “sobrevive a uma nova janela” revela sobre sua qualidade?
+5. Em que situação a compactação automática ainda é um recurso legítimo?
 
 ---
 

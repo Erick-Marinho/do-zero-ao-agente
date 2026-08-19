@@ -72,7 +72,7 @@ flowchart LR
 
     S -->|acumula arquivos, logs<br/>correções e hipóteses| T
     T -->|continua sem curadoria| D
-    T -->|seleciona, delega<br/>ou compacta| S
+    T -->|seleciona, delega ou<br/>externaliza estado| S
     D -->|clear + reidratação<br/>com contexto limpo| S
 ```
 
@@ -82,7 +82,7 @@ flowchart LR
 |---|---|---|
 | **Smart Zone** | O agente explica o objetivo, encontra evidências e mantém decisões anteriores. | Continuar e carregar detalhes apenas quando necessários. |
 | **Transição** | Começa a repetir buscas, confundir hipótese com fato ou pedir novamente algo já decidido. | Parar, revisar relevância e delegar explorações laterais. |
-| **Dumb Zone** | Contradições, alterações fora do escopo, caminhos inventados, correções que desfazem decisões anteriores. | Não insistir no mesmo histórico: compactar ou abrir contexto limpo. |
+| **Dumb Zone** | Contradições, alterações fora do escopo, caminhos inventados, correções que desfazem decisões anteriores. | Não insistir no mesmo histórico: registrar o estado útil em um artefato e abrir contexto limpo. |
 
 #### Não existe um marcador universal de 40%
 
@@ -98,7 +98,7 @@ contraditórias e raciocínio arquitetural difícil, pode degradar cedo. A front
 - relevância e posição das informações;
 - volume de saídas de ferramentas;
 - presença de hipóteses descartadas;
-- capacidade do harness de compactar e recuperar estado.
+- capacidade do harness de externalizar e recuperar estado.
 
 Por isso, observe **sintomas**, não apenas um contador de tokens.
 
@@ -109,9 +109,14 @@ flowchart TD
     B -->|sim| C[CONTINUE<br/>continuar]
     B -->|não; é exploração lateral| D[DELEGATE<br/>isolar em subagente]
     A -->|não ou com dificuldade| E{O objetivo ainda é o mesmo?}
-    E -->|sim| F[COMPACT<br/>preservar estado, descartar ruído]
-    E -->|não; mudou a fase| G[CLEAR<br/>abrir contexto limpo]
+    E -->|sim| F[CHECKPOINT<br/>externalizar estado em artefato<br/>e reabrir janela limpa]
+    E -->|não; mudou a fase| G[CLEAR<br/>abrir contexto limpo<br/>com novo contrato]
 ```
+
+Repare que nenhum caminho recomenda a **compaction** (compactação — pedir ao harness que resuma a
+conversa inteira para continuar na mesma sessão). Resumir a jornada tende a carregar sedimento
+junto e produz um estado difícil de prever. O caminho preferido neste livro é externalizar o estado
+útil em um artefato e reabrir uma janela limpa.
 
 Essas quatro ações serão aprofundadas no
 [Capítulo 9 — Ciclo de vida do contexto](04-engenharia-de-contexto.md#capítulo-9--ciclo-de-vida-do-contexto).
@@ -158,7 +163,7 @@ tarefa exige investigação antes de implementação.
 1. Por que uma janela grande não elimina a necessidade de selecionar informação?
 2. Qual é a diferença entre ruído e sedimento de contexto?
 3. Por que a Dumb Zone não começa necessariamente quando a janela fica cheia?
-4. Que sintomas indicam que é melhor compactar ou limpar em vez de continuar insistindo?
+4. Que sintomas indicam que é melhor externalizar o estado e abrir uma janela limpa em vez de continuar insistindo?
 5. Por que uma tarefa brownfield normalmente pede uma fase explícita de investigação?
 6. Cite uma regra do seu projeto que poderia virar teste ou linter em vez de instrução textual.
 

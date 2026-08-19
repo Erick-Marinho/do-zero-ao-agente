@@ -269,6 +269,53 @@ flowchart LR
 T1 e T2 podem ser independentes. T3 precisa das duas. O objetivo não é maximizar paralelismo; é
 deixar visível onde o trabalho é realmente independente.
 
+### Do grafo ao quadro: o kanban como documento da jornada
+
+Uma feature precisa de dois registros de natureza diferente:
+
+- **Destino:** o que deve ser verdade quando terminarmos — a SPEC ou o PRD.
+- **Jornada:** em que ponto do caminho estamos agora — e isso é **estado**, não prosa.
+
+Um plano multi-fase escrito em texto (“fase 1, fase 2, fase 3…”) envelhece no primeiro desvio da
+realidade. O **kanban** materializa o DAG como estado vivo: cada task vira um cartão (uma *issue*
+no Linear ou no GitHub), cada aresta do grafo vira uma relação de bloqueio, e as colunas registram
+onde cada cartão está.
+
+```mermaid
+flowchart LR
+    B[Backlog<br/>tasks derivadas<br/>da SPEC] --> R[Ready<br/>nenhum bloqueio<br/>aberto]
+    R --> P[In Progress<br/>implementação<br/>+ sensores]
+    P --> CR[In Review<br/>revisão da<br/>mudança]
+    CR --> Q[QA<br/>validação de<br/>aceitação]
+    Q --> D[Done<br/>task encerrada]
+```
+
+O ganho central: **Ready deixa de ser opinião e vira propriedade derivada**. Um cartão está pronto
+quando nenhum bloqueio continua aberto — ninguém precisa reler o plano para saber o que pode
+começar, e duas tasks Ready que não disputam os mesmos arquivos podem rodar em paralelo.
+
+### O quadro é um ponto de revisão barato
+
+Depois da SPEC, revisar a divisão proposta custa minutos e tem alta alavancagem: olhando o quadro
+recém-criado, um humano percebe rapidamente uma task grande demais, uma dependência esquecida ou
+uma fatia horizontal disfarçada. É muito mais barato corrigir o grafo do que corrigir a
+implementação que ele produziria.
+
+Dois rótulos ajudam nessa leitura, vindos do workshop de Matt Pocock:
+
+- **AFK** (*away from keyboard*): task bem contratada que um agente executa sem supervisão
+  contínua;
+- **human in the loop**: task que exige presença humana — alinhamento, decisão, aceitação.
+
+Com eles, o humano varre o quadro procurando apenas o que **só ele** pode destravar.
+
+> **Armadilha:** o quadro é memória de orquestração, não de conhecimento. Decisões duráveis
+> continuam sendo promovidas para SPEC, ADR e documentos; o cartão arquivado guarda a história da
+> execução.
+
+O [guia estado da arte](09-estado-da-arte.md) mostra o mapeamento completo entre colunas e etapas
+do ciclo — incluindo onde entram QA, code review e o cartão de fechamento da feature.
+
 ### Cápsula de contexto de uma task
 
 ```markdown
@@ -308,5 +355,6 @@ Token válido pode ser consumido uma única vez.
 2. O que torna uma task uma cápsula de contexto?
 3. Uma fatia vertical precisa sempre tocar UI, API e banco? Explique.
 4. Desenhe um pequeno DAG para uma feature do seu projeto.
+5. Monte o quadro desse DAG: quais tasks nascem Ready? Quais são AFK e quais exigem humano?
 
 [← Parte 2 — Memória](02-memoria.md) · [Próximo: Parte 4 — Contexto →](04-engenharia-de-contexto.md)

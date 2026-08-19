@@ -52,8 +52,8 @@ export const capitulosLivro: CapituloLivro[] = [
     numero: '03',
     grupo: 'Parte 3',
     titulo: 'Especificação e planejamento',
-    descricao: 'SDD, Research, fatias verticais e grafos de tarefas verificáveis.',
-    leitura: '22 min',
+    descricao: 'SDD, Research, fatias verticais, grafo de tarefas e o quadro kanban da jornada.',
+    leitura: '24 min',
   },
   {
     slug: 'engenharia-de-contexto',
@@ -101,9 +101,19 @@ export const capitulosLivro: CapituloLivro[] = [
     leitura: '20 min',
   },
   {
-    slug: 'glossario',
-    arquivo: '09-glossario-essencial.md',
+    slug: 'estado-da-arte',
+    arquivo: '09-estado-da-arte.md',
     numero: '09',
+    grupo: 'Prática',
+    titulo: 'Estado da arte',
+    descricao:
+      'O ciclo de vida completo na prática: fases, autoridade, sensores, evidência e um prompt base por etapa.',
+    leitura: '40 min',
+  },
+  {
+    slug: 'glossario',
+    arquivo: '10-glossario-essencial.md',
+    numero: '10',
     grupo: 'Consulta',
     titulo: 'Glossário essencial',
     descricao: 'Os termos centrais do livro em português e inglês.',
@@ -111,8 +121,8 @@ export const capitulosLivro: CapituloLivro[] = [
   },
   {
     slug: 'fontes',
-    arquivo: '10-fontes.md',
-    numero: '10',
+    arquivo: '11-fontes.md',
+    numero: '11',
     grupo: 'Consulta',
     titulo: 'Fontes e leituras',
     descricao: 'Referências principais, contribuições e um roteiro de leitura crítica.',
@@ -126,7 +136,7 @@ export const dadosLivro = {
   edicao: 'Edição 0.1',
   partes: 7,
   capitulosConceituais: 17,
-  diagramas: 35,
+  diagramas: 54,
 }
 
 export function encontrarCapitulo(slug: string | undefined) {
