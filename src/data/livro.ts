@@ -121,6 +121,16 @@ export const capitulosLivro: CapituloLivro[] = [
     leitura: '40 min',
   },
   {
+    slug: 'linear-memoria-operacional',
+    arquivo: '09b-linear-como-memoria-operacional-da-spec.md',
+    numero: '09B',
+    grupo: 'Prática',
+    titulo: 'Linear como memória operacional da SPEC',
+    descricao:
+      'Um experimento com o caso do Seu Renato: tasks verificáveis, Sensor Gate, review e closure.',
+    leitura: '32 min',
+  },
+  {
     slug: 'glossario',
     arquivo: '10-glossario-essencial.md',
     numero: '10',
@@ -146,7 +156,7 @@ export const dadosLivro = {
   edicao: 'Edição 0.2',
   partes: 7,
   capitulosConceituais: 17,
-  diagramas: 58,
+  diagramas: 64,
 }
 
 export function encontrarCapitulo(slug: string | undefined) {

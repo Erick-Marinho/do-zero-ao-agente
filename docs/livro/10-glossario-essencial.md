@@ -167,6 +167,12 @@ Mover a detecção de problemas para etapas mais cedo e baratas do ciclo de entr
 
 Reconciliação final entre SPEC, tasks, implementação e evidências antes de declarar a mudança pronta.
 
+### Sensor Gate — portão de decisão sobre sensores
+
+Revisão explícita, dentro de uma task, que pergunta como uma regressão do comportamento alterado
+será detectada depois. Pode decidir reutilizar, criar ou fortalecer um sensor, abrir uma task de
+harness ou justificar por que nenhum sensor adicional é proporcional ao risco.
+
 ### Memory promotion — promoção de memória
 
 Transformação de uma descoberta local em memória durável, procedural ou executável quando ela tem
@@ -217,4 +223,15 @@ Participação humana em pontos de decisão ou validação. Não implica aprova�
 Tarefa delegável a um agente sem supervisão contínua, como uma implementação bem contratada.
 Contrasta com tarefas human in the loop — alinhamento e decisão — que exigem presença humana.
 
-[← Estado da arte](09-estado-da-arte.md) · [Próximo: Fontes →](11-fontes.md)
+### Ready — pronta para execução
+
+Estado derivado de uma task com contrato suficiente, sem decisão humana pendente e sem dependência
+aberta. Não é apenas uma avaliação subjetiva de prioridade.
+
+### WIP — trabalho em andamento
+
+*Work in progress*. Quantidade de unidades iniciadas e ainda não concluídas. Limitar WIP aproxima
+mudança, integração e feedback, mas o limite só tem valor enquanto reduzir conflitos ou dispersão.
+
+[← Linear como memória operacional da SPEC](09b-linear-como-memoria-operacional-da-spec.md) ·
+[Próximo: Fontes →](11-fontes.md)

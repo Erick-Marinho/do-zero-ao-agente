@@ -2732,4 +2732,4 @@ Esse é o ponto de maturidade que buscamos:
 > adicionar.**
 
 [← Mini-estudo Data Foundation](08b-mini-estudo-data-foundation.md) ·
-[Próximo: Glossário →](10-glossario-essencial.md)
+[Próximo: Linear como memória operacional da SPEC →](09b-linear-como-memoria-operacional-da-spec.md)

@@ -114,6 +114,44 @@ Contribuições usadas neste livro:
 
 ## Estudo de caso técnico
 
+### Mercado Bom Preço — o caso do Seu Renato e a Data Foundation
+
+- Narrativa do cliente: <https://erick-marinho.github.io/do-zero-ao-agente/o-caso>
+- Repositório do projeto-laboratório: <https://github.com/Erick-Marinho/proj-agent-mercado-bom-preco>
+- SPEC Data Foundation: <https://github.com/Erick-Marinho/proj-agent-mercado-bom-preco/blob/main/specs/data-foundation.md>
+- Research do dump do PDV: <https://github.com/Erick-Marinho/proj-agent-mercado-bom-preco/blob/main/work/data-foundation/RESEARCH.md>
+
+Contribuições usadas no capítulo “Linear como memória operacional da SPEC”:
+
+- pedido do Seu Renato como destino de negócio;
+- Data Foundation como primeiro incremento especificado;
+- separação entre fatos medidos no dump, decisões técnicas e decisões do cliente;
+- comportamentos B1–B10 como base para tasks verificáveis e sensores;
+- `verify.sh` como sensor global do repositório;
+- anomalias preservadas enquanto sua semântica comercial continua aberta.
+
+O mercado, o cliente e os dados são fictícios. O caso funciona como projeto-laboratório para
+acompanhar a evolução de uma solução orientada por evidência.
+
+### Linear — capacidades usadas no experimento
+
+- Modelo conceitual: <https://linear.app/docs/conceptual-model>
+- Parent e sub-issues: <https://linear.app/docs/parent-and-sub-issues>
+- Relações e bloqueios: <https://linear.app/docs/issue-relations>
+- Status de workflow: <https://linear.app/docs/configuring-workflows>
+- Labels: <https://linear.app/docs/labels>
+- Comentários e threads: <https://linear.app/docs/comment-on-issues>
+- Templates de issue: <https://linear.app/docs/issue-templates>
+- Custom Views: <https://linear.app/docs/custom-views>
+- Projects: <https://linear.app/docs/projects>
+- Milestones: <https://linear.app/docs/project-milestones>
+- Cycles: <https://linear.app/docs/use-cycles>
+- Initiatives: <https://linear.app/docs/initiatives>
+
+O Linear é referência de implementação, não dependência do método. A política de Project único,
+três labels, WIP inicial igual a um e ausência inicial de milestones e cycles é uma hipótese do
+livro, não uma recomendação oficial do produto.
+
 ### AkitaOnRails — `ai-memory`
 
 - Repositório e visão geral: <https://github.com/akitaonrails/ai-memory>

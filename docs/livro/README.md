@@ -39,7 +39,8 @@ Você pode seguir três rotas:
    paralelo com as partes seguintes, compare-o com o
    [mini-estudo Data Foundation](08b-mini-estudo-data-foundation.md) e use o
    [manual de referência](09-estado-da-arte.md) para consultar prompts por fase no seu próprio
-   projeto.
+   projeto. Para materializar a jornada de uma SPEC num quadro operacional, siga com o experimento
+   [Linear como memória operacional da SPEC](09b-linear-como-memoria-operacional-da-spec.md).
 
 ### Convenções visuais
 
@@ -102,6 +103,7 @@ Você pode seguir três rotas:
 - [Estudo de caso — recuperação de senha](08-estudo-de-caso.md)
 - [Mini-estudo de caso — Data Foundation](08b-mini-estudo-data-foundation.md)
 - [Estado da arte — manual de referência](09-estado-da-arte.md)
+- [Experimento — Linear como memória operacional da SPEC](09b-linear-como-memoria-operacional-da-spec.md)
 - [Glossário essencial](10-glossario-essencial.md)
 - [Fontes e leituras recomendadas](11-fontes.md)
 
