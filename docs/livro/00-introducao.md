@@ -117,7 +117,7 @@ flowchart TB
 O loop `implementar → testar → falhar → corrigir → testar` não nasceu com modelos de linguagem.
 É um ciclo clássico de feedback de engenharia. A diferença operacional é que agora o agente pode
 executar os sensores, receber seus resultados, corrigir-se dentro da autoridade concedida e
-entregar evidência.
+entregar evidência. O agente acelera o loop. Ele não elimina a necessidade do loop.
 
 ## O que este livro não promete
 

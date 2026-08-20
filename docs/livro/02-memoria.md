@@ -150,6 +150,34 @@ Tipos diferentes de registro merecem políticas diferentes:
 Esquecer não é necessariamente uma falha. Remover episódios frios, hipóteses derrotadas e cópias
 substituídas reduz ruído e evita que conhecimento antigo dispute atenção com fontes atuais.
 
+### Lifecycle da memória
+
+```text
+CAPTURE
+↓
+CONSOLIDATION
+↓
+PROMOTION
+↓
+RETRIEVAL
+↓
+REINFORCEMENT
+↓
+SUPERSESSION
+↓
+FORGETTING
+```
+
+- **Capture:** registra observações com escopo e proveniência.
+- **Consolidation:** comprime a história da sessão em conhecimento candidato, sem conceder
+  autoridade.
+- **Promotion:** confirma o que possui evidência e valor futuro suficiente para virar memória.
+- **Retrieval:** seleciona candidatos relevantes para uma nova tarefa.
+- **Reinforcement:** nova evidência ou reutilização verificada aumenta a confiança e a prioridade da
+  memória, sem transformá-la automaticamente em regra.
+- **Supersession:** uma versão mais atual substitui a anterior preservando a relação histórica.
+- **Forgetting:** reduz prioridade, arquiva ou remove o que perdeu valor.
+
 ### Estudo de caso: `akitaonrails/ai-memory`
 
 O projeto [`ai-memory`](https://github.com/akitaonrails/ai-memory) oferece um exemplo concreto, não
