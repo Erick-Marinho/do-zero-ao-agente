@@ -8,15 +8,20 @@ operacional: o que cada fase produz, o que o agente pode decidir e um prompt bas
 Ele não é um “último capítulo” para ser carregado inteiro em toda sessão. Consulte apenas a seção
 correspondente à fase atual.
 
-> O modelo completo:
+> A base:
 >
-> **intenção → [Discovery Research] → decisões → SPEC → [Implementation Research] →
-> design/tasks → implementação → sensores → evidência → review → decisão humana → correção
-> → re-review → closure → memória → automação**
+> **engenharia normal primeiro → agente dentro do loop → estruturas adicionais somente quando
+> pagam seu custo**
 >
 > A ideia central é simples:
 >
 > > **O agente não deve apenas gerar código. Ele deve trabalhar dentro de um sistema de contexto, autoridade, sensores e evidências.**
+
+Testes, integração contínua, versionamento, code review, observabilidade, design simples,
+refactoring e mudanças pequenas não são invenções da era dos agentes. O que muda é a capacidade de
+o agente participar desses loops, executar sensores e corrigir-se dentro de limites. Research,
+SPEC, task, reviewer fresco, Skill e orquestração entram apenas quando resolvem uma incerteza ou um
+risco concreto.
 
 ### Índice de consulta
 
@@ -32,8 +37,9 @@ correspondente à fase atual.
   [triagem](#33-triagem-de-findings), [fix](#35-etapa-11--fix-direcionado) e
   [re-review](#36-etapa-12--re-review).
 - **Fechamento e aprendizagem:** [feature closure](#38-etapa-13--feature-closure),
-  [memory promotion](#40-etapa-14--memory-promotion), [Skills](#45-etapa-15--skills) e
-  [orquestração](#47-etapa-16--orquestração).
+  [memory promotion](#40-etapa-14--memory-promotion),
+  [Skills](#45-capacidade-opcional--skills) e
+  [orquestração](#47-capacidade-opcional--orquestração).
 - **Uso direto:** [prompts por fase](#55-prompts-por-fase--mapa-rápido),
   [versão de bolso](#63-estado-da-arte--versão-de-bolso) e [mapa final](#65-mapa-final).
 
@@ -43,7 +49,9 @@ correspondente à fase atual.
 
 ```mermaid
 flowchart TD
-    A[PROBLEMA / INTENÇÃO] --> B{Realidade suficiente<br/>para especificar?}
+    A[PROBLEMA / INTENÇÃO] --> A0{Mudança pequena, clara<br/>e diretamente verificável?}
+    A0 -->|sim| G[IMPLEMENTAÇÃO]
+    A0 -->|não| B{Realidade suficiente<br/>para especificar?}
     B -->|não| C[DISCOVERY RESEARCH]
     C --> D[DECISÕES HUMANAS]
     D --> E[SPEC]
@@ -52,22 +60,34 @@ flowchart TD
     X -->|sim| Y[IMPLEMENTATION RESEARCH]
     X -->|não| F[DESIGN / TASK]
     Y --> F
-    F --> G[IMPLEMENTAÇÃO]
-    G --> H[VALIDAÇÃO DA TASK]
-    H --> I[SENSORES DO PROJETO]
-    I --> J[SELF-CORRECTION LOCAL]
-    J --> K[HANDOFF / EVIDÊNCIA]
-    K --> L[FRESH REVIEW]
+    F --> G
+    G --> I[SENSORES]
+    I --> J{Falha local e<br/>dentro da autoridade?}
+    J -->|sim| G
+    J -->|decisão necessária| HN[HUMANO]
+    J -->|não falhou| K[HANDOFF / EVIDÊNCIA]
+    K --> RB{Risco justifica<br/>Fresh Review?}
+    RB -->|sim| L[FRESH REVIEW]
+    RB -->|não| FC{Múltiplas partes<br/>precisam reconciliar?}
     L --> M[FINDINGS]
     M --> N{DECISÃO HUMANA}
     N -->|rejeitar| N1[finding descartado]
     N -->|adiar| N2[registrado para depois]
     N -->|aceitar| O[FIX DIRECIONADO]
+    N1 --> FC
+    N2 --> FC
     O --> P[SENSORES]
     P --> Q[RE-REVIEW]
-    Q --> R[FEATURE CLOSURE]
-    R --> S[MEMORY PROMOTION]
-    S --> T[SKILLS / ORQUESTRAÇÃO]
+    Q --> FC
+    FC -->|sim| R[FEATURE CLOSURE]
+    FC -->|não| S{Aprendizado recorrente<br/>e confirmado?}
+    R --> S
+    S -->|sim| T[MEMORY PROMOTION]
+    S -->|não| U[Arquivar ou esquecer]
+    T --> V{Procedimento repetitivo ou<br/>coordenação real?}
+    V -->|procedimento| W[SKILL / SCRIPT]
+    V -->|coordenação| Z[ORQUESTRAÇÃO]
+    V -->|nenhum| U
 ```
 
 Não precisamos usar todas as etapas para toda mudança.
@@ -75,6 +95,19 @@ Não precisamos usar todas as etapas para toda mudança.
 A regra é:
 
 > **Quanto maior a incerteza ou o impacto, mais explícito deve ser o ciclo.**
+
+Use a menor estrutura que reduza o risco:
+
+| Situação | Estrutura que pode bastar |
+|---|---|
+| Mudança pequena e clara | prompt + sensor ou teste |
+| Incerteza factual | Research proporcional à dúvida |
+| Unidade clara de execução | task |
+| Comportamento importante ou ambíguo | SPEC + task + sensores |
+| Decisão arquitetural durável | HLD ou ADR, quando o custo justificar |
+
+Antes de adicionar qualquer camada, pergunte que problema concreto ela resolve e qual erro ficaria
+mais provável sem ela. Se não houver resposta, não transforme o artefato em etapa do lifecycle.
 
 ---
 
@@ -110,8 +143,12 @@ O agente perde uma fronteira clara de autoridade.
 Antes de escrever o prompt, pergunte:
 
 ```text
-Qual é a única fase que quero executar agora?
+Qual é a menor unidade de trabalho que quero executar agora?
 ```
+
+Em uma mudança pequena, entender, implementar e testar podem caber numa única unidade coerente. A
+separação em fases vale quando reduz ambiguidade, protege uma decisão ou cria uma fronteira útil de
+autoridade e contexto — não como ritual documental.
 
 ---
 
@@ -457,6 +494,22 @@ SPEC
 ```
 
 A SPEC deve descrever comportamento, não receita de implementação.
+
+Ela ancora intenção; não representa toda a implementação nem substitui código, testes, runtime,
+dados e evidências como fontes da realidade atual. **Spec-anchored é diferente de
+spec-as-source-of-truth.** Registre invariantes e comportamentos cuja ambiguidade tenha custo.
+Detalhes que podem emergir com segurança durante implementação e feedback devem continuar livres
+para emergir.
+
+```text
+SOFTWARE EMERGE DENTRO DE LIMITES
+
+invariantes / intenção
+→ explícitos antes quando necessário
+
+detalhes / descobertas
+→ livres para emergir com segurança
+```
 
 ### Estrutura do prompt de SPEC
 
@@ -976,9 +1029,12 @@ Frase:
 
 ## 23. Etapa 9 — Fresh Review
 
-O mesmo agente que implementou pode fazer self-review, mas isso não é equivalente a um reviewer em contexto limpo.
+O mesmo agente que implementou pode fazer self-review, mas isso não é equivalente a um reviewer em
+contexto limpo. A independência cognitiva pode encontrar pressupostos que o implementador
+normalizou, mas custa tokens, tempo e contexto. Use Fresh Review quando o risco justificar esse
+custo; um typo provavelmente não precisa dele.
 
-Fluxo maduro:
+Quando adotado, o fluxo é:
 
 ```mermaid
 flowchart TD
@@ -1561,6 +1617,47 @@ Closure reconcilia.
 
 Nem toda descoberta merece memória permanente.
 
+```text
+sessão aconteceu
+≠
+conhecimento verdadeiro
+```
+
+Antes de promover, verifique:
+
+```text
+AUTHORITY
++
+FRESHNESS
++
+SCOPE
++
+PROVENANCE
++
+EVIDENCE
+```
+
+Uma conclusão do agente sem fonte ou observação verificável continua sendo hipótese.
+
+Não confunda as superfícies:
+
+```text
+SESSION
+→ história detalhada do trabalho ocorrido
+
+HANDOFF
+→ estado mínimo para um consumidor continuar
+
+MEMORY
+→ conhecimento potencialmente reutilizável
+
+RULE
+→ conhecimento aprovado que governa ações futuras
+```
+
+Memory Promotion transforma e reavalia; não copia a conversa inteira. Uma memória recuperada só
+vira regra quando recebe autoridade e é movida para uma fonte canônica ou sensor.
+
 Classificação:
 
 ```text
@@ -1589,6 +1686,10 @@ contagem exata encontrada num dump
 comando temporário usado numa investigação
 → descartável
 ```
+
+Retrieval seleciona candidatos por relevância. Ranking, recência, tag ou similaridade não provam
+verdade e não concedem autoridade. Retenção também varia: episódios podem decair, handoffs podem
+expirar, memórias podem ser superseded e regras podem ser revogadas.
 
 ---
 
@@ -1621,6 +1722,18 @@ GLOSSARIO.md
 
 KNOWN PROBLEMS
 → dívida conhecida / ambiguidade não resolvida
+
+SESSION LOG
+→ histórico detalhado, com retenção limitada
+
+HANDOFF
+→ estado temporário de continuidade
+
+MEMORY
+→ conhecimento recuperável com proveniência e status
+
+RULE
+→ fonte canônica autorizada ou sensor
 ```
 
 ---
@@ -1631,6 +1744,10 @@ KNOWN PROBLEMS
 MUITA DOCUMENTAÇÃO NO REPO
 ≠
 MUITA DOCUMENTAÇÃO NO CONTEXTO
+
+storage lifetime
+!=
+context lifetime
 ```
 
 Pense:
@@ -1668,6 +1785,9 @@ TASK / REVIEW / HANDOFF
 derivados
 ```
 
+A SPEC pode ser a fonte canônica da intenção sem ser fonte de verdade sobre toda a implementação.
+Ela não precisa descrever classes, algoritmos nem antecipar cada descoberta segura.
+
 Fórmula mental:
 
 ```text
@@ -1693,12 +1813,15 @@ PROVENANCE
 ```
 
 Um agente pode gerar uma solução ótima e ainda assim não ter autoridade para escolher aquela solução.
+Da mesma forma, retrieval pode encontrar a memória mais relevante e ainda não encontrar uma fonte
+autorizada. Memória recuperada é evidência histórica a reavaliar, não instrução automática.
 
 ---
 
-## 45. Etapa 15 — Skills
+## 45. Capacidade opcional — Skills
 
-Quando um procedimento aparece repetidamente:
+Quando um procedimento compreendido aparece repetidamente e o custo de reescrevê-lo ou executá-lo
+de forma inconsistente se torna concreto:
 
 ```mermaid
 flowchart LR
@@ -1731,6 +1854,9 @@ TASK
 
 Uma Skill é um pacote reutilizável de instruções, referências e eventualmente scripts.
 
+Repetição por si só não obriga uma Skill: um checklist curto ou script determinístico pode ser
+mais simples. Automatize o menor mecanismo que resolva o problema observado.
+
 ---
 
 ## 46. Separação útil
@@ -1748,9 +1874,21 @@ ORCHESTRATOR
 
 ---
 
-## 47. Etapa 16 — Orquestração
+## 47. Capacidade opcional — Orquestração
 
-Quando existem múltiplas tasks:
+Antes de orquestrar, pergunte:
+
+```text
+Existe um problema real de coordenação
+entre unidades independentes?
+
+NÃO → continue com um agente simples
+SIM → considere orquestração
+```
+
+> **Orquestração não é promoção. É uma resposta contingente a um problema real de coordenação.**
+
+Quando múltiplas tasks realmente possuem dependências, estados ou paralelismo útil:
 
 ```mermaid
 flowchart TD
@@ -1777,10 +1915,10 @@ No workshop de Matt Pocock, a feature tem dois documentos: o PRD é o **document
 quadro kanban é o **documento de jornada**. Em vez de um plano multi-fase sequencial gigante, a
 decomposição vira tickets com relações de bloqueio explícitas.
 
-No nosso ciclo, o quadro nasce no fim da **Etapa 5 (TASK)** — quando a SPEC é decomposta em várias
-tasks e o grafo de dependências fica visível — e é o instrumento de trabalho da **Etapa 16
-(orquestração)**: o estado do quadro **é** o estado da jornada. As perguntas do orquestrador acima
-são, literalmente, consultas ao quadro.
+No nosso ciclo, o quadro pode nascer no fim da **Etapa 5 (TASK)** — quando uma SPEC realmente pede
+várias tasks e o grafo de dependências fica visível — e servir de instrumento de orquestração. O
+estado do quadro **é** o estado da jornada. As perguntas do orquestrador acima são, literalmente,
+consultas ao quadro.
 
 ```mermaid
 flowchart LR
@@ -1832,7 +1970,11 @@ natural:
 
 ---
 
-## 48. Orquestração madura
+## 48. Quando a orquestração paga seu custo
+
+O desenho abaixo só se justifica quando as unidades são independentes, os handoffs possuem
+contratos claros e coordenar estado evita mais risco do que introduz. Cada worker acrescenta
+latência, contexto, integração, divergência possível e novos modos de falha.
 
 ```mermaid
 flowchart TD
@@ -1860,13 +2002,11 @@ Progressão pedagógica:
 
 ```mermaid
 flowchart TD
-    A[FAZER MANUALMENTE] --> B[ENTENDER]
-    B --> C[REPETIR]
-    C --> D[PERCEBER PADRÃO]
-    D --> E[HARNESS]
-    E --> F[SKILL]
-    F --> G[MÚLTIPLAS UNIDADES]
-    G --> H[ORQUESTRAÇÃO]
+    A[PROCESSO MANUAL] --> B[PROCESSO COMPREENDIDO]
+    B --> C[AUTOMATIZAR O REPETITIVO]
+    C --> D{Existe coordenação real<br/>entre unidades independentes?}
+    D -->|não| E[CONTINUE SIMPLES]
+    D -->|sim| F[CONSIDERE ORQUESTRAÇÃO]
 ```
 
 Não:
@@ -1879,7 +2019,7 @@ ninguém entende o processo
 
 ---
 
-## 50. O papel do humano muda com a maturidade
+## 50. O papel do humano muda com a autonomia útil
 
 No início:
 
@@ -1892,7 +2032,7 @@ HUMANO
 → decide próximo passo
 ```
 
-No sistema maduro:
+Quando sensores e limites permitem mais autonomia:
 
 ```text
 HUMANO
@@ -1938,6 +2078,27 @@ risco
 aceitação
 ```
 
+### Complexity / Ceremony Budget
+
+Context Budget, Review Budget e Human Attention Budget limitam recursos diferentes. O
+**Complexity/Ceremony Budget** limita o custo acumulado das estruturas criadas para operar o
+sistema.
+
+> **Cada camada nova precisa pagar aluguel.**
+
+Antes de adicionar SPEC, ADR, HLD, documento, reviewer independente, subagente, Skill, workflow,
+grafo ou orquestração, pergunte:
+
+```text
+Que problema concreto isto resolve?
+
+Se eu remover esta estrutura,
+qual erro ou risco fica mais provável?
+```
+
+Sem resposta concreta, prefira não adicionar. Depois da adoção, reavalie: uma camada que deixou de
+reduzir risco também deixou de pagar aluguel.
+
 ---
 
 ## 52. Ciclo de implementação em uma frase
@@ -1947,8 +2108,10 @@ flowchart TD
     A[MODELO IMPLEMENTA] --> B[MODELO EXECUTA SENSORES]
     B --> C[MODELO CORRIGE PROBLEMAS LOCAIS]
     C --> D[MODELO ENTREGA EVIDÊNCIA]
-    D --> E[FRESH REVIEW]
+    D --> Q{RISCO JUSTIFICA<br/>INDEPENDÊNCIA?}
+    Q -->|sim| E[FRESH REVIEW]
     E --> F[HUMANO JULGA]
+    Q -->|não| G[ENCERRA A UNIDADE]
 ```
 
 Com a exceção:
@@ -2063,6 +2226,16 @@ Problema: drift e context waste.
 ```
 
 Problema: falta reconciliação com SPEC.
+
+### 54.9 Cerimônia sem risco correspondente
+
+```text
+mais documentos + reviewers + agentes + workflows
+→ aparência de maturidade
+```
+
+Problema: cada camada aumenta custo e modos de falha sem necessariamente tornar um erro concreto
+menos provável.
 
 ---
 
@@ -2345,27 +2518,32 @@ Não implemente.
 
 ## 61. Regra de ouro do lifecycle
 
-Cada fase produz um artefato ou evidência que reduz a liberdade da fase seguinte.
+Cada controle adotado deve reduzir uma incerteza ou um risco concreto. A saída pode ser um artefato,
+uma evidência ou apenas uma mudança pequena verificada; nenhuma fase precisa produzir um documento
+para provar que aconteceu.
 
 ```text
 RESEARCH
-reduz incerteza
+reduz incerteza factual quando ela existe
 
 SPEC
-reduz ambiguidade de intenção
+reduz ambiguidade de intenção quando seu custo justifica
 
 TASK
-reduz tamanho do trabalho
+delimita uma unidade de trabalho quando essa fronteira ajuda
 
 TESTS / SENSORS
-reduzem liberdade de implementação
+produzem feedback executável
 
 REVIEW
-reduz risco residual
+busca refutar claims quando independência paga o custo
 
 CLOSURE
-reduz dúvida sobre o estado da feature
+reconcilia mudanças com múltiplas partes ou riscos
 ```
+
+Para uma mudança pequena, `objetivo → implementação → sensor → evidência` pode ser o lifecycle
+inteiro.
 
 ---
 
@@ -2402,58 +2580,35 @@ O prompt é apenas uma das interfaces.
 ## 63. Estado da arte — versão de bolso
 
 ```text
-1. Pergunte se a realidade é suficiente para especificar.
+1. Comece com a menor mudança verificável.
+   OBJETIVO → IMPLEMENTAÇÃO → SENSOR → EVIDÊNCIA
 
-2. Se não for, descubra-a.
-   DISCOVERY RESEARCH
+2. Existe incerteza factual relevante?
+   SIM → RESEARCH ou PROBE proporcional
 
-3. Faça probes quando necessário.
-   EXPERIMENT
+3. Existe comportamento importante ou ambíguo?
+   SIM → decisão humana + SPEC pequena
 
-4. Separe fato de significado.
-   HUMAN DECISION
+4. O trabalho precisa de uma fronteira explícita?
+   SIM → TASK
 
-5. Registre comportamento.
-   SPEC
+5. Implemente, execute sensores e corrija problemas locais.
+   Se a correção exigir nova decisão, escale.
 
-6. Se o brownfield ainda for desconhecido, pesquise a implementação.
-   IMPLEMENTATION RESEARCH
+6. O risco justifica independência cognitiva?
+   SIM → BOUNDED FRESH REVIEW → triagem → fix → re-review
 
-7. Quebre em unidade pequena.
-   TASK
+7. A mudança possui várias partes que precisam reconciliar?
+   SIM → FEATURE CLOSURE
 
-8. Implemente dentro do contrato.
-   CODE
+8. Surgiu conhecimento recorrente e confirmado?
+   SIM → MEMORY PROMOTION
 
-9. Execute sensores.
-   TEST / LINT / TYPE / VERIFY
+9. Existe procedimento repetitivo compreendido?
+   SIM → SCRIPT ou SKILL
 
-10. Corrija somente problemas locais.
-   SELF-CORRECTION
-
-11. Comprima a entrega.
-   HANDOFF
-
-12. Revise a mudança, não o universo.
-    BOUNDED FRESH REVIEW
-
-13. Julgue findings.
-    HUMAN
-
-14. Corrija somente o aprovado.
-    FIX
-
-15. Verifique os findings.
-    RE-REVIEW
-
-16. Reconcilie a feature inteira.
-    CLOSURE
-
-17. Promova somente conhecimento durável.
-    MEMORY
-
-18. Automatize padrões já compreendidos.
-    SKILLS / ORCHESTRATION
+10. Existe coordenação real entre unidades independentes?
+    SIM → considere ORQUESTRAÇÃO
 ```
 
 ---
@@ -2490,7 +2645,9 @@ O prompt é apenas uma das interfaces.
 
 ```mermaid
 flowchart TD
-    A[HUMAN INTENT] --> X{REALITY KNOWN<br/>ENOUGH FOR SPEC?}
+    A[HUMAN INTENT] --> SM{SMALL, CLEAR AND<br/>DIRECTLY VERIFIABLE?}
+    SM -->|yes| F[IMPLEMENTER]
+    SM -->|no| X{REALITY KNOWN<br/>ENOUGH FOR SPEC?}
     X -->|no| B[DISCOVERY RESEARCH]
     B --> C[HUMAN DECISION]
     C --> D[SPEC]
@@ -2501,21 +2658,33 @@ flowchart TD
     Y -->|yes| E
     E --> F[IMPLEMENTER]
     F --> G[TASK TESTS +<br/>PROJECT SENSORS]
-    G -->|local failure| H[SELF-CORRECT]
-    G -->|decision needed| I[HUMAN]
-    H --> J[HANDOFF]
-    J --> K[FRESH BOUNDED REVIEW]
+    G --> LC{LOCAL FAILURE?}
+    LC -->|yes; authorized| H[SELF-CORRECT]
+    H --> F
+    LC -->|decision needed| I[HUMAN]
+    LC -->|no| J[HANDOFF / EVIDENCE]
+    J --> RV{RISK JUSTIFIES<br/>FRESH REVIEW?}
+    RV -->|yes| K[FRESH BOUNDED REVIEW]
+    RV -->|no| FC{MULTIPLE PARTS<br/>NEED RECONCILIATION?}
     K --> L[FINDINGS]
-    L --> M{HUMAN}
-    M -->|reject| M1[descarta]
-    M -->|defer| M2[adia]
-    M -->|accept| N[DIRECTED FIX]
+    L --> HM{HUMAN}
+    HM -->|reject| M1[descarta]
+    HM -->|defer| M2[adia]
+    HM -->|accept| N[DIRECTED FIX]
+    M1 --> FC
+    M2 --> FC
     N --> O[SENSORS]
     O --> P[RE-REVIEW]
-    P --> Q[TASK CLOSED]
-    Q --> R[FEATURE CLOSURE]
-    R --> S[MEMORY PROMOTION]
-    S --> T[SKILLS / ORCHESTRATION]
+    P --> FC
+    FC -->|yes| R[FEATURE CLOSURE]
+    FC -->|no| S{RECURRING, CONFIRMED<br/>KNOWLEDGE?}
+    R --> S{RECURRING, CONFIRMED<br/>KNOWLEDGE?}
+    S -->|yes| MP[MEMORY PROMOTION]
+    S -->|no| U[ARCHIVE OR FORGET]
+    MP --> T{REPETITIVE PROCEDURE OR<br/>REAL COORDINATION PROBLEM?}
+    T -->|procedure| SK[SKILL / SCRIPT]
+    T -->|coordination| OR[CONSIDER ORCHESTRATION]
+    T -->|neither| U
 ```
 
 ---
@@ -2524,7 +2693,7 @@ flowchart TD
 
 O objetivo não é escrever prompts cada vez maiores.
 
-É o contrário.
+É usar a menor estrutura que permita direção, feedback e evidência suficientes para o risco.
 
 No início:
 
@@ -2532,7 +2701,7 @@ No início:
 o prompt carrega o processo
 ```
 
-Depois:
+Quando um problema recorrente justificar:
 
 ```text
 scripts carregam verificações
@@ -2543,11 +2712,14 @@ Skills carregam procedimentos
 orquestração carrega coordenação
 ```
 
-O prompt vai ficando menor porque o sistema ao redor dele fica melhor.
+O prompt pode ficar menor porque práticas compreendidas migram para o lugar apropriado. Isso não
+significa acumular todas as camadas: documentos, Skills, reviewers e agentes que não reduzem um
+risco concreto devem ser evitados ou removidos.
 
 Esse é o ponto de maturidade que buscamos:
 
-> **menos instrução improvisada, mais contexto estruturado, contratos explícitos, sensores executáveis e decisões humanas nos pontos de maior alavancagem.**
+> **boa engenharia primeiro; agentes dentro do loop; contexto, contratos e coordenação somente na
+> medida em que pagam seu custo.**
 
 [← Mini-estudo Data Foundation](08b-mini-estudo-data-foundation.md) ·
 [Próximo: Glossário →](10-glossario-essencial.md)

@@ -9,6 +9,22 @@ código ser produzido, como saber se a direção de dependências foi respeitada
 
 Um harness saudável combina mecanismos antes e depois da ação.
 
+Harness não é uma disciplina nova que substitui engenharia tradicional. É o ambiente operacional de
+ferramentas, contexto, sensores, feedback e limites dentro do qual o agente trabalha. Testes,
+integração contínua, tipos, lint, observabilidade e review continuam sendo práticas de engenharia de
+software; o harness permite que o agente as encontre, execute e use para se corrigir dentro da
+autoridade concedida.
+
+Comece pela ideia simples:
+
+```text
+execute → observe → corrija
+```
+
+O ciclo `implementar → testar → falhar → corrigir → testar` é um loop clássico de feedback. A
+novidade operacional não é o loop: é o agente poder participar dele autonomamente e entregar a
+evidência produzida.
+
 ### Feedforward e feedback
 
 Na terminologia usada por Birgitta Böckeler:
@@ -173,6 +189,21 @@ exceções e como evoluí-la.
 
 ```text
 guia + sensor > guia isolado
+```
+
+Precisão não deveria morar somente em prosa. Quando um comportamento estabiliza e pode ser
+verificado computacionalmente, promova a parte verificável para teste, tipo, linter, schema ou
+validator. Evite repetir a mesma regra em README, SPEC e prompts quando uma fonte canônica e um
+sensor podem expressá-la melhor.
+
+Isso não torna testes uma substituição da intenção:
+
+```text
+SPEC
+→ expressa intenção
+
+TESTE / SENSOR
+→ torna parte da intenção executável
 ```
 
 ### Mensagens para autocorreção

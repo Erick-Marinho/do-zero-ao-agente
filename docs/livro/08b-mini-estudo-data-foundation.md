@@ -64,6 +64,9 @@ Uma saída compacta pode registrar:
 Um modelo mínimo transforma suposições em resultados executáveis. Ele não serve, nesta fase, para
 fazer todos os dados passarem.
 
+Esse probe também é um **spike** no sentido de Extreme Programming: um experimento pequeno para
+reduzir incerteza, sem obrigação de se tornar código de produção.
+
 ```python
 from pydantic import BaseModel, ConfigDict
 
@@ -129,6 +132,19 @@ Essas escolhas deixam de ser acidentes de uma biblioteca e viram comportamento a
 
 Agora design e tasks podem escolher tabelas SQLite, chaves, relatórios e testes sem precisar
 inventar o comportamento durante a implementação.
+
+O limite entre especificar e deixar emergir fica concreto:
+
+```text
+data/raw não pode ser alterado silenciosamente
+→ invariante que vale explicitar antes
+
+qual abstração Python será usada no loader
+→ detalhe que pode emergir na implementação
+```
+
+Specification e emergência não são opostos: o software emerge dentro de limites autorizados e
+verificáveis.
 
 ## 6. O contraste que resolve a ordem de Research
 

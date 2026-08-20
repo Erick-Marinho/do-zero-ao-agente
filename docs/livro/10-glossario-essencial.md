@@ -58,6 +58,39 @@ etapa: contrato da task, fontes selecionadas e estado atual do código.
 Estratégia de revelar detalhes apenas quando eles se tornam relevantes, usando pontos de entrada e
 referências em vez de carregar tudo no início.
 
+## Memória e continuidade
+
+### Project memory — memória de projeto
+
+Conhecimento passado que sobrevive à sessão, preserva proveniência, pode ser recuperado e
+reavaliado, pode perder relevância, ser substituído ou esquecido e, com autoridade adequada, pode
+ser promovido para regra ou sensor. Não é sinônimo de conversa armazenada.
+
+### Session — sessão
+
+História detalhada de uma execução, incluindo observações, tentativas, correções e caminhos
+descartados. Pode ser preservada para auditoria sem ser carregada ou tratada como memória confiável.
+
+### Retrieval — recuperação de memória
+
+Seleção de memórias candidatas para a tarefa atual por texto, entidades, links, recência ou
+similaridade. Relevância no ranking não prova verdade nem concede autoridade.
+
+### Retention — retenção
+
+Política que define por quanto tempo um registro permanece disponível e em quais condições perde
+prioridade, é arquivado ou removido.
+
+### Supersession — substituição por versão posterior
+
+Relação que preserva a proveniência de uma memória antiga, mas aponta outra como versão vigente. É
+útil quando apagar a história seria ruim e tratar as duas versões como atuais seria pior.
+
+### Rule — regra
+
+Conhecimento aprovado que deve governar ações futuras e vive numa fonte canônica, como
+`AGENTS.md`, SPEC, ADR, Skill ou sensor. Memória recuperada não vira regra automaticamente.
+
 ## Especificação e trabalho
 
 ### SDD — *Spec-Driven Development*
@@ -67,8 +100,9 @@ planejamento, implementação e verificação.
 
 ### SPEC — *specification*
 
-Documento que define comportamentos, contratos ou propriedades que devem ser verdadeiros, de forma
-observável e testável sempre que possível.
+Âncora de intenção que define comportamentos, contratos ou invariantes cuja ambiguidade tem custo,
+de forma observável e testável sempre que possível. Não precisa representar toda a implementação
+nem funcionar como fonte da realidade atual.
 
 ### Acceptance criteria — critérios de aceitação
 
@@ -104,9 +138,9 @@ esse quadro.
 
 ### Harness — arnês ou estrutura de controle
 
-Sistema ao redor de um modelo que oferece estado, ferramentas, execução, limites e feedback. No
-recorte de coding agents, também pode significar a camada externa que a equipe constrói no
-repositório.
+Ambiente operacional ao redor de um modelo que oferece estado, ferramentas, contexto, sensores,
+feedback e limites. No recorte de coding agents, também pode significar a camada externa que a
+equipe constrói no repositório. Não substitui práticas tradicionais de engenharia de software.
 
 ### Guide — guia
 
@@ -136,7 +170,12 @@ Reconciliação final entre SPEC, tasks, implementação e evidências antes de 
 ### Memory promotion — promoção de memória
 
 Transformação de uma descoberta local em memória durável, procedural ou executável quando ela tem
-valor futuro recorrente.
+valor futuro recorrente e é sustentada por autoridade, atualidade, escopo, proveniência e evidência.
+
+### Complexity/Ceremony Budget — orçamento de complexidade ou cerimônia
+
+Limite para o custo acumulado de documentos, reviews, agentes, workflows e outras camadas de
+coordenação. Cada camada deve tornar um erro ou risco concreto menos provável para pagar seu custo.
 
 ## Coordenação
 
@@ -152,7 +191,7 @@ Agente responsável por uma unidade de trabalho verificável.
 ### Reviewer — revisor
 
 Agente ou humano que avalia uma mudança contra critérios e riscos definidos, idealmente com contexto
-independente do implementador.
+independente do implementador quando o risco justifica esse custo.
 
 ### Bounded Review — revisão limitada
 
@@ -161,12 +200,13 @@ da mudança e violações dos seus critérios sem transformar dívida preexisten
 
 ### Orchestrator — orquestrador
 
-Componente ou agente que coordena tasks, dependências, autoridade, estado e handoffs.
+Componente ou agente usado quando existe um problema real de coordenação entre unidades
+independentes; coordena tasks, dependências, autoridade, estado e handoffs.
 
 ### Handoff — passagem de trabalho
 
-Contrato compacto que comunica resultado, estado, evidências, riscos e próximo passo entre agentes,
-sessões ou pessoas.
+Contrato compacto e temporário que comunica resultado, estado, proveniência, evidências, riscos e
+próximo passo entre agentes, sessões ou pessoas. Não é transcrição da session nem memória durável.
 
 ### Human in the loop — humano no circuito
 

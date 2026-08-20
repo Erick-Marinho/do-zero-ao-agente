@@ -71,6 +71,28 @@ entulho. Descartar tudo obriga a equipe a reaprender.
 **Memory promotion** (promoção de memória) transforma uma descoberta local em conhecimento durável,
 procedural ou executável quando ela possui valor recorrente.
 
+Uma sessão ter produzido uma conclusão não torna essa conclusão verdadeira:
+
+```text
+sessão aconteceu
+≠
+conhecimento verdadeiro
+```
+
+Antes de promover, avalie **autoridade**, **atualidade**, **escopo**, **proveniência** e a evidência
+que sustenta a descoberta. Uma afirmação plausível de um agente continua sendo hipótese quando não
+pode ser ligada a uma decisão autorizada ou observação verificável.
+
+Memory Promotion não é copiar texto da session para um arquivo permanente. É transformar um
+registro local em conhecimento reavaliado, com escopo e origem explícitos. O caminho pode ser:
+
+```text
+observação da session
+→ memória candidata
+→ memória confirmada e recuperável
+→ regra ou sensor, somente com aprovação adequada
+```
+
 ```mermaid
 flowchart TD
     F[Finding da feature] --> Q1{É correto e confirmado?}
@@ -102,6 +124,15 @@ flowchart TD
 Uma lista de caminhos temporários, uma hipótese descartada ou um detalhe fácil de descobrir não
 precisa virar memória. Esquecer também é engenharia de contexto.
 
+**Retenção** é uma política, não a promessa de guardar para sempre. Uma memória pode perder valor
+porque envelheceu, deixou de ser acessada, tornou-se barata de redescobrir, saiu do escopo ou foi
+substituída. Dependendo do risco, ela pode ser marcada como histórica, ligada à sucessora ou
+removida.
+
+Feedback de retrieval também ajuda: uma memória frequentemente recuperada e rejeitada como
+desatualizada deve perder prioridade e entrar em revisão, não continuar aparecendo apenas porque já
+foi útil.
+
 ### Garbage collection documental
 
 Memória saudável precisa de **garbage collection** (coleta de lixo): revisar documentos velhos,
@@ -112,8 +143,16 @@ Algumas práticas:
 - registrar status (`proposto`, `aceito`, `substituído`);
 - apontar o documento sucessor em vez de apagar história;
 - atribuir responsável e data de verificação quando fizer sentido;
+- preservar escopo, proveniência e evidências essenciais junto da memória;
 - automatizar links e estruturas verificáveis;
 - remover cópias quando existe uma fonte canônica.
+
+### De memória para regra
+
+Uma memória recuperada pode informar uma decisão, mas não governa ações apenas por ter bom ranking,
+tag canônica ou longa retenção. Para virar regra, precisa de autoridade humana ou organizacional e
+deve ser promovida para a fonte apropriada: `AGENTS.md`, SPEC, ADR, Skill ou sensor. Quando a parte
+essencial puder ser verificada computacionalmente, o sensor reduz a dependência de lembrar a prosa.
 
 ### Humano na promoção
 
@@ -124,8 +163,10 @@ promoção e até preparar o diff, mas mudanças sistêmicas merecem revisão pr
 
 1. Por que nem todo finding merece promoção?
 2. Quando uma descoberta deveria virar Skill e quando deveria virar sensor?
-3. Por que alterações no harness podem ser mais arriscadas que uma mudança local de código?
-4. Encontre um documento do seu projeto que precise de coleta de lixo.
+3. Por que retrieval não concede autoridade para transformar memória em regra?
+4. Quando uma memória deveria ser superseded, arquivada ou esquecida?
+5. Por que alterações no harness podem ser mais arriscadas que uma mudança local de código?
+6. Encontre um documento do seu projeto que precise de coleta de lixo.
 
 ---
 
@@ -191,8 +232,11 @@ Depois de criar um controle:
 3. Surgiram falsos positivos ou atrito?
 4. O custo de manutenção continua menor que o retrabalho evitado?
 5. O controle ainda protege um risco relevante?
+6. Existe um mecanismo mais simples para obter o mesmo resultado?
+7. A camada pode ser removida ou fundida sem tornar um erro concreto mais provável?
 
-Sensores e guias também envelhecem.
+Sensores, guias e cerimônias também envelhecem. Falsos positivos, tempo de coordenação e documentos
+que ninguém consulta consomem o Complexity/Ceremony Budget e devem entrar na avaliação de ROI.
 
 ### Síntese do livro
 

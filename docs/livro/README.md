@@ -13,6 +13,12 @@ A ideia central é simples:
 > Um agente não trabalha bem porque recebeu “um prompt perfeito”. Ele trabalha bem quando existe
 > um sistema que lhe oferece direção, contexto, ferramentas, limites e feedback.
 
+Esse sistema começa com boa engenharia de software: testes, integração contínua, versionamento,
+code review, feedback rápido, observabilidade, design simples, refactoring e pequenas unidades de
+mudança. O trabalho específico com agentes torna essas práticas legíveis, executáveis e
+verificáveis pelo agente, acrescentando estruturas somente quando autonomia, contexto ou
+coordenação realmente exigem.
+
 Não é necessário conhecer agentes, arquitetura de software ou modelos de linguagem antes de
 começar. Termos importantes aparecem primeiro em português e, em seguida, em inglês.
 
@@ -60,7 +66,7 @@ Você pode seguir três rotas:
 
 ### Parte 2 — Arquitetura da memória
 
-- [Capítulo 3 — Memória durável, procedural, executável e efêmera](02-memoria.md#capítulo-3--quatro-formas-de-memória)
+- [Capítulo 3 — Memória e estado de trabalho](02-memoria.md#capítulo-3--memória-e-estado-de-trabalho)
 - [Capítulo 4 — Em qual fonte confiar?](02-memoria.md#capítulo-4--em-qual-fonte-confiar)
 
 ### Parte 3 — Especificação e planejamento
@@ -125,7 +131,11 @@ flowchart TD
     J -->|não| L[Arquivar ou esquecer]
 ```
 
-Quase todos os conceitos dos próximos capítulos ocupam um lugar nesse ciclo.
+Quase todos os conceitos dos próximos capítulos ocupam um lugar nesse ciclo, mas nem toda mudança
+percorre todas as caixas. Uma alteração pequena pode ir do objetivo diretamente à implementação e
+a um teste. Research, SPEC, design, grafo, review independente, Skill e orquestração entram quando
+reduzem uma incerteza ou um risco concreto; o mapa mostra responsabilidades possíveis, não um
+waterfall obrigatório.
 
 ---
 

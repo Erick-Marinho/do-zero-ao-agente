@@ -214,6 +214,14 @@ implícitos demais.
 
 ### Handoff compacto
 
+Handoff não é transcrição da session nem memória de longo prazo. É um pacote temporário para um
+consumidor e uma continuação específicos. Deve poder ser aceito, cancelado, substituído ou expirar;
+caso contrário, um estado antigo pode reaparecer como se ainda fosse o próximo passo.
+
+O `ai-memory`, apresentado como estudo de caso no Capítulo 3, ilustra essa diferença: handoffs
+automáticos servem à próxima sessão compatível, e um handoff mais novo substitui o anterior daquele
+diretório. O valor do exemplo está no lifecycle explícito, não na ferramenta.
+
 Uma passagem de contexto deve conter:
 
 ```markdown
@@ -229,6 +237,9 @@ Escolhas já feitas e suas razões essenciais.
 ## Evidências
 Testes executados, resultados e falhas atuais.
 
+## Proveniência
+De onde vieram decisões e claims importantes e quando foram verificados.
+
 ## Riscos ou questões
 O que o próximo agente não deve assumir.
 
@@ -242,13 +253,18 @@ Uma conversa longa é um bom registro histórico, mas uma fonte ruim para retoma
 hipóteses, correções, decisões e ruído sem um contrato claro. Artefatos de estado tornam a retomada
 mais confiável.
 
+```text
+SESSION ≠ HANDOFF ≠ MEMORY ≠ RULE
+```
+
 ### Perguntas de revisão
 
 1. Qual é a diferença entre compactar a conversa e externalizar o estado em um artefato?
 2. Por que mudar de Research para implementação é um bom candidato a `clear`?
 3. Que informação não pode faltar num handoff?
-4. O que uma task que “sobrevive a uma nova janela” revela sobre sua qualidade?
-5. Em que situação compaction é legítima e em que situação ela não substitui um handoff?
+4. Por que um handoff precisa poder expirar ou ser substituído?
+5. O que uma task que “sobrevive a uma nova janela” revela sobre sua qualidade?
+6. Em que situação compaction é legítima e em que situação ela não substitui um handoff?
 
 ---
 
@@ -260,6 +276,10 @@ Se o agente principal lê milhares de linhas de logs, estuda três bibliotecas e
 módulos, toda essa saída contamina sua janela — mesmo quando a conclusão útil cabe em dez linhas.
 
 Um **subagent** (subagente) pode isolar a exploração e devolver apenas resultados relevantes.
+
+Esse isolamento não é gratuito. Cada subagente introduz novo estado, contrato de comunicação,
+custo de contexto, latência, integração de resultados, possibilidade de decisões implícitas
+divergirem e novos modos de falha. O benefício precisa compensar esses custos.
 
 ### Analogia: executivo e analista
 
@@ -277,6 +297,9 @@ flowchart TD
     S2 -->|findings + evidências| P
     S3 -->|conflitos + fontes| P
 ```
+
+O diagrama mostra uma possibilidade para explorações realmente independentes, não um formato
+padrão para toda pesquisa.
 
 ### Papel é objetivo, não fantasia
 
@@ -313,6 +336,10 @@ Delegação tem custo. Não use subagente quando:
 - a pergunta depende intensamente do contexto tácito da thread principal;
 - explicar a missão e integrar o resultado custa mais que fazer localmente;
 - o trabalho toca os mesmos arquivos e decisões de outra execução ativa.
+
+Subagentes tendem a pagar seu custo quando o trabalho é independente, paralelo ou intensivo em
+leitura, pode ser descartado depois do retorno e possui fronteiras claras. Não os adicione apenas
+porque múltiplos agentes parecem mais avançados.
 
 ### Retorno confiável
 

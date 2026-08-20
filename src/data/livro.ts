@@ -43,8 +43,8 @@ export const capitulosLivro: CapituloLivro[] = [
     numero: '02',
     grupo: 'Parte 2',
     titulo: 'Arquitetura da memória',
-    descricao: 'Memória durável, procedural, executável e efêmera — e em qual fonte confiar.',
-    leitura: '16 min',
+    descricao: 'Memória durável, estado de sessão, handoffs, retrieval, retenção e autoridade.',
+    leitura: '20 min',
   },
   {
     slug: 'especificacao-e-planejamento',

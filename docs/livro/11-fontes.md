@@ -5,6 +5,22 @@ observa uma camada diferente do problema.
 
 ## Fontes principais
 
+### Kent Beck e Cynthia Andres — *Extreme Programming Explained: Embrace Change*
+
+<https://www.pearson.com/en-us/subject-catalog/p/extreme-programming-explained-embrace-change/P200000000118/9780321278654>
+
+Contribuições usadas neste livro:
+
+- pequenas mudanças e ciclos curtos de feedback;
+- testes, integração contínua, simple design e refactoring;
+- pair programming e colaboração próxima;
+- mudança tratada como parte normal do desenvolvimento;
+- spikes como experimentos pequenos para reduzir incerteza.
+
+Extreme Programming é apresentado como raiz conceitual importante, não como equivalente à
+engenharia com agentes. Coding agents alteram a configuração operacional do loop; não substituem as
+práticas clássicas que sustentam sua qualidade.
+
 ### Birgitta Böckeler — *Harness engineering for coding agent users*
 
 <https://martinfowler.com/articles/harness-engineering.html>
@@ -95,6 +111,28 @@ Contribuições usadas neste livro:
 - memória, busca, compactação, Skills e divulgação progressiva;
 - planejamento, verificação e execução de longa duração;
 - orquestração e contexto isolado para subagentes.
+
+## Estudo de caso técnico
+
+### AkitaOnRails — `ai-memory`
+
+- Repositório e visão geral: <https://github.com/akitaonrails/ai-memory>
+- Arquitetura: <https://github.com/akitaonrails/ai-memory/blob/main/docs/ARCHITECTURE.md>
+- Decisões de design: <https://github.com/akitaonrails/ai-memory/blob/main/docs/design-decisions.md>
+- Uso e handoffs: <https://github.com/akitaonrails/ai-memory/blob/main/docs/usage.md>
+
+Contribuições usadas como exemplo no livro:
+
+- separação entre observações brutas de session, wiki consolidada, handoff e regras canônicas;
+- Markdown versionado como registro persistido e SQLite como índice derivado de retrieval;
+- busca por texto, entidades, relações e vetores opcionais sem transformar ranking em autoridade;
+- retenção diferente para conhecimento episódico, semântico e procedural;
+- supersession, expiração de handoff, feedback de qualidade e esquecimento deliberado;
+- memória recuperada tratada como evidência histórica não confiável até nova verificação.
+
+Esse projeto é um estudo de caso de uma arquitetura possível. O método do livro não depende de sua
+instalação, formatos, tiers ou escolhas de implementação, e a menção não é uma recomendação de
+adoção obrigatória.
 
 ## Leituras complementares
 

@@ -3,6 +3,22 @@
 Este estudo junta o livro inteiro em uma única mudança. O objetivo não é oferecer uma arquitetura
 universal de autenticação, mas mostrar como os artefatos e ciclos se conectam.
 
+Recuperação de senha justifica um ciclo mais explícito porque combina segurança, comportamento de
+produto, persistência, interface e várias decisões cujo erro tem custo. Isso não transforma o ciclo
+abaixo em template obrigatório. Para um typo ou uma correção local de comportamento já coberta, um
+prompt claro e um teste podem bastar.
+
+Cada estrutura usada aqui paga por um risco concreto:
+
+| Estrutura | Risco que ajuda a reduzir |
+|---|---|
+| SPEC | decisões de segurança e produto virarem acidentes de implementação |
+| Research | o plano contrariar o brownfield existente |
+| Grafo de tasks | dependências entre superfícies ficarem implícitas |
+| Sensores | regressões e claims sem evidência |
+| Review focado | o implementador normalizar o próprio engano em uma mudança sensível |
+| Closure | tasks locais passarem sem o fluxo completo funcionar |
+
 ## Cenário
 
 O Mercado Bom Preço já possui login por e-mail e senha. Seu Renato relata:
@@ -297,17 +313,13 @@ pode automatizar burocracia; ferramenta com uma necessidade real pode reduzir tr
 
 ## Exercício final
 
-Escolha uma feature pequena do seu projeto e produza apenas:
+Escolha uma mudança pequena do seu projeto e selecione apenas os artefatos que ela realmente pede.
+Para cada estrutura escolhida — proposta, SPEC, Research, task, grafo, guide, sensor ou matriz de
+fechamento — registre em uma frase que problema resolve e qual erro ficaria mais provável sem ela.
+Se prompt + sensor bastarem, explique por quê.
 
-1. proposta de até dez linhas;
-2. três a cinco comportamentos da SPEC;
-3. cinco perguntas de Research;
-4. um grafo de três a seis tasks;
-5. guides e sensors de uma task;
-6. uma matriz de fechamento.
-
-Não implemente durante o exercício. O objetivo é perceber quais decisões antes ficariam escondidas
-dentro do código.
+Não implemente durante o exercício. O objetivo é perceber quais decisões ficariam escondidas dentro
+do código sem transformar todos os artefatos do estudo em ritual.
 
 [← Parte 7 — Aprendizagem](07-lifecycle-e-aprendizagem.md) ·
 [Próximo: mini-estudo Data Foundation →](08b-mini-estudo-data-foundation.md)

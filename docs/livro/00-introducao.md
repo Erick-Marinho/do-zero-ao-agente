@@ -11,6 +11,53 @@ feedback.
 
 Com agentes de IA acontece algo parecido.
 
+## Engenharia de software primeiro
+
+Não precisamos inventar uma nova engenharia de software para agentes. A base continua sendo testes,
+integração contínua, versionamento, code review, feedback rápido, observabilidade, design simples,
+refactoring e pequenas unidades de mudança.
+
+A contribuição específica do trabalho com agentes é tornar essas práticas legíveis pelo agente,
+executáveis pelo agente e verificáveis por sensores, dentro de limites explícitos de contexto e
+autoridade. Estruturas novas só se justificam quando autonomia probabilística, contexto limitado ou
+custo de coordenação criam um problema que as práticas existentes não resolvem sozinhas.
+
+> Não precisamos inventar uma nova engenharia de software para agentes. Precisamos tornar a boa
+> engenharia de software legível, executável e verificável por agentes, adicionando apenas as
+> estruturas exigidas por autonomia, contexto probabilístico e custo de coordenação.
+
+## Uma raiz importante: Extreme Programming
+
+Muitos fundamentos que usaremos têm raízes em **Extreme Programming — XP** e em práticas ágeis
+clássicas: pequenas mudanças, feedback rápido, testes, integração contínua, **simple design**
+(design simples), refactoring, pair programming e a aceitação de que mudar faz parte do
+desenvolvimento normal.
+
+XP não é equivalente a engenharia com agentes. É uma raiz conceitual útil porque coloca ciclos
+curtos de ação e feedback no centro do trabalho. Um coding agent pode participar de uma nova
+configuração de pair programming: o humano oferece intenção, julgamento e direção; o agente explora
+e implementa rapidamente; sensores oferecem feedback objetivo para o próximo ajuste.
+
+```mermaid
+flowchart TB
+    XP[EXTREME PROGRAMMING]
+    XP --> P[Pequenas mudanças]
+    XP --> F[Feedback rápido]
+    XP --> T[Testes]
+    P --> A[CODING AGENT]
+    F --> A
+    T --> A
+    A --> I[Implementa rápido]
+    I --> S[Sensores]
+    S --> FB[Feedback]
+    FB --> AJ[Ajuste]
+    AJ --> A
+```
+
+XP também usa o **spike**: um pequeno experimento feito para reduzir incerteza. Ele não precisa ser
+código de produção. No mini-estudo Data Foundation, o modelo Pydantic usado como *probe* cumpre esse
+papel: torna uma suposição observável antes que a equipe decida o comportamento definitivo.
+
 ## Modelo, agente e harness
 
 Um **modelo de linguagem** recebe informações e produz uma resposta. Ele não ganha automaticamente
@@ -19,8 +66,9 @@ arquivos.
 
 Um **agente** combina esse modelo com mecanismos que permitem observar, agir e repetir.
 
-Um **harness** (arnês, estrutura de controle) é o sistema ao redor do modelo que torna esse trabalho
-possível e governável.
+Um **harness** (arnês, estrutura de controle) é o ambiente operacional de ferramentas, contexto,
+sensores, feedback e limites dentro do qual o agente trabalha. Ele torna o trabalho possível e
+governável; não substitui engenharia de software.
 
 ```mermaid
 flowchart LR
@@ -48,7 +96,7 @@ As duas definições não competem. A segunda é um recorte da primeira.
 
 ## A mudança mais importante
 
-Durante muito tempo, a pergunta mais comum foi:
+Uma pergunta comum é:
 
 > “Como escrever um prompt que faça a IA acertar?”
 
@@ -59,14 +107,17 @@ Essa pergunta continua útil, mas é pequena para tarefas complexas. A pergunta 
 
 ```mermaid
 flowchart TB
-    P[Prompt isolado] -->|evolui para| CE[Engenharia de contexto]
-    CE --> HE[Engenharia de harness]
-    HE --> SYS[Sistema de trabalho confiável]
-
-    P -. escolhe palavras .-> CE
-    CE -. escolhe informações .-> HE
-    HE -. cria controles e feedback .-> SYS
+    SE[Boa engenharia de software] --> L[Agente participa do loop]
+    L --> Q{Existe um problema concreto<br/>de contexto, autonomia ou coordenação?}
+    Q -->|não| S[Manter o sistema simples]
+    Q -->|sim| E[Adicionar a menor estrutura<br/>que reduza o risco]
+    E --> V[Verificar se ela pagou o custo]
 ```
+
+O loop `implementar → testar → falhar → corrigir → testar` não nasceu com modelos de linguagem.
+É um ciclo clássico de feedback de engenharia. A diferença operacional é que agora o agente pode
+executar os sensores, receber seus resultados, corrigir-se dentro da autoridade concedida e
+entregar evidência.
 
 ## O que este livro não promete
 

@@ -49,6 +49,17 @@ Nem toda mudança precisa de todos esses artefatos. Uma correção local pode pa
 existente direto para uma task; uma nova capacidade sistêmica pode exigir PRD, HLD e ADRs. O mapa
 mostra responsabilidades, não uma burocracia obrigatória.
 
+Antes de criar qualquer camada, pergunte que problema concreto ela resolve e qual erro ou risco
+ficaria mais provável sem ela. Um mapa de responsabilidades possíveis não é um waterfall:
+
+| Situação | Estrutura que pode bastar |
+|---|---|
+| Mudança pequena e clara | prompt + sensor ou teste |
+| Incerteza factual relevante | Research proporcional à dúvida |
+| Unidade clara de execução | task |
+| Comportamento importante ou ambíguo | SPEC + task + sensores |
+| Decisão arquitetural durável | HLD ou ADR, quando o custo da decisão justificar |
+
 ### SPEC, design, plano e task
 
 | Artefato | Pergunta principal | Evita |
@@ -105,6 +116,28 @@ sensores evoluam.
 “Crie `TokenRepository`, depois `ResetService`, depois uma rota” é plano de implementação. Pode ser
 útil, mas não substitui a explicação do comportamento desejado.
 
+### SPEC ancora intenção; não representa toda a realidade
+
+Uma SPEC aprovada é fonte de intenção: registra invariantes e comportamentos cuja ambiguidade tem
+custo. Código, testes, runtime, dados e evidências mostram a realidade implementada. Por isso,
+**spec-anchored é diferente de spec-as-source-of-truth**.
+
+A SPEC não precisa descrever classes, algoritmos, todas as decisões locais ou descobertas que ainda
+podem surgir. Ela precisa limitar o que não pode emergir por acidente.
+
+> Software emerge dentro de limites.
+
+```text
+INVARIANTES / INTENÇÃO
+→ vale tornar explícito antes
+
+DETALHES / DESCOBERTAS
+→ podem emergir pela implementação e pelo feedback
+```
+
+“O token não pode ser reutilizado” é um invariante. A abstração interna usada para persistir o hash
+do token pode emergir durante a implementação, desde que respeite o contrato e os sensores.
+
 ### Perguntas de revisão
 
 1. Que decisão indevida o agente poderia tomar ao receber apenas “faça recuperação de senha”?
@@ -124,6 +157,11 @@ os dados, usuários ou integrações realmente permitem afirmar.
 
 **Research** (pesquisa) é investigação delimitada para reduzir incerteza. Sua posição depende da
 pergunta que ainda não conseguimos responder.
+
+Investigar não obriga a criar `RESEARCH.md`. Uma consulta curta pode ficar na própria task. Um
+artefato separado vale o custo quando a investigação é extensa, precisa de revisão ou handoff, ou
+será reutilizada por decisões posteriores. Pergunte quem usará a saída e qual erro ela ajudará a
+evitar.
 
 | Tipo | Quando entra | Pergunta central | Saída |
 |---|---|---|---|
@@ -294,6 +332,11 @@ Ele não é código descartável por definição. É uma primeira fatia integrad
 
 Tasks podem depender umas das outras. Um **DAG — Directed Acyclic Graph** (grafo direcionado
 acíclico) torna essas dependências explícitas.
+
+Antes de desenhá-lo, pergunte: existem várias unidades reais de trabalho, com dependências ou
+paralelismo útil? Se não, uma única task pequena pode bastar. Grafo, quadro e workflow entram quando
+reduzem ambiguidade de dependência, estado ou responsabilidade — não para fazer uma mudança parecer
+mais sofisticada.
 
 ```mermaid
 flowchart LR

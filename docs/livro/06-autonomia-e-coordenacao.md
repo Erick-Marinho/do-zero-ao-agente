@@ -75,6 +75,32 @@ as opções A e B têm estes impactos” concentra atenção.
 intervenção humana nos pontos onde julgamento, responsabilidade e contexto organizacional têm mais
 valor.
 
+### Quatro orçamentos
+
+Autonomia também consome recursos que precisam ser distribuídos:
+
+| Orçamento | Pergunta |
+|---|---|
+| **Context Budget** | Quanta informação ativa esta unidade de trabalho precisa? |
+| **Review Budget** | Quanto esforço de revisão o risco desta mudança justifica? |
+| **Human Attention Budget** | Onde julgamento humano muda mais o resultado? |
+| **Complexity/Ceremony Budget** | Que custo adicional cada nova camada introduz? |
+
+> Cada camada nova precisa pagar aluguel.
+
+Antes de adicionar SPEC, ADR, HLD, novo documento, reviewer independente, subagente, Skill,
+workflow, grafo ou orquestração, pergunte:
+
+1. Que problema concreto isto resolve?
+2. Se eu remover esta estrutura, qual erro ou risco fica mais provável?
+
+Sem resposta concreta, prefira não adicionar a camada. Artefatos não são etapas obrigatórias do
+lifecycle.
+
+Um reviewer fresco, por exemplo, custa tokens, tempo e contexto adicional. Em troca, oferece
+independência cognitiva e pode refutar claims que o implementador passou a tratar como naturais.
+Uma mudança de segurança pode justificar esse custo; um typo provavelmente não.
+
 ### Perguntas de revisão
 
 1. Por que revisão uniforme desperdiça atenção?
@@ -94,6 +120,21 @@ integração.
 
 **Agent orchestration** (orquestração de agentes) coordena unidades de trabalho, dependências,
 autoridade e passagens de estado.
+
+Antes de adotar essa estrutura, pergunte:
+
+```text
+Existe um problema real de coordenação
+entre unidades independentes?
+
+NÃO → continue com um agente simples
+SIM → considere orquestração
+```
+
+> Orquestração não é promoção. É uma resposta contingente a um problema real de coordenação.
+
+Uma Skill automatiza como fazemos um tipo de trabalho. Orquestração coordena quais unidades de
+trabalho devem acontecer, quando e por quem.
 
 ### Analogia: cozinha
 
@@ -183,8 +224,9 @@ Sem isso, “tente novamente” pode repetir o mesmo erro em escala.
 
 ### Fresh Bounded Review
 
-Revisão não concede ao reviewer autoridade ilimitada sobre o repositório. Depois do handoff, um
-reviewer em contexto fresco recebe uma fronteira pequena:
+Quando o risco justifica a independência cognitiva e seu custo, um reviewer em contexto fresco pode
+tentar refutar o handoff. Essa revisão não concede ao reviewer autoridade ilimitada sobre o
+repositório; ela recebe uma fronteira pequena:
 
 ```text
 TASK
@@ -193,12 +235,17 @@ CLAIMS DO HANDOFF
 +
 DIFF
 +
+SENSORES
++
 CONTEXTO IMEDIATO
 ```
 
 Seu objetivo é tentar refutar a conclusão de que aquela task terminou corretamente. Ele procura
 problemas introduzidos ou agravados pelo diff e violações que impedem os critérios da task. Não faz
 uma auditoria aberta do repositório.
+
+> Um bom reviewer não procura tudo que está errado. Ele procura evidência de que a mudança sob
+> revisão está errada.
 
 Uma heurística útil é perguntar: **se desfizermos somente este diff, o problema desaparece?** Se
 não, provavelmente encontramos dívida preexistente, não uma regressão bloqueante da task. A
