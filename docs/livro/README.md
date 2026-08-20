@@ -2,7 +2,7 @@
 
 ## Engenharia de contexto, especificações e harnesses para sistemas de IA confiáveis
 
-> **Edição 0.1 · agosto de 2026**
+> **Edição 0.2 · agosto de 2026**
 
 Este livro é uma introdução prática para quem quer trabalhar com agentes de IA em projetos de
 software, mas ainda se sente perdido entre termos como *context engineering*, SDD, `AGENTS.md`,

@@ -143,7 +143,7 @@ export const capitulosLivro: CapituloLivro[] = [
 export const dadosLivro = {
   titulo: 'Do zero ao agente',
   subtitulo: 'Engenharia de contexto, especificações e harnesses para sistemas de IA confiáveis.',
-  edicao: 'Edição 0.1',
+  edicao: 'Edição 0.2',
   partes: 7,
   capitulosConceituais: 17,
   diagramas: 58,

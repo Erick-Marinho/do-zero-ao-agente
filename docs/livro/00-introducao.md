@@ -22,9 +22,10 @@ executáveis pelo agente e verificáveis por sensores, dentro de limites explíc
 autoridade. Estruturas novas só se justificam quando autonomia probabilística, contexto limitado ou
 custo de coordenação criam um problema que as práticas existentes não resolvem sozinhas.
 
-> Não precisamos inventar uma nova engenharia de software para agentes. Precisamos tornar a boa
-> engenharia de software legível, executável e verificável por agentes, adicionando apenas as
-> estruturas exigidas por autonomia, contexto probabilístico e custo de coordenação.
+> **Engenharia com agentes não é substituir engenharia de software por uma nova coleção de
+> frameworks. É colocar agentes dentro de loops de engenharia já sólidos, tornar contexto e
+> autoridade explícitos, transformar intenção em feedback executável e adicionar complexidade
+> somente quando um risco concreto paga por ela.**
 
 ## Uma raiz importante: Extreme Programming
 

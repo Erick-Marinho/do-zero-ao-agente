@@ -150,33 +150,38 @@ Tipos diferentes de registro merecem políticas diferentes:
 Esquecer não é necessariamente uma falha. Remover episódios frios, hipóteses derrotadas e cópias
 substituídas reduz ruído e evita que conhecimento antigo dispute atenção com fontes atuais.
 
-### Lifecycle da memória
+### Lifecycle simplificado da memória
 
 ```text
 CAPTURE
 ↓
 CONSOLIDATION
 ↓
-PROMOTION
+VALIDATION / PROMOTION
 ↓
 RETRIEVAL
-↓
-REINFORCEMENT
-↓
-SUPERSESSION
-↓
-FORGETTING
+    ↕
+USE / REEVALUATION
+    ├── REINFORCEMENT
+    ├── SUPERSESSION
+    └── FORGETTING
 ```
 
 - **Capture:** registra observações com escopo e proveniência.
 - **Consolidation:** comprime a história da sessão em conhecimento candidato, sem conceder
   autoridade.
-- **Promotion:** confirma o que possui evidência e valor futuro suficiente para virar memória.
+- **Validation / Promotion:** confirma o que possui evidência e valor futuro suficiente para virar
+  memória.
 - **Retrieval:** seleciona candidatos relevantes para uma nova tarefa.
+- **Use / Reevaluation:** confronta a memória recuperada com a tarefa e as fontes atuais; esse ciclo
+  pode acontecer muitas vezes.
 - **Reinforcement:** nova evidência ou reutilização verificada aumenta a confiança e a prioridade da
   memória, sem transformá-la automaticamente em regra.
 - **Supersession:** uma versão mais atual substitui a anterior preservando a relação histórica.
 - **Forgetting:** reduz prioridade, arquiva ou remove o que perdeu valor.
+
+Reinforcement, supersession e forgetting são transições possíveis após uso e reavaliação, não
+etapas obrigatórias pelas quais toda memória precisa passar.
 
 ### Estudo de caso: `akitaonrails/ai-memory`
 
@@ -283,6 +288,9 @@ Ao selecionar uma fonte, avalie quatro eixos:
 **Relevância** continua sendo o filtro de carregamento: mesmo uma fonte confiável fica fora da
 mochila quando não altera a tarefa. **Escopo** é diferente: uma evidência pode ser muito relevante e
 ainda assim não se aplicar ao ambiente ou componente em questão.
+
+> **Autoridade, atualidade, escopo e proveniência qualificam a fonte; relevância decide se ela entra
+> no contexto; suficiência de evidência decide se uma conclusão merece promoção.**
 
 ```mermaid
 quadrantChart

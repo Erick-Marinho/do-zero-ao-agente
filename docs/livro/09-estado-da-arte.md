@@ -60,7 +60,10 @@ flowchart TD
     X -->|sim| Y[IMPLEMENTATION RESEARCH]
     X -->|não| F[DESIGN / TASK]
     Y --> F
-    F --> G
+    F --> CO{Existe coordenação real<br/>entre unidades independentes?}
+    CO -->|não| G
+    CO -->|sim| Z[CONSIDERE ORQUESTRAÇÃO]
+    Z --> G
     G --> I[SENSORES]
     I --> J{Falha local e<br/>dentro da autoridade?}
     J -->|sim| G
@@ -84,13 +87,15 @@ flowchart TD
     R --> S
     S -->|sim| T[MEMORY PROMOTION]
     S -->|não| U[Arquivar ou esquecer]
-    T --> V{Procedimento repetitivo ou<br/>coordenação real?}
-    V -->|procedimento| W[SKILL / SCRIPT]
-    V -->|coordenação| Z[ORQUESTRAÇÃO]
-    V -->|nenhum| U
+    T --> V{Procedimento repetitivo?}
+    V -->|sim| W[SKILL / SCRIPT]
+    V -->|não| U
 ```
 
 Não precisamos usar todas as etapas para toda mudança.
+
+> **Skill pode emergir de aprendizagem. Orquestração emerge de necessidade de coordenação. São
+> eixos diferentes.**
 
 A regra é:
 
@@ -2656,7 +2661,10 @@ flowchart TD
     Y -->|no| Z[IMPLEMENTATION RESEARCH]
     Z --> E[DESIGN / TASK]
     Y -->|yes| E
-    E --> F[IMPLEMENTER]
+    E --> CO{REAL COORDINATION BETWEEN<br/>INDEPENDENT UNITS?}
+    CO -->|no| F[IMPLEMENTER]
+    CO -->|yes| OR[CONSIDER ORCHESTRATION]
+    OR --> F
     F --> G[TASK TESTS +<br/>PROJECT SENSORS]
     G --> LC{LOCAL FAILURE?}
     LC -->|yes; authorized| H[SELF-CORRECT]
@@ -2681,10 +2689,9 @@ flowchart TD
     R --> S{RECURRING, CONFIRMED<br/>KNOWLEDGE?}
     S -->|yes| MP[MEMORY PROMOTION]
     S -->|no| U[ARCHIVE OR FORGET]
-    MP --> T{REPETITIVE PROCEDURE OR<br/>REAL COORDINATION PROBLEM?}
-    T -->|procedure| SK[SKILL / SCRIPT]
-    T -->|coordination| OR[CONSIDER ORCHESTRATION]
-    T -->|neither| U
+    MP --> T{REPETITIVE PROCEDURE?}
+    T -->|yes| SK[SKILL / SCRIPT]
+    T -->|no| U
 ```
 
 ---
@@ -2720,6 +2727,9 @@ Esse é o ponto de maturidade que buscamos:
 
 > **boa engenharia primeiro; agentes dentro do loop; contexto, contratos e coordenação somente na
 > medida em que pagam seu custo.**
+
+> **Maturidade não é quantas estruturas você adicionou. É saber quais consegue deixar de
+> adicionar.**
 
 [← Mini-estudo Data Foundation](08b-mini-estudo-data-foundation.md) ·
 [Próximo: Glossário →](10-glossario-essencial.md)
