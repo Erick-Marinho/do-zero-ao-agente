@@ -1,6 +1,6 @@
-# Parte 6 — Autonomia e coordenação
+# Parte 7 — Autonomia e coordenação
 
-## Capítulo 13 — Orçamento de atenção humana
+## Capítulo 16 — Orçamento de atenção humana
 
 ### A dor: revisar tudo não escala; não revisar nada não é seguro
 
@@ -110,7 +110,7 @@ Uma mudança de segurança pode justificar esse custo; um typo provavelmente nã
 
 ---
 
-## Capítulo 14 — Orquestração de agentes
+## Capítulo 17 — Orquestração de agentes
 
 ### A dor: muitos agentes, mais conflitos
 
@@ -142,7 +142,7 @@ Uma cozinha não fica mais rápida apenas colocando dez pessoas diante do mesmo 
 precisa de pedidos claros, estações com responsabilidades, ordem de preparo e um ponto de montagem.
 
 Na prática, esse “painel de comandas” é o quadro kanban apresentado no
-[Capítulo 7](03-especificacao-e-planejamento.md#do-grafo-ao-quadro-o-kanban-como-documento-da-jornada):
+[Capítulo 10](03-especificacao-e-planejamento.md#do-grafo-ao-quadro-o-kanban-como-documento-da-jornada-do-trabalho):
 o estado que o orchestrator coordena — grafo, bloqueios, status e quem está com cada task — já
 vive nas issues e colunas de uma ferramenta como o Linear.
 
@@ -285,4 +285,4 @@ probabilística se transforme silenciosamente em novo contrato de produto ou arq
 4. Por que um reviewer pode se beneficiar de contexto fresco?
 5. Por que aceitar um finding não implica aceitar a solução proposta pelo reviewer?
 
-[← Parte 5 — Harness](05-harness.md) · [Próximo: Parte 7 — Aprendizagem →](07-lifecycle-e-aprendizagem.md)
+[← Parte 6 — Harness](05-harness.md) · [Próximo: Parte 8 — Aprendizagem →](07-lifecycle-e-aprendizagem.md)

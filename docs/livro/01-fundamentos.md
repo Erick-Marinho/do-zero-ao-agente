@@ -120,10 +120,10 @@ flowchart TD
 A **compaction** (compactação) pode ser legítima quando o objetivo e a fase continuam os mesmos e o
 harness preserva o estado relevante de forma confiável. Em mudanças de fase — por exemplo, Research
 para implementação — o caminho preferido neste livro continua sendo externalizar deliberadamente o
-estado útil, limpar e reidratar uma janela nova. A distinção será aprofundada no Capítulo 9.
+estado útil, limpar e reidratar uma janela nova. A distinção será aprofundada no Capítulo 12.
 
 Essas cinco ações serão aprofundadas no
-[Capítulo 9 — Ciclo de vida do contexto](04-engenharia-de-contexto.md#capítulo-9--ciclo-de-vida-do-contexto).
+[Capítulo 12 — Ciclo de vida do contexto](04-engenharia-de-contexto.md#capítulo-12--ciclo-de-vida-do-contexto).
 
 > A meta não é manter a conversa viva pelo maior tempo possível. É manter o trabalho na zona em que
 > objetivo, evidência e decisões continuam nítidos.

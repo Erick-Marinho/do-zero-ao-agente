@@ -33,7 +33,7 @@ Contribuições usadas neste livro:
 - harnessability, loops de direção e atenção humana;
 - relação entre engenharia de contexto e o harness externo do coding agent.
 
-É a fonte principal da Parte 5.
+É a fonte principal da Parte 6.
 
 ### OpenAI — *Alavancando o Codex em um mundo centrado no agente*
 
@@ -56,7 +56,7 @@ como promessa para todo projeto.
 <https://developers.openai.com/api/docs/guides/compaction>
 
 A documentação apresenta compaction server-side e explícita como mecanismos para reduzir contexto
-preservando estado em interações longas. Ela sustenta a distinção adotada no Capítulo 9: compaction
+preservando estado em interações longas. Ela sustenta a distinção adotada no Capítulo 12: compaction
 pode ser apropriada para continuidade dentro do mesmo objetivo; handoff explícito continua
 preferível quando a fase, a autoridade ou o consumidor mudam.
 
@@ -73,7 +73,7 @@ Contribuições usadas neste livro:
 - proporcionalidade do processo ao tamanho e risco da tarefa.
 
 As notas interpretam ideias apresentadas por Dex Horthy. Para aprofundamento, consulte também a
-fonte primária indicada nas leituras complementares. O Capítulo 9 compara essa defesa de
+fonte primária indicada nas leituras complementares. O Capítulo 12 compara essa defesa de
 compactação intencional com a preferência por limpar e reidratar nas mudanças de fase.
 
 ### Matt Pocock — workshop sobre engenharia de IA (AI Hero)
@@ -89,7 +89,7 @@ Contribuições usadas neste livro:
 - sessões de alinhamento por entrevista (“grill me”) e o conceito de design compartilhado, com
   referência a Frederick P. Brooks;
 - PRD como **documento de destino** e quadro de dependências (kanban) como **documento de
-  jornada**;
+  jornada** — a jornada do trabalho, na terminologia deste livro;
 - distinção entre tarefas **human in the loop** (alinhamento e decisão) e tarefas **AFK** (execução
   delegável);
 - fatias verticais e tracer bullets contra a tendência do agente de “codificar horizontalmente”;
@@ -205,7 +205,7 @@ possuir o próprio contexto e manter agentes focados ajuda a formar a base da en
 
 Apresentação de Dex Horthy sobre tarefas complexas em codebases brownfield, Research → Plan →
 Implement, compactação intencional e alinhamento mental antes da implementação. Compare com a
-posição de Matt Pocock sobre limpar em vez de compactar; a reconciliação está no Capítulo 9.
+posição de Matt Pocock sobre limpar em vez de compactar; a reconciliação está no Capítulo 12.
 
 ### Padrão `AGENTS.md`
 

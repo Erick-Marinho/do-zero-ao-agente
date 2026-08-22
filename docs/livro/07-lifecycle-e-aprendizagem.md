@@ -1,6 +1,6 @@
-# Parte 7 — Fechamento e aprendizagem
+# Parte 8 — Fechamento e aprendizagem
 
-## Capítulo 15 — Quando uma feature está realmente pronta?
+## Capítulo 18 — Quando uma feature está realmente pronta?
 
 ### A dor: todas as tasks terminaram, mas o comportamento não fecha
 
@@ -61,7 +61,7 @@ sistêmico verifica interfaces entre tasks, comportamento completo e documentaç
 
 ---
 
-## Capítulo 16 — Promoção de memória
+## Capítulo 19 — Promoção de memória
 
 ### A dor: a feature terminou; o que merece sobreviver?
 
@@ -170,7 +170,197 @@ promoção e até preparar o diff, mas mudanças sistêmicas merecem revisão pr
 
 ---
 
-## Capítulo 17 — Métricas e harness que aprende
+## Capítulo 20 — Matriz de reconstrução
+
+### A dor: os documentos existem, mas ninguém sabe de onde vieram
+
+O projeto tem PRD, HLD, dois ADRs e uma SPEC. Parece maduro. Aí alguém pergunta por que o HLD prevê
+uma fila de mensagens, e a conversa trava:
+
+- o PRD não menciona nenhum requisito que exija fila;
+- o ADR sobre persistência não decide isso;
+- quem escreveu o HLD não lembra se foi decisão ou hipótese;
+- e três tasks já foram planejadas assumindo que a fila existe.
+
+Essa é a situação normal de qualquer projeto real. A trilha do
+[Capítulo 5](02b-do-problema-a-capacidade.md#capítulo-5--os-cinco-níveis-de-decisão) descreve a
+ordem em que as decisões **deveriam** nascer. Quase nenhum projeto nasceu nessa ordem. Os documentos
+foram escritos em paralelo, sob pressão, por pessoas diferentes, e alguns nasceram depois do código
+que deveriam ter guiado.
+
+A reação usual é uma das duas piores possíveis: apagar tudo e recomeçar, ou seguir em frente
+fingindo que a cadeia existe.
+
+### Reconstrução retrospectiva de rastreabilidade
+
+Existe uma terceira opção. **Reconstrução retrospectiva de rastreabilidade** é partir do problema e
+verificar, elemento por elemento, se cada decisão registrada ainda possui fundamento — sem apagar
+nada e sem inventar história.
+
+O objetivo não é fingir que a cadeia existia no passado. É declarar com honestidade:
+
+```text
+o que estava registrado na época
++ o que conseguimos reconstruir agora
++ o que ainda não possui justificativa
++ o que precisa de nova decisão humana
+```
+
+Este capítulo fica ao lado da [promoção de memória](07-lifecycle-e-aprendizagem.md#capítulo-19--promoção-de-memória)
+porque os dois resolvem o mesmo tipo de problema em direções opostas. A promoção pergunta o que
+merece sobreviver a partir de agora; a reconstrução pergunta o que já sobreviveu sem justificativa.
+
+### Os cinco estados de uma ligação
+
+Cada ligação entre dois elementos recebe um estado. São cinco, e nenhum deles é “errado”:
+
+| Estado | Significado | Ação |
+|---|---|---|
+| `CONFIRMADO` | existe fonte ou evidência anterior que sustenta a ligação | preservar e referenciar |
+| `RECONSTRUÍDO` | a ligação faz sentido hoje, mas foi explicitada depois | registrar como reconstrução e obter aprovação humana |
+| `DESCONHECIDO` | não há evidência suficiente para afirmar o motivo | pesquisar ou manter aberto |
+| `CONFLITO` | documentos ou realidade atual se contradizem | pausar o trabalho afetado e decidir |
+| `ÓRFÃO` | o elemento não realiza nenhum resultado, capacidade ou decisão aceita | remover, reduzir ou justificar conscientemente |
+
+`RECONSTRUÍDO` é o estado mais importante e o mais fácil de falsificar. Ele não significa falso.
+Significa apenas que essa justificativa não pode ser apresentada como a razão histórica original.
+Um agente que audita sem essa distinção produz um relatório onde tudo aparece como `CONFIRMADO`,
+porque tudo faz sentido em retrospecto — e sentido em retrospecto é exatamente o que uma alucinação
+plausível produz.
+
+### A matriz
+
+A matriz **não é um documento novo do projeto**. É uma planilha temporária de auditoria: uma linha
+por elemento já escrito, sempre as mesmas cinco colunas. Cada linha se lê como uma frase única:
+
+```text
+o elemento X deveria ter nascido de Y;
+a evidência que encontrei é Z;
+portanto a ligação está no estado E;
+e a correção que proponho é C.
+```
+
+| Coluna | Pergunta que responde | Como é preenchida |
+|---|---|---|
+| Elemento existente | o que está escrito hoje? | copiado do documento, com a seção de origem |
+| Deveria derivar de | de onde isso precisaria ter nascido? | fixo pela trilha; não se inventa |
+| Evidência encontrada | onde está registrado que nasceu de lá? | citação de arquivo e seção, ou “nada encontrado” |
+| Estado | qual dos cinco estados descreve a ligação? | escolhido na tabela acima |
+| Correção proposta | o que fazer se a ligação não se sustenta? | proposta de quem audita; a decisão é humana |
+
+### A coluna “deveria derivar de” é fixa
+
+Essa coluna é a trilha do Capítulo 5 lida ao contrário. Ela não muda de projeto para projeto, e é
+justamente por ser fixa que a auditoria não vira opinião:
+
+| Elemento existente | Deveria derivar de |
+|---|---|
+| resultado do PRD | problema e decisão inicial |
+| etapa da jornada do usuário | resultado do PRD |
+| capacidade | etapa da jornada do usuário |
+| responsabilidade do HLD | capacidade ou ADR |
+| decisão do ADR | problema + alternativas + decisão humana |
+| critério da SPEC | capacidade + PRD/HLD/ADR |
+| task | critério ou fatia da SPEC |
+
+É **uma linha por elemento real**, não uma linha por tipo. Se o PRD declara oito objetivos, são oito
+linhas de “resultado do PRD”.
+
+### Exemplo: auditando o Mercado Bom Preço
+
+| Elemento existente | Deveria derivar de | Evidência encontrada | Estado | Correção proposta |
+|---|---|---|---|---|
+| `PRD §3.1` — produzir base derivada reproduzível | problema e decisão inicial | `PRD §2` exige provar a consulta sem depender do ERP em produção | `CONFIRMADO` | nenhuma; apenas referenciar a origem |
+| capacidade “identificar informação obrigatória ausente” | etapa da jornada do usuário | não existe jornada escrita; a exigência aparece solta em `PRD §2` | `RECONSTRUÍDO` | escrever a jornada do usuário e submeter à aprovação |
+| critérios `B1`…`B10` da SPEC Data Foundation | capacidade + PRD/HLD/ADR | a SPEC cita o Research do dump e a capacidade escolhida | `CONFIRMADO` | nenhuma; é o formato que os outros deveriam seguir |
+| `PRD §3.5` — implementar o fluxo em LangGraph | capacidade + decisão registrada | PRD e HLD citam a biblioteca; `AGENTS.md` afirma que o caminho não foi decidido | `CONFLITO` | decidir por ADR ou reduzir o PRD; não instalar antes disso |
+| `HLD §13` — topologia e persistência | capacidade ou ADR | nenhum ADR cobre; o próprio HLD declara em aberto | `DESCONHECIDO` | manter aberto até haver Research que sustente a decisão |
+
+A linha do `CONFLITO` é o motivo de a matriz existir. Uma tecnologia aparece em dois documentos como
+se tivesse sido escolhida, enquanto um terceiro afirma que a escolha continua aberta. Sem auditoria,
+a próxima task instala a biblioteca e o conflito é resolvido por acidente, na direção de quem
+programou primeiro.
+
+Nenhuma linha `ÓRFÃO` apareceu neste recorte. Um exemplo seria uma task que não realiza nenhum
+critério da SPEC — ela existiria sem nada acima dela justificando sua existência.
+
+### Ordem da auditoria
+
+Audite de cima para baixo. Auditar uma SPEC antes do PRD produz correções que serão descartadas
+quando o nível de cima mudar.
+
+```text
+1. PRD    — extrair problema, atores, tese, critérios e casos já existentes
+2. Jornada do usuário — reconstruir o caminho da pessoa; submeter à aprovação
+3. Mapa de capacidades — derivar “o sistema precisa ser capaz de...” de cada etapa
+4. HLD    — verificar se cada responsabilidade realiza capacidade ou decisão aceita
+5. ADRs   — separar contexto comprovado de justificativa reconstruída
+6. SPEC   — mapear objetivo, regras e critérios para capacidades aprovadas
+7. Tasks  — conferir se cada uma realiza parte da SPEC e se cada dependência é real
+```
+
+### A matriz é descartável
+
+Esse é o ponto que impede a auditoria de virar mais um documento a manter. A matriz vive apenas
+entre “descobri que os documentos nasceram fora de ordem” e “aprovei uma nova baseline”.
+
+```mermaid
+flowchart TD
+    A[Documentos existem<br/>fora da ordem da trilha] --> B[Preencher a matriz<br/>sem editar nenhum arquivo]
+    B --> C{Humano revisa RECONSTRUÍDO,<br/>CONFLITO e ÓRFÃO}
+    C -->|aceita| D[Aplicar somente<br/>as correções aprovadas]
+    C -->|rejeita ou falta decisão| E[Nova decisão humana:<br/>ADR, ajuste de PRD ou remoção]
+    E --> D
+    D --> F[Baseline aprovada<br/>e identificável]
+    F --> G[Matriz encerrada:<br/>vive no histórico, não vira<br/>arquivo do repositório]
+```
+
+Repare na primeira caixa: preencher **sem editar nenhum arquivo**. Auditar e corrigir na mesma
+passada destrói a evidência que a auditoria deveria produzir — você deixa de conseguir distinguir o
+que estava escrito do que você acabou de escrever.
+
+### Armadilha: a auditoria que aprova a si mesma
+
+Peça a um agente “verifique se os documentos são consistentes” e ele encontrará consistência. Cada
+elemento tem uma explicação plausível disponível em retrospecto, e o modelo é excelente em produzir
+explicações plausíveis.
+
+O que torna a matriz útil é o formato: coluna fixa de derivação, exigência de citar arquivo e seção
+na evidência, e um estado `RECONSTRUÍDO` separado de `CONFIRMADO`. Sem essas três restrições, a
+saída é uma aprovação genérica.
+
+```text
+Preencha a matriz de reconstrução para os documentos deste projeto.
+
+Uma linha por elemento real, não por tipo de documento. Para cada linha, use a
+coluna “deveria derivar de” fixa pela trilha; cite arquivo e seção na evidência
+ou escreva “nada encontrado”; classifique em CONFIRMADO, RECONSTRUÍDO,
+DESCONHECIDO, CONFLITO ou ÓRFÃO.
+
+Use CONFIRMADO somente quando houver registro anterior à criação do elemento.
+Coerência em retrospecto é RECONSTRUÍDO, não CONFIRMADO.
+
+Não edite nenhum arquivo. Não proponha implementação. Termine listando apenas
+as decisões humanas necessárias para aprovar uma nova baseline.
+```
+
+### Em uma frase
+
+Quando os documentos nascem fora de ordem, a saída não é apagar nem fingir: é uma auditoria
+descartável que separa o que foi decidido do que foi reconstruído, e devolve ao humano só as
+decisões que ainda faltam.
+
+### Perguntas de revisão
+
+1. Por que `RECONSTRUÍDO` não é sinônimo de errado — e por que separá-lo de `CONFIRMADO` importa?
+2. O que aconteceria se a coluna “deveria derivar de” fosse preenchida caso a caso?
+3. Por que auditar e corrigir na mesma passada destrói a evidência?
+4. Um elemento em estado `ÓRFÃO` deve sempre ser removido? Justifique.
+5. Escolha um documento do seu projeto e preencha três linhas da matriz.
+
+---
+
+## Capítulo 21 — Métricas e harness que aprende
 
 ### A dor: “parece que melhorou”
 
@@ -260,4 +450,4 @@ flowchart TD
 3. Como a etapa de detecção orienta investimento em sensores?
 4. Escolha uma falha recente e classifique sua causa antes de propor uma melhoria.
 
-[← Parte 6 — Autonomia](06-autonomia-e-coordenacao.md) · [Próximo: Estudo de caso →](08-estudo-de-caso.md)
+[← Parte 7 — Autonomia](06-autonomia-e-coordenacao.md) · [Próximo: Estudo de caso →](08-estudo-de-caso.md)

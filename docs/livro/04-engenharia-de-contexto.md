@@ -1,6 +1,6 @@
-# Parte 4 — Engenharia de contexto operacional
+# Parte 5 — Engenharia de contexto operacional
 
-## Capítulo 8 — Montagem do contexto
+## Capítulo 11 — Montagem do contexto
 
 ### A dor: tudo está documentado, mas nada é encontrado
 
@@ -106,7 +106,7 @@ flowchart LR
 
 ---
 
-## Capítulo 9 — Ciclo de vida do contexto
+## Capítulo 12 — Ciclo de vida do contexto
 
 ### A dor: a conversa não termina quando a fase termina
 
@@ -268,7 +268,7 @@ SESSION ≠ HANDOFF ≠ MEMORY ≠ RULE
 
 ---
 
-## Capítulo 10 — Subagentes como fronteiras de contexto
+## Capítulo 13 — Subagentes como fronteiras de contexto
 
 ### A dor: o agente principal faz todas as explorações
 
@@ -370,4 +370,4 @@ Resposta curta à pergunta.
 3. Quando o retorno de um subagente é evidência fraca?
 4. Escreva uma missão curta para investigar um problema real sem autorizar implementação.
 
-[← Parte 3 — Especificação](03-especificacao-e-planejamento.md) · [Próximo: Parte 5 — Harness →](05-harness.md)
+[← Parte 4 — Especificação](03-especificacao-e-planejamento.md) · [Próximo: Parte 6 — Harness →](05-harness.md)

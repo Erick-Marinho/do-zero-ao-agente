@@ -43,8 +43,8 @@ ajuda a responder ao Seu Renato.
 
 A pergunta que orienta este capítulo é outra:
 
-> **E se o Linear não for o gerente do projeto, mas a memória operacional da jornada entre uma
-> SPEC e sua evidência?**
+> **E se o Linear não for o gerente do projeto, mas a memória operacional da jornada do trabalho
+> entre uma SPEC e sua evidência?**
 
 Este capítulo descreve um experimento. Ele se inspira em desenvolvimento orientado por
 especificações — *Spec-Driven Development*, ou SDD —, Programação Extrema — *Extreme
@@ -66,7 +66,7 @@ e os comportamentos B1–B10 vêm da
 ## 1. A tese do experimento
 
 > **A SPEC registra o destino; as tasks registram mudanças verificáveis; o Linear registra o estado
-> da jornada; os sensores produzem feedback; e o closure reconcilia intenção, implementação e
+> da jornada do trabalho; os sensores produzem feedback; e o closure reconcilia intenção, implementação e
 > evidência.**
 
 Cada superfície possui uma responsabilidade:
@@ -85,7 +85,7 @@ TASK
 → qual nova verdade verificável será produzida?
 
 QUADRO
-→ em que estado está a jornada?
+→ em que estado está a jornada do trabalho?
 
 SENSOR
 → que evidência temos sobre a realidade?
@@ -179,7 +179,7 @@ duas versões plausíveis
 drift
 ```
 
-As sub-issues registram a jornada. Os comentários registram handoffs, evidências e decisões
+As sub-issues registram a jornada do trabalho. Os comentários registram handoffs, evidências e decisões
 temporárias. Comentários, entretanto, não substituem documentação durável:
 
 ```text
@@ -993,7 +993,7 @@ o que não foi decidido?
 o que pode avançar agora?
 ```
 
-O log é a jornada detalhada. O handoff é a entrega compacta.
+O log é a jornada do trabalho detalhada. O handoff é a entrega compacta.
 
 ---
 
@@ -1425,7 +1425,7 @@ O experimento não usa o Linear para dizer ao desenvolvedor como trabalhar. Usa-
 visível o caminho entre intenção e evidência.
 
 A solicitação do Seu Renato preserva o problema. A SPEC preserva o destino técnico atual. As tasks
-limitam a mudança. O quadro registra o estado da jornada. Os sensores devolvem realidade. O review
+limitam a mudança. O quadro registra o estado da jornada do trabalho. Os sensores devolvem realidade. O review
 tenta refutar as alegações do implementador. O closure impede que progresso aparente seja
 confundido com comportamento concluído.
 
@@ -1440,7 +1440,7 @@ TASK
 → mudança verificável
 
 LINEAR
-→ estado da jornada
+→ estado da jornada do trabalho
 
 SENSOR
 → feedback da realidade

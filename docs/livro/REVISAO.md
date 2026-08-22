@@ -7,14 +7,19 @@ publicação. Não é necessário revisar gramática linha a linha na primeira l
 
 - **Título provisório:** *Do zero ao agente*.
 - **Público:** pessoas sem conhecimento prévio, mas interessadas em desenvolvimento de software.
-- **Formato:** sete partes, 17 capítulos, dois estudos de caso, manual estado da arte, glossário e
+- **Formato:** oito partes, 21 capítulos, dois estudos de caso, manual estado da arte, glossário e
   fontes.
 - **Progressão:** dor → modelo mental → conceito → exemplo → perguntas.
-- **Exemplo contínuo:** recuperação de senha em um sistema existente.
+- **Exemplo contínuo:** o Mercado Bom Preço do Seu Renato. A recuperação de senha cobre o caminho
+  brownfield (Partes 4 a 8); a consulta de vendas cobre o caminho greenfield, do problema à
+  capacidade (Parte 3) e daí até o fechamento (mini-estudo Data Foundation e experimento Linear).
 - **Vocabulário:** português primeiro; termo em inglês junto da primeira definição.
 - **Harness:** a palavra inglesa é mantida após a definição, pois “arnês” não é comum no uso técnico
   em português.
 - **OpenSpec:** aparece depois do workflow manual, como ferramenta de lifecycle e não como requisito.
+- **“Jornada”:** o termo é sempre qualificado. *Jornada do usuário* é o caminho da pessoa e vive no
+  PRD; *jornada do trabalho* é o estado das tasks e vive no quadro. Nunca use a palavra sozinha
+  quando o sentido importar.
 - **Publicação:** ainda não integrada ao React/GitHub Pages nesta etapa.
 
 ## Primeira leitura — estrutura
@@ -25,6 +30,8 @@ Marque onde a resposta for “não”:
 - [ ] A ordem dos capítulos parece natural para alguém iniciante?
 - [ ] Cada conceito aparece depois de um problema que justifica sua existência?
 - [ ] As diferenças entre SPEC, Research, plano e task ficaram claras?
+- [ ] A diferença entre PRD, mapa de capacidades, HLD e SPEC ficou clara?
+- [ ] A Parte 3 justifica sua existência antes de a Parte 4 começar?
 - [ ] As duas escalas de “harness” deixaram de parecer contraditórias?
 - [ ] O estudo de caso conecta as partes sem exigir conhecimento não apresentado?
 - [ ] Algum capítulo deveria ser dividido, unido ou movido?
@@ -43,7 +50,8 @@ Marque onde a resposta for “não”:
 - [ ] Há teoria demais antes do estudo de caso?
 - [ ] Algum conceito importante do caderno de pesquisa desapareceu na síntese?
 - [ ] As perguntas ao final realmente testam entendimento?
-- [ ] Falta um segundo estudo de caso para mostrar que o método não depende de autenticação?
+- [ ] O caminho greenfield (Parte 3 → Data Foundation) mostra que o método não depende de
+      autenticação?
 
 ## Formato sugerido para comentários
 

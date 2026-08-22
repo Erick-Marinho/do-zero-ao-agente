@@ -1,6 +1,6 @@
-# Parte 5 — Engenharia de harness
+# Parte 6 — Engenharia de harness
 
-## Capítulo 11 — Guias e sensores
+## Capítulo 14 — Guias e sensores
 
 ### A dor: a instrução existe, mas ninguém sabe se funcionou
 
@@ -161,7 +161,7 @@ misturaria feedback e mutação, tornando a evidência menos clara.
 
 ---
 
-## Capítulo 12 — Conhecimento executável
+## Capítulo 15 — Conhecimento executável
 
 ### A dor: pedir para lembrar o que a máquina poderia impedir
 
@@ -278,4 +278,4 @@ Custo de manutenção:
 3. Qual é a diferença entre invariante e preferência de implementação?
 4. O que torna um investimento em harness proporcional?
 
-[← Parte 4 — Contexto](04-engenharia-de-contexto.md) · [Próximo: Parte 6 — Autonomia →](06-autonomia-e-coordenacao.md)
+[← Parte 5 — Contexto](04-engenharia-de-contexto.md) · [Próximo: Parte 7 — Autonomia →](06-autonomia-e-coordenacao.md)

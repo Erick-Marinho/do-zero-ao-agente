@@ -347,4 +347,5 @@ o código, pois o código pode ser justamente o que está errado.
 4. Escreva como registraria uma divergência sem resolvê-la por suposição.
 5. Por que “veio de outro agente” não basta como proveniência de uma conclusão?
 
-[← Parte 1 — Fundamentos](01-fundamentos.md) · [Próximo: Parte 3 — Especificação →](03-especificacao-e-planejamento.md)
+[← Parte 1 — Fundamentos](01-fundamentos.md) ·
+[Próximo: Parte 3 — Do problema à capacidade →](02b-do-problema-a-capacidade.md)

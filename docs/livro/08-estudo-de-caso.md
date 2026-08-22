@@ -151,7 +151,7 @@ flowchart LR
     T3[T3 · envio de link]
     T4[T4 · consumo e<br/>troca de senha]
     T5[T5 · revogar sessões]
-    T6[T6 · jornada de UI]
+    T6[T6 · telas e estados de UI]
     T7[T7 · fechamento<br/>ponta a ponta]
 
     T1 --> T3
@@ -233,7 +233,7 @@ seguida, outra task recebe um contexto fresco.
 - testes unitários de expiração;
 - teste de integração para consumo atômico;
 - linter de dependências;
-- teste ponta a ponta da jornada;
+- teste ponta a ponta da jornada do usuário;
 - revisão de segurança focada em enumeração de conta, replay e vazamento do token.
 
 Uma revisão genérica de “qualidade do código” não substitui perguntas de segurança concretas.
@@ -321,5 +321,5 @@ Se prompt + sensor bastarem, explique por quê.
 Não implemente durante o exercício. O objetivo é perceber quais decisões ficariam escondidas dentro
 do código sem transformar todos os artefatos do estudo em ritual.
 
-[← Parte 7 — Aprendizagem](07-lifecycle-e-aprendizagem.md) ·
+[← Parte 8 — Aprendizagem](07-lifecycle-e-aprendizagem.md) ·
 [Próximo: mini-estudo Data Foundation →](08b-mini-estudo-data-foundation.md)

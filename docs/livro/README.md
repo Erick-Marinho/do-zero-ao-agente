@@ -35,11 +35,12 @@ Você pode seguir três rotas:
 1. **Primeiro contato:** leia as partes em ordem e faça apenas as perguntas de revisão.
 2. **Consulta:** use o sumário e o [glossário essencial](10-glossario-essencial.md) para voltar a um
    conceito específico.
-3. **Mão na massa:** depois da Parte 3, acompanhe o [estudo de caso](08-estudo-de-caso.md) em
+3. **Mão na massa:** depois da Parte 4, acompanhe o [estudo de caso](08-estudo-de-caso.md) em
    paralelo com as partes seguintes, compare-o com o
    [mini-estudo Data Foundation](08b-mini-estudo-data-foundation.md) e use o
    [manual de referência](09-estado-da-arte.md) para consultar prompts por fase no seu próprio
-   projeto. Para materializar a jornada de uma SPEC num quadro operacional, siga com o experimento
+   projeto. Para materializar a jornada do trabalho de uma SPEC num quadro operacional, siga com o
+   experimento
    [Linear como memória operacional da SPEC](09b-linear-como-memoria-operacional-da-spec.md).
 
 ### Convenções visuais
@@ -47,7 +48,7 @@ Você pode seguir três rotas:
 | Elemento | Significado |
 |---|---|
 | **Analogia** | Uma imagem cotidiana para formar o primeiro modelo mental. |
-| **Exemplo** | Um caso concreto, normalmente baseado em uma feature de autenticação. |
+| **Exemplo** | Um caso concreto, quase sempre no Mercado Bom Preço do Seu Renato. |
 | **Armadilha** | Uma ideia que parece útil, mas costuma gerar ruído ou burocracia. |
 | **Em uma frase** | A menor síntese que vale guardar. |
 | **Perguntas de revisão** | Um teste de entendimento, não uma prova de memorização. |
@@ -70,33 +71,40 @@ Você pode seguir três rotas:
 - [Capítulo 3 — Memória e estado de trabalho](02-memoria.md#capítulo-3--memória-e-estado-de-trabalho)
 - [Capítulo 4 — Em qual fonte confiar?](02-memoria.md#capítulo-4--em-qual-fonte-confiar)
 
-### Parte 3 — Especificação e planejamento
+### Parte 3 — Do problema à capacidade
 
-- [Capítulo 5 — SPEC como contrato de comportamento](03-especificacao-e-planejamento.md#capítulo-5--spec-como-contrato-de-comportamento)
-- [Capítulo 6 — Research antes e depois da SPEC](03-especificacao-e-planejamento.md#capítulo-6--research-antes-e-depois-da-spec)
-- [Capítulo 7 — Fatias verticais e grafo de tarefas](03-especificacao-e-planejamento.md#capítulo-7--fatias-verticais-e-grafo-de-tarefas)
+- [Capítulo 5 — Os cinco níveis de decisão](02b-do-problema-a-capacidade.md#capítulo-5--os-cinco-níveis-de-decisão)
+- [Capítulo 6 — PRD, jornada do usuário e mapa de capacidades](02b-do-problema-a-capacidade.md#capítulo-6--prd-jornada-do-usuário-e-mapa-de-capacidades)
+- [Capítulo 7 — HLD mínimo e escolha da capacidade](02b-do-problema-a-capacidade.md#capítulo-7--hld-mínimo-e-escolha-da-capacidade)
 
-### Parte 4 — Engenharia de contexto operacional
+### Parte 4 — Especificação e planejamento
 
-- [Capítulo 8 — Montagem do contexto](04-engenharia-de-contexto.md#capítulo-8--montagem-do-contexto)
-- [Capítulo 9 — Ciclo de vida do contexto](04-engenharia-de-contexto.md#capítulo-9--ciclo-de-vida-do-contexto)
-- [Capítulo 10 — Subagentes como fronteiras de contexto](04-engenharia-de-contexto.md#capítulo-10--subagentes-como-fronteiras-de-contexto)
+- [Capítulo 8 — SPEC como contrato de comportamento](03-especificacao-e-planejamento.md#capítulo-8--spec-como-contrato-de-comportamento)
+- [Capítulo 9 — Research antes e depois da SPEC](03-especificacao-e-planejamento.md#capítulo-9--research-antes-e-depois-da-spec)
+- [Capítulo 10 — Fatias verticais e grafo de tarefas](03-especificacao-e-planejamento.md#capítulo-10--fatias-verticais-e-grafo-de-tarefas)
 
-### Parte 5 — Engenharia de harness
+### Parte 5 — Engenharia de contexto operacional
 
-- [Capítulo 11 — Guias e sensores](05-harness.md#capítulo-11--guias-e-sensores)
-- [Capítulo 12 — Conhecimento executável](05-harness.md#capítulo-12--conhecimento-executável)
+- [Capítulo 11 — Montagem do contexto](04-engenharia-de-contexto.md#capítulo-11--montagem-do-contexto)
+- [Capítulo 12 — Ciclo de vida do contexto](04-engenharia-de-contexto.md#capítulo-12--ciclo-de-vida-do-contexto)
+- [Capítulo 13 — Subagentes como fronteiras de contexto](04-engenharia-de-contexto.md#capítulo-13--subagentes-como-fronteiras-de-contexto)
 
-### Parte 6 — Autonomia e coordenação
+### Parte 6 — Engenharia de harness
 
-- [Capítulo 13 — Orçamento de atenção humana](06-autonomia-e-coordenacao.md#capítulo-13--orçamento-de-atenção-humana)
-- [Capítulo 14 — Orquestração de agentes](06-autonomia-e-coordenacao.md#capítulo-14--orquestração-de-agentes)
+- [Capítulo 14 — Guias e sensores](05-harness.md#capítulo-14--guias-e-sensores)
+- [Capítulo 15 — Conhecimento executável](05-harness.md#capítulo-15--conhecimento-executável)
 
-### Parte 7 — Fechamento e aprendizagem
+### Parte 7 — Autonomia e coordenação
 
-- [Capítulo 15 — Quando uma feature está realmente pronta?](07-lifecycle-e-aprendizagem.md#capítulo-15--quando-uma-feature-está-realmente-pronta)
-- [Capítulo 16 — Promoção de memória](07-lifecycle-e-aprendizagem.md#capítulo-16--promoção-de-memória)
-- [Capítulo 17 — Métricas e harness que aprende](07-lifecycle-e-aprendizagem.md#capítulo-17--métricas-e-harness-que-aprende)
+- [Capítulo 16 — Orçamento de atenção humana](06-autonomia-e-coordenacao.md#capítulo-16--orçamento-de-atenção-humana)
+- [Capítulo 17 — Orquestração de agentes](06-autonomia-e-coordenacao.md#capítulo-17--orquestração-de-agentes)
+
+### Parte 8 — Fechamento e aprendizagem
+
+- [Capítulo 18 — Quando uma feature está realmente pronta?](07-lifecycle-e-aprendizagem.md#capítulo-18--quando-uma-feature-está-realmente-pronta)
+- [Capítulo 19 — Promoção de memória](07-lifecycle-e-aprendizagem.md#capítulo-19--promoção-de-memória)
+- [Capítulo 20 — Matriz de reconstrução](07-lifecycle-e-aprendizagem.md#capítulo-20--matriz-de-reconstrução)
+- [Capítulo 21 — Métricas e harness que aprende](07-lifecycle-e-aprendizagem.md#capítulo-21--métricas-e-harness-que-aprende)
 
 ### Prática e consulta
 
@@ -113,7 +121,10 @@ Você pode seguir três rotas:
 
 ```mermaid
 flowchart TD
-    A[Problema ou intenção] --> Q{Precisamos entender a realidade<br/>antes de especificar?}
+    PR[Problema] --> PRD[PRD<br/>resultado a provar]
+    PRD --> CAP[Mapa de capacidades<br/>+ HLD mínimo]
+    CAP --> A[Capacidade escolhida]
+    A --> Q{Precisamos entender a realidade<br/>antes de especificar?}
     Q -->|sim| DR[Discovery Research]
     DR --> HD[Decisões humanas]
     HD --> B[SPEC<br/>o que deve ser verdade]
@@ -131,6 +142,8 @@ flowchart TD
     I --> J{Aprendemos algo recorrente?}
     J -->|sim| K[Memória, skill ou novo sensor]
     J -->|não| L[Arquivar ou esquecer]
+    K --> A
+    L --> A
 ```
 
 Quase todos os conceitos dos próximos capítulos ocupam um lugar nesse ciclo, mas nem toda mudança

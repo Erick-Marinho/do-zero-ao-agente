@@ -1020,7 +1020,7 @@ Open decisions:
 
 ```text
 LOG
-→ jornada inteira
+→ jornada do trabalho inteira
 
 HANDOFF
 → estado necessário para a próxima pessoa/agente
@@ -1917,12 +1917,12 @@ quando escalar para humano?
 ### O kanban é a materialização do grafo
 
 No workshop de Matt Pocock, a feature tem dois documentos: o PRD é o **documento de destino** e o
-quadro kanban é o **documento de jornada**. Em vez de um plano multi-fase sequencial gigante, a
+quadro kanban é o **documento de jornada do trabalho**. Em vez de um plano multi-fase sequencial gigante, a
 decomposição vira tickets com relações de bloqueio explícitas.
 
 No nosso ciclo, o quadro pode nascer no fim da **Etapa 5 (TASK)** — quando uma SPEC realmente pede
 várias tasks e o grafo de dependências fica visível — e servir de instrumento de orquestração. O
-estado do quadro **é** o estado da jornada. As perguntas do orquestrador acima são, literalmente,
+estado do quadro **é** o estado da jornada do trabalho. As perguntas do orquestrador acima são, literalmente,
 consultas ao quadro.
 
 ```mermaid
@@ -1966,9 +1966,9 @@ natural:
   entre elas;
 - labels `human-in-the-loop` e `AFK` marcam o tipo de tarefa da palestra: o humano varre o quadro
   procurando o que **só ele** pode destravar, e delega o resto;
-- o PRD/SPEC vive como documento do projeto (destino); as issues são a jornada;
+- o PRD/SPEC vive como documento do projeto (destino); as issues são a jornada do trabalho;
 - o corpo da issue carrega o contrato da task (Goal, Scope, Acceptance criteria, Validation), e os
-  handoffs viram comentários — o quadro acumula a evidência da jornada.
+  handoffs viram comentários — o quadro acumula a evidência da jornada do trabalho.
 
 > **O quadro é memória de orquestração, não memória de conhecimento.** Decisões duráveis continuam
 > sendo promovidas para SPEC, ADR e AGENTS (Etapa 14); a issue arquivada guarda a história.

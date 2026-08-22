@@ -91,6 +91,87 @@ Relação que preserva a proveniência de uma memória antiga, mas aponta outra 
 Conhecimento aprovado que deve governar ações futuras e vive numa fonte canônica, como
 `AGENTS.md`, SPEC, ADR, Skill ou sensor. Memória recuperada não vira regra automaticamente.
 
+## Produto e capacidade
+
+### PRD — *Product Requirements Document*
+
+Documento de requisitos do produto. Define o problema, para quem, qual resultado precisa ser
+observável e como a tese será avaliada. Não escolhe tecnologia, estrutura de código nem lista de
+tasks.
+
+### HLD — *High-Level Design*
+
+Desenho de alto nível. Mapa das grandes responsabilidades do sistema, das informações que possuem e
+de como colaboram para realizar as jornadas do usuário. Não começa por camadas ou padrões: essas
+estruturas só aparecem quando um ADR aceito as justifica.
+
+### ADR — *Architecture Decision Record*
+
+Registro de decisão arquitetural: preserva uma escolha durável, seu contexto, as alternativas
+consideradas e suas consequências. Sem alternativas registradas, não é uma decisão — é uma
+declaração.
+
+### Gate — portão de passagem
+
+Condição de saída verificável entre dois níveis de decisão. Não é aprovação burocrática: é uma
+frase que você consegue completar, ou não.
+
+### Baseline — linha de base
+
+Versão de um documento aprovada por decisão humana, que serve de referência até que uma evidência a
+mude. Não é a versão final nem um rascunho: é o suficiente para começar.
+
+### Jornada do usuário — *user journey*
+
+Caminho percorrido pela pessoa: história em etapas que começa com uma necessidade e termina com um
+resultado percebido. Vive no PRD, do lado do destino. Não confundir com [jornada do
+trabalho](#jornada-do-trabalho).
+
+### Jornada do trabalho
+
+Estado das tasks no quadro kanban — em que ponto da construção estamos agora. É **estado**, não
+prosa, e vive no quadro, não no PRD. A jornada do usuário é o que construímos; a jornada do
+trabalho é como construímos.
+
+### Caso de uso de referência
+
+Exemplo concreto e representativo de uma jornada do usuário, escolhido como prova principal.
+Responde “qual situação específica usaremos para demonstrar que funciona?”.
+
+### Fluxo esperado
+
+Passos, decisões, entradas e saídas necessários para executar o caso de uso de referência,
+incluindo desvios. É o nível mais preciso dos três.
+
+### Capacidade
+
+Habilidade que o sistema precisa possuir para realizar uma etapa da jornada do usuário, escrita
+como “o sistema precisa ser capaz de <verbo + objeto + condição observável>”. Sobrevive à troca da
+tecnologia; se desaparece quando a biblioteca muda, era mecanismo, não capacidade.
+
+### Mapa de capacidades
+
+Lista e dependências das capacidades necessárias para realizar o PRD. Não é backlog: responde
+quais habilidades existem e quais dependem de quais, não em que ordem serão construídas.
+
+### Responsabilidade lógica
+
+Grupo coerente de comportamento e informação no HLD. Ainda não é pasta, classe, processo ou
+serviço; o nome descreve o que a parte deve garantir.
+
+### Fronteira
+
+Linha do desenho onde muda o controle, o dono ou a confiança. Do lado de cá você projeta; do lado
+de lá você negocia contrato e trata falha. Fronteira sem essas três mudanças costuma ser custo de
+indireção sem proteção.
+
+### Matriz de reconstrução
+
+Auditoria descartável de rastreabilidade, usada quando os documentos nasceram fora de ordem. Uma
+linha por elemento existente, classificando cada ligação em `CONFIRMADO`, `RECONSTRUÍDO`,
+`DESCONHECIDO`, `CONFLITO` ou `ÓRFÃO`. Vive até a próxima baseline aprovada e não vira arquivo do
+repositório.
+
 ## Especificação e trabalho
 
 ### SDD — *Spec-Driven Development*
@@ -131,8 +212,8 @@ Grafo direcionado acíclico. Representa tasks e suas dependências sem criar cic
 
 Quadro que materializa o grafo de tasks em colunas de estado (backlog, ready, in progress, in
 review, QA, done), com relações de bloqueio explícitas. No ciclo deste livro é o documento da
-jornada; a SPEC ou o PRD descrevem o destino. Ferramentas como Linear e GitHub Issues implementam
-esse quadro.
+[jornada do trabalho](#jornada-do-trabalho); a SPEC ou o PRD descrevem o destino. Ferramentas como
+Linear e GitHub Issues implementam esse quadro.
 
 ## Harness e qualidade
 

@@ -1,6 +1,6 @@
-# Parte 3 — Especificação e planejamento
+# Parte 4 — Especificação e planejamento
 
-## Capítulo 5 — SPEC como contrato de comportamento
+## Capítulo 8 — SPEC como contrato de comportamento
 
 ### A dor: “implemente recuperação de senha”
 
@@ -147,7 +147,7 @@ do token pode emergir durante a implementação, desde que respeite o contrato e
 
 ---
 
-## Capítulo 6 — Research antes e depois da SPEC
+## Capítulo 9 — Research antes e depois da SPEC
 
 ### A dor: tratar duas pesquisas diferentes como uma só
 
@@ -274,7 +274,7 @@ requisitos.
 
 ---
 
-## Capítulo 7 — Fatias verticais e grafo de tarefas
+## Capítulo 10 — Fatias verticais e grafo de tarefas
 
 ### A dor: banco primeiro, depois backend, depois frontend
 
@@ -351,12 +351,13 @@ flowchart LR
 T1 e T2 podem ser independentes. T3 precisa das duas. O objetivo não é maximizar paralelismo; é
 deixar visível onde o trabalho é realmente independente.
 
-### Do grafo ao quadro: o kanban como documento da jornada
+### Do grafo ao quadro: o kanban como documento da jornada do trabalho
 
 Uma feature precisa de dois registros de natureza diferente:
 
 - **Destino:** o que deve ser verdade quando terminarmos — a SPEC ou o PRD.
-- **Jornada:** em que ponto do caminho estamos agora — e isso é **estado**, não prosa.
+- **Jornada do trabalho:** em que ponto do caminho estamos agora — e isso é **estado**, não
+  prosa.
 
 Um plano multi-fase escrito em texto (“fase 1, fase 2, fase 3…”) envelhece no primeiro desvio da
 realidade. O **kanban** materializa o DAG como estado vivo: cada task vira um cartão (uma *issue*
@@ -375,6 +376,104 @@ flowchart LR
 O ganho central: **Ready deixa de ser opinião e vira propriedade derivada**. Um cartão está pronto
 quando nenhum bloqueio continua aberto — ninguém precisa reler o plano para saber o que pode
 começar, e duas tasks Ready que não disputam os mesmos arquivos podem rodar em paralelo.
+
+### Ready é uma propriedade, não uma opinião
+
+“Está pronta para começar?” costuma ser respondida por sensação. O quadro permite substituir a
+sensação por uma lista fechada. Uma task entra em `Ready` somente quando:
+
+- não possui relação `blocked by` aberta;
+- não depende de decisão humana ainda não tomada;
+- possui objetivo, escopo e fora do escopo;
+- possui critérios de aceitação falsificáveis;
+- informa a validação planejada;
+- aponta o contexto que já existe;
+- define a autoridade do agente — executar, propor ou escalar
+  ([Capítulo 16](06-autonomia-e-coordenacao.md#capítulo-16--orçamento-de-atenção-humana));
+- se marcada `AFK`, não esconde nenhum julgamento humano.
+
+Uma dependência importante deve aparecer como bloqueio, não apenas como texto no corpo do cartão.
+Quando o bloqueador termina, reavalie as demais condições antes de mover a task.
+
+```markdown
+## Ready Gate — <data>
+
+- [ ] sem `blocked by` aberto
+- [ ] objetivo observável
+- [ ] escopo e fora do escopo
+- [ ] critérios falsificáveis
+- [ ] validação planejada
+- [ ] hipótese de sensor
+- [ ] contexto suficiente e limitado
+- [ ] autoridade definida
+- [ ] nenhuma decisão humana escondida em AFK
+
+Resultado: READY | NOT READY
+Lacunas: <somente fatos concretos>
+```
+
+```text
+Audite <ISSUE-ID> para Ready, sem implementar e sem alterar o quadro.
+
+Verifique bloqueadores, objetivo, escopo, fora do escopo, critérios, validação,
+hipótese de sensor, contexto e autoridade. Se houver label AFK, procure
+julgamento humano escondido. Responda READY ou NOT READY e liste apenas as
+lacunas concretas.
+```
+
+Se o resultado for `NOT READY`, corrija o contrato ou a dependência. A reação a evitar é
+“experimente começar para descobrir” — começar uma task para descobrir sua intenção transfere a
+decisão de escopo para dentro da implementação, que é exatamente o que o contrato deveria impedir.
+
+Repare ainda que `READY` e “começar agora” são coisas diferentes. Ready é uma propriedade do
+cartão; a seleção depende também de quanto trabalho já está em andamento.
+
+### QA demonstra o contrato, não repete os testes
+
+A coluna `QA` costuma virar carimbo: “os testes passaram, então passou”. Mas testes verdes provam
+que o que foi escrito funciona, não que os critérios de aceitação são verdadeiros no resultado
+integrado. São perguntas diferentes.
+
+```markdown
+## QA — <ISSUE-ID>
+
+### Resultado sob teste
+- Commit ou PR integrado:
+- Ambiente, configuração e dados:
+- Pré-condições:
+
+### Matriz de aceitação
+| Critério | Demonstração | Evidência observada | Resultado |
+|---|---|---|---|
+| | | | PASS / FAIL / NOT PROVEN |
+
+### Sensores executados
+| Sensor | Resultado | Referência |
+|---|---|---|
+
+### Testes negativos e efeitos proibidos
+| Cenário | Resultado esperado | Observado |
+|---|---|---|
+
+### Julgamentos humanos
+| Questão | Decisor | Decisão | Motivo |
+|---|---|---|---|
+
+### Resultado final
+PASS | FAIL | NOT PROVEN
+
+### Lacunas
+- <lacuna objetiva e retorno necessário>
+```
+
+O terceiro veredito é o que faz esse instrumento valer o custo. `NOT PROVEN` não é uma falha: é a
+afirmação honesta de que o critério não foi demonstrado — porque faltou ambiente, dado ou cenário.
+Sem essa opção, tudo que não falhou vira `PASS`, e a diferença entre “provamos” e “não vimos
+quebrar” desaparece silenciosamente do registro.
+
+Duas regras completam o instrumento: a existência de um teste não é demonstração, e não se corrige
+nada durante o QA. Corrigir durante a validação mistura de novo os papéis de quem implementa e de
+quem prova.
 
 ### O quadro é um ponto de revisão barato
 
@@ -439,4 +538,5 @@ Token válido pode ser consumido uma única vez.
 4. Desenhe um pequeno DAG para uma feature do seu projeto.
 5. Monte o quadro desse DAG: quais tasks nascem Ready? Quais são AFK e quais exigem humano?
 
-[← Parte 2 — Memória](02-memoria.md) · [Próximo: Parte 4 — Contexto →](04-engenharia-de-contexto.md)
+[← Parte 3 — Do problema à capacidade](02b-do-problema-a-capacidade.md) ·
+[Próximo: Parte 5 — Contexto →](04-engenharia-de-contexto.md)
